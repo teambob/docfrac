@@ -1,0 +1,122 @@
+FYI: My String class is the STL wide string class.
+
+String CPresentation::cleanRTF(String p_rtfString)
+{
+	String cleanString = NP_STRING;
+	String convertedString = NP_STRING;
+	String tempString = NP_STRING;
+
+	IUnknown* pDoxCom;
+
+    HRESULT hr = ::CoCreateInstance(CLSID_DoxLib,
+                                    NULL,
+                                    CLSCTX_INPROC_SERVER,
+                                    IID_IUnknown,
+                                    (LPVOID*)&pDoxCom);
+
+	if (FAILED(hr))
+	{
+		cleanString = NP_STRING;
+		m_errorMessage += L"RTF Conversion failed: Server DoxCom DLL not
+available.";
+
+		return cleanString;
+	}
+
+	IDoxLibPtr pDoxLib;
+
+	hr = pDoxCom->QueryInterface(IID_IDoxLib,
+		                         (VOID**)&pDoxLib);
+
+	if (hr == S_OK)
+	{
+		// Convert our string to an LPSTR
+		LPSTR narrowString = "";
+	    char s1[MAX_STR + 1] = "";
+
+        if (!WideCharToMultiByte(CP_ACP, 0, p_rtfString.c_str(), -1, s1,
+MAX_STR, NULL, NULL))
+		{
+    		cleanString = NP_STRING;
+			DWORD errorCode = GetLastError();
+
+			if (errorCode == ERROR_INSUFFICIENT_BUFFER)
+	    	    m_errorMessage += L"RTF Conversion failed: Source text exceeded
+buffer size.\r\n";
+			else
+	    	    m_errorMessage += L"RTF Conversion failed: Unknown
+WideCharToMultiByte Failure.\r\n";
+		}
+		else
+		{
+	    	pDoxLib->SetInString(s1);
+
+			// if we're rendering WML, then we want to convert the RTF to
+			// plain un-formatted text (otherwise set to HTML)
+		    if ((m_renderingStyle == RNDR_WML) || (m_renderingStyle ==
+RNDR_PLAIN_TEXT))
+                pDoxLib->SetOutFormat("txt");
+			else
+				// we have to explicitly set to HTML even though its the default
+				// because the DLL is state-ful - it will stay plain text once
+				// it has been set that way.
+                pDoxLib->SetOutFormat("html");
+
+			BSTR newString = pDoxLib->StringConvert();
+
+		    convertedString = newString;
+
+			// Now remove all occurrences within the string of CRLF
+			long index;
+			index = convertedString.find(L"\r\n");
+			while ( index != std::string::npos)
+			{
+				// Erase that character and the next one
+				tempString = convertedString.erase(index, 2);
+
+				convertedString = tempString;
+
+				// Try and find another occurrence
+    			index = convertedString.find(L"\r\n");
+			}
+			index = convertedString.find(L"\"");
+			while ( index != std::string::npos)
+			{
+				// Now insert a reverse slash at the index
+				tempString = convertedString.insert(index, L"\\");
+
+				// Erase that character and the next one
+				//tempString = convertedString.erase(index, 1);
+
+				convertedString = tempString;
+
+				// Try and find another occurrence
+    			index = convertedString.find(L"\"", index+2);
+			}
+
+			// Now prepend all quotation marks with a forward slash
+
+		    // Free the memory allocated by the COM object
+		    ::SysFreeString(newString);
+
+		    if ((m_renderingStyle == RNDR_WML) || (m_renderingStyle ==
+RNDR_PLAIN_TEXT))
+			{
+		        // no additional formatting needed for plain text
+				cleanString = convertedString;
+			}
+			else
+			{
+    		    // Now remove the html tags from the converted string
+		        tempString = convertedString.erase(0,6);
+			    long size = tempString.length();
+			    cleanString = tempString.erase(size-7, 7);
+			}
+		}
+
+		pDoxLib->Release();
+	}
+
+	return cleanString;
+}
+

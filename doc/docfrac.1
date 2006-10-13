@@ -1,0 +1,58 @@
+.\" Process this file with
+.\" groff -man -Tascii foo.1
+.\"
+.TH DOCFRAC 1 "June 2004" Linux "User Manuals"
+.SH NAME
+DocFrac: convert between RTF, HTML and text. Including RTF to HTML and HTML to RTF.
+.SH SYNOPSIS
+.B docfrac [--debug]
+<
+.I in format
+> <
+.I in file
+> <
+.I out format
+> <
+.I out file
+> ...
+.SH DESCRIPTION
+The executable is
+.B docfrac
+.P
+
+This may be followed by:
+.IP "--debug"
+Turn on debug information
+.P
+
+.IP "Then the following sequence:"
+<input format> <input file> <output format> <output file>
+.P
+
+Input format may be:
+.IP "--from-rtf"
+Input format is RTF
+.IP "--from-html"
+Input format is HTML
+.IP "--from-text"
+Input format is text
+.P
+
+Output format may be:
+.IP "--to-rtf"
+Input format is RTF
+.IP "--to-html"
+Input format is HTML
+.IP "--to-text"
+Input format is text
+.P
+
+The sequence may be repeated as many times as required.
+.P
+
+.\" .SH FILES
+
+.SH AUTHOR
+Andrew Punch <andrewpunch at bigfoot.com>
+.P
+http://docfrac.sourceforge.net/
