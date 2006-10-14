@@ -137,7 +137,7 @@ void __fastcall TEngineThread::Execute()
     DoxEngine::WriterInterface *writer = NULL;
 
     // Get file size
-	input.seekg(0, std::ios_base::end); // Jump to end of file
+	  input.seekg(0, std::ios_base::end); // Jump to end of file
     fileSize = input.tellg();     // Position indicates file size
     input.seekg(0, std::ios_base::beg); // Jump back to start of file
 
@@ -169,11 +169,6 @@ void __fastcall TEngineThread::Execute()
         reader = factory->createTextReader(input, *writer);
       break;
 
-    }
-
-    if (writer == NULL)
-    {
-      throw ThreadException("Internal error initialising writer");
     }
 
     while ((reader->processData())&&(!Terminated))
