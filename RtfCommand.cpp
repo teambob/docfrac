@@ -636,7 +636,7 @@ namespace DoxEngine
     handler = newHandler.Clone();
   }
 
-  RtfCommandElement::RtfCommandElement(const RtfCommandElement& element)
+	RtfCommandElement::RtfCommandElement(const RtfCommandElement& element)
   {
 		command = element.command;
 		// Will this call the correct copy constructor?

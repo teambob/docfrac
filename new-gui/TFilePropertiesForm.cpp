@@ -1,7 +1,7 @@
 //---------------------------------------------------------------------------
 #include <vcl.h>
 #pragma hdrstop
-//#include <shlobj.h>
+#include <shlobj.h>
 #include <filectrl.hpp>
 #include <Registry.hpp>
 
@@ -95,8 +95,8 @@ void __fastcall TFilePropertiesForm::OutputDirectorySelectClick(
 void __fastcall TFilePropertiesForm::OutputDirectoryBrowseClick(
 	  TObject *Sender)
 {
-/*  char Buffer[MAX_PATH];
-  BROWSEINFO Lpbi; // See MS OLE Reference.
+	char Buffer[MAX_PATH];
+	BROWSEINFO Lpbi; // See MS OLE Reference.
   LPITEMIDLIST PIDL;
 
 
@@ -112,10 +112,10 @@ void __fastcall TFilePropertiesForm::OutputDirectoryBrowseClick(
 
   PIDL=SHBrowseForFolder(&Lpbi);
   if (PIDL)
-  {
-	if (SHGetPathFromIDList(PIDL, Buffer))
-	  OutputDirectoryEdit->Text = Buffer;
-  }*/
+	{
+		if (SHGetPathFromIDList(PIDL, Buffer))
+		  OutputDirectoryEdit->Text = Buffer;
+  }
 }
 //---------------------------------------------------------------------------
 
@@ -147,8 +147,7 @@ void TFilePropertiesForm::LoadOptions()
       && reg->ValueExists("useAutofilename")
       && reg->ValueExists("useCustomDirectory") )
     {
-	  OutputFormatSelect->Text = reg->ReadString("format");
-			OutputFilenameEdit->Text = reg->ReadString("filename");
+      OutputFormatSelect->ItemIndex = OutputFormatSelect->Items->IndexOf(reg->ReadString("format"));
       OutputDirectoryEdit->Text = reg->ReadString("outputDirectory");
       *lastFile = reg->ReadString("browseDirectory").c_str();
 
