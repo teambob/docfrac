@@ -46,7 +46,8 @@ namespace DoxEngine
 
 	ReaderFactoryAdapter::~ReaderFactoryAdapter()
 	{
-		delete factory;
+    // Possible memory leak
+		//delete factory;
 	}
 
 	ReadInterface* ReaderFactoryAdapter::Create(std::istream &stream, WriterInterface &writer)

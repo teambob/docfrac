@@ -564,11 +564,9 @@ namespace DoxEngine
     return singleton;
   }
 
-  DoxEngine::RtfCommandVector VectorFactory::getCommandList(void)
-  {
-    DoxEngine::RtfCommandVector newVector;
-	//RtfCommandElement element;
-	RtfBaseHandler *handler;
+	RtfCommandVector VectorFactory::getCommandList(void)
+	{
+    RtfCommandVector newVector;
 
 
 	newVector.push_back(RtfCommandElement("par", ParHandler()));
@@ -642,7 +640,6 @@ namespace DoxEngine
   {
 		command = element.command;
 		// Will this call the correct copy constructor?
-		delete handler;
 		handler = element.handler->Clone(); // Houston we have a problem!!!
   }
 

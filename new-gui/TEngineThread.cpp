@@ -13,6 +13,7 @@
 #include "WriterInterface.h"
 #include "DoxFactory.h"
 #include "WriterFactory.h"
+#include "ReaderFactory.h"
 #include "debug.h"
 #pragma package(smart_init)
 
@@ -132,21 +133,20 @@ void __fastcall TEngineThread::Execute()
 
 
     DoxEngine::debugStream = &std::cout;
-		DoxEngine::DoxFactory* factory = DoxEngine::DoxFactory::instance();
     DoxEngine::ReadInterface *reader = NULL;
     DoxEngine::WriterInterface *writer = NULL;
 
     // Get file size
 	  input.seekg(0, std::ios_base::end); // Jump to end of file
-    fileSize = input.tellg();     // Position indicates file size
-    input.seekg(0, std::ios_base::beg); // Jump back to start of file
+		fileSize = input.tellg();     // Position indicates file size
+		input.seekg(0, std::ios_base::beg); // Jump back to start of file
 
 		DoxEngine::WriterFactories &writerFactories = DoxEngine::WriterFactoriesSingleton::GetWriterFactories();
 
 		DoxEngine::WriterFactories::iterator writerIterator = writerFactories.find(document.GetOutputFormat());
 		if (writerIterator == writerFactories.end())
 		{
-			throw ThreadException("Internal error initialising reader");
+			throw ThreadException("Internal error initialising writer");
 		}
 		else
 		{
@@ -155,27 +155,30 @@ void __fastcall TEngineThread::Execute()
 			writer = writerIterator->second.Create(output);
 		}
 
-		switch(document.GetInputFormat())
-    {
-      case FORMAT_RTF:
-		reader = factory->createRtfReader(input, *writer);
-      break;
 
-      case FORMAT_HTML:
-        reader = factory->createHtmlReader(input, *writer);
-      break;
 
-      case FORMAT_TEXT:
-        reader = factory->createTextReader(input, *writer);
-      break;
+		DoxEngine::ReaderFactories &readerFactories = DoxEngine::ReaderFactoriesSingleton::GetReaderFactories();
 
-    }
+		DoxEngine::ReaderFactories::iterator readerIterator = readerFactories.find(document.GetInputFormat());
+		if (readerIterator == readerFactories.end())
+		{
+			throw ThreadException("Internal error initialising reader");
+		}
+		else
+		{
+			// First type is the key (file format)
+			// Second type is the value (factory instance)
+			reader = readerIterator->second.Create(input, *writer);
+		}
 
-    while ((reader->processData())&&(!Terminated))
-    {
-      percentage = 100*input.tellg()/fileSize; // Calculate percentage
-      Synchronize((TThreadMethod)&UpdateProgress);
-    }
+		input.exceptions(input.badbit);
+		output.exceptions(output.badbit);
+		
+		while ((reader->processData())&&(!Terminated))
+		{
+			percentage = 100*input.tellg()/fileSize; // Calculate percentage
+			Synchronize((TThreadMethod)&UpdateProgress);
+		}
 
     delete reader;
     delete writer;

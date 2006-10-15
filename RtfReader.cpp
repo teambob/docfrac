@@ -62,9 +62,9 @@ namespace DoxEngine
   {
     if (stream->good())
     {
-      int character;
+      char character;
 
-      character = stream->get();
+      stream->get(character);
 
       switch(character)
       {
@@ -78,21 +78,21 @@ namespace DoxEngine
           // pop
           *debugStream << "rtf pop" << std::endl;
 					style = rtfStack.top();
-			if (rtfStack.size())
-		  {
-			rtfStack.pop();
-			writer->setStyle(style.getStyle());
-		  }
-		  else
-		  {
-            // Mismatched closing brackets
-          }
-		  break;
+					if (rtfStack.size())
+					{
+						rtfStack.pop();
+						writer->setStyle(style.getStyle());
+					}
+					else
+					{
+							// Mismatched closing brackets
+					}
+				break;
 
-        case '\\':
-          // command
+				case '\\':
+					// command
           *debugStream << "command" << std::endl;
-          readCommand((char)character);
+          readCommand(character);
           break;
 
         case '\r':
@@ -123,65 +123,66 @@ namespace DoxEngine
   int RtfReader::getPercentComplete(void)
   {
     return 0;
-  }
+	}
 
 
 
-  void RtfReader::readCommand(char inputCharacter)
-  {
-    std::string inputString;
-    int character;
+	void RtfReader::readCommand(char inputCharacter)
+	{
+		std::string inputString;
+		char character;
+
+		// need to check for \{ \} \\
+		inputString.append(1, inputCharacter);
+
+		while (!stream->eof())
+		{
+			stream->get(character);
 
 
-    inputString.append(1, inputCharacter);
-
-    while (!stream->eof())
-    {
-      character = stream->get();
-
-
-      switch(character)
-      {
-        case '\'':
-        {
-          inputString.append(1, (char)character);
-          character = stream->get();
-          inputString.append(1, (char)character);
-          character = stream->get();
-          inputString.append(1, (char)character);
-          handleCommand(inputString);
-          return;
-        }
+			switch(character)
+			{
+				case '\'':
+				{
+					// Numeric representation of a character
+					inputString.append(1, character);
+					stream->get(character);
+					inputString.append(1, character);
+					stream->get(character);
+					inputString.append(1, character);
+					handleCommand(inputString);
+					return;
+				}
 
 
-        case '\\':
-        {
-          handleCommand(inputString);
-          readCommand((char)character);
-          return;
-        }
+				case '\\':
+				{
+					stream->putback(character);
+					handleCommand(inputString);
+					return;
+				}
 
 
-        case '{':
-        case '}':
-        case ';':
-        {
-          stream->unget();
-          handleCommand(inputString);
-          return;
-        }
+				case '{':
+				case '}':
+				case ';':
+				{
+					stream->putback(character);
+					handleCommand(inputString);
+					return;
+				}
 
-        case ' ':
-        case '\r':
-        case '\n':
-        {
-          handleCommand(inputString);
-          return;
-        }
+				case ' ':
+				case '\r':
+				case '\n':
+				{
+					handleCommand(inputString);
+					return;
+				}
 
-        default:
-          inputString.append(1, (char)character);
-        break;
+				default:
+					inputString.append(1, character);
+				break;
 
 
 
@@ -250,11 +251,12 @@ namespace DoxEngine
   void RtfReader::commandIgnoreDestinationKeyword(void)
   {
     int level;
-    int character;
+		char character;
 
-    for (level=1;level!=0 && stream->good();)
-    {
-      character = stream->get();
+
+		for (level=1;level!=0 && stream->good();)
+		{
+      stream->get(character);
 
       if (character == '{')
         level++;
@@ -386,7 +388,7 @@ namespace DoxEngine
           case '}':
           case ';':
           {
-            stream->unget();
+            stream->putback(character);
             // handle the colour commands
             std::string::size_type digitIndex = inputString.find_first_of("-0123456789", 0);
             std::string commandString(inputString, 1, digitIndex-1);

@@ -64,15 +64,21 @@ namespace DoxEngine
 
   void RtfStyle::setForegroundColour( int index )
   {
-    //cout << "Setting foreground colour\n";
-    if (index >= colour.size());
-      //cout << index << "is beyond bounds (" << redTable->size() << "\n";
-    else
-    {
-      if (colour[index].IsDefault())
+		//cout << "Setting foreground colour\n";
+		if (index <= 0)
+		{
+			// integer index can't be compared to unsigned size if negative
+		}
+		else if (unsigned(index) >= colour.size()) // cast to unsigned
+		{
+			//cout << index << "is beyond bounds (" << redTable->size() << "\n";
+		}
+		else
+		{
+			if (colour[index].IsDefault())
 				style.setColour();
 			else
-        style.setColour(colour[index].GetRed(), colour[index].GetGreen(),colour[index].GetBlue());
+				style.setColour(colour[index].GetRed(), colour[index].GetGreen(),colour[index].GetBlue());
 
     }
   }

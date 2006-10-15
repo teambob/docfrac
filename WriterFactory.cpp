@@ -46,7 +46,8 @@ namespace DoxEngine
 
 	WriterFactoryAdapter::~WriterFactoryAdapter()
 	{
-		delete factory;
+    // Possible memory leak
+		//delete factory;
 	}
 
 	WriterInterface* WriterFactoryAdapter::Create(std::ostream &stream)

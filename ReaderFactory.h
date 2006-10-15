@@ -1,7 +1,7 @@
 //---------------------------------------------------------------------------
 
-#ifndef WriterFactoryH
-#define WriterFactoryH
+#ifndef ReaderFactoryH
+#define ReaderFactoryH
 #include <map>
 #include <istream>
 #include "ReaderInterface.h"
