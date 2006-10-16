@@ -13,6 +13,7 @@ namespace DoxEngine
 	  std::ostream& outputStream;
 	  Style style, oldStyle;
 	  bool styleChanged;
+    int whiteSpaces;
 
 
 	  void outputStyles( void );

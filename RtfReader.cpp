@@ -4,6 +4,7 @@
 #include <stack>
 #include <iostream>
 #include <stdlib.h>
+#include <ctype.h>
 
 #include "ReaderInterface.h"
 #include "RtfReader.h"
@@ -95,8 +96,9 @@ namespace DoxEngine
           readCommand(character);
           break;
 
-        case '\r':
+
         case '\n':
+        case '\r':
         break;
 
         default:
@@ -135,11 +137,24 @@ namespace DoxEngine
 		// need to check for \{ \} \\
 		inputString.append(1, inputCharacter);
 
+ 	  stream->get(character);
 		while (!stream->eof())
 		{
-			stream->get(character);
 
+      if (isdigit(character))
+      {
+        // this is the parameter for the command
+        while (isdigit(character) && !stream->eof())
+        {
+          inputString.append(1, character);
+          stream->get(character);
+        }
 
+        stream->putback(character);
+        return;
+      }
+
+      
 			switch(character)
 			{
 				case '\'':
@@ -188,6 +203,7 @@ namespace DoxEngine
 
       }
 
+      stream->get(character);
     }
 
 
@@ -302,6 +318,7 @@ namespace DoxEngine
 
   void RtfReader::commandInTable(void)
   {
+    // Note: RTF does not allow nested tables
 		style.setInTable( true );
 		if (!tableStarted)
 		{

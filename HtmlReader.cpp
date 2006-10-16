@@ -151,28 +151,56 @@ namespace DoxEngine
   {
     using namespace std;
     string code("");
-    int c;
+    char c;
 
-    c = stream.get();
-    
-    while((!stream.eof())&&(c!=';'))
+    stream.get(c);
+
+    while(!stream.eof() && c != ';')
     {
-      code += (char)c;
+      code.append(c);
 
       c = stream.get();
-    }
 
-    
-    if (c == ';')
-    {
-      *debugStream << "Found escape code:" << code << std::endl;
-	  HtmlCharacterMaps::iterator i = find(maps.begin(), maps.end(), code);
-	  if ((i != maps.end())&&(!script)&&(!iframe))
-	  {
-
-		writer.writeChar(i->getCharacter());
+      // Handle entities missing a terminating semicolon
+      if (isalnum(c) || c == '#')
+      {
+        stream.putchar(c);
+        break;
       }
 
+    }
+
+
+  if (!stream.eof())
+  {
+      if (code.find("#x") == 0 || code.find("#X") == 0)
+      {
+        // hex number
+        // Chop off first two bytes (i.e. index 1)
+        std::string numberString = code.substr(2);
+        long number = strtol(numberString.c_str(), NULL, 16);
+        writer.writeChar(number);
+
+
+      }
+      else if (code.find("#") == 0)
+      {
+        //decimal number
+        // Chop off first two bytes (i.e. index 1)
+        std::string numberString = code.substr(2);
+        long number = strtol(numberString.c_str(), NULL, 10);
+        writer.writeChar(number);
+
+      }
+      else
+      {
+        *debugStream << "Found escape code:" << code << std::endl;
+   	    HtmlCharacterMaps::iterator i = find(maps.begin(), maps.end(), code);
+	      if ((i != maps.end())&&(!script)&&(!iframe))
+	      {
+		      writer.writeChar(i->getCharacter());
+        }
+      }
     }
 
   }

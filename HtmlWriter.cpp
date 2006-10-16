@@ -1,5 +1,6 @@
 #include <string>
 #include <iostream>
+#include <ctype.h>
 
 #include "UnicodeCharacter.h"
 #include "WriterInterface.h"
@@ -41,6 +42,7 @@ namespace DoxEngine
     outputStream << "<BODY>\r\n";
 
     styleChanged = false;
+    whiteSpaces = 0;
 
   }
 
@@ -65,10 +67,25 @@ namespace DoxEngine
       styleChanged = false;
     }
 
+
+
     if (character.isASCII())
-	  outputStream << character.getASCII();
-	else
+    {
+      if (isspace(character.getASCII()))
+      {
+        if (whiteSpaces)
+          outputStream << "&nbsp;";
+        else
+	        outputStream << character.getASCII();
+          
+        whiteSpaces++;
+      }
+      else
+	      outputStream << character.getASCII();
+    }
+	  else
       outputStream << "&#" << character.unicode() << ";";
+
   }
 
   void HtmlWriter::writeTable(TableType table)

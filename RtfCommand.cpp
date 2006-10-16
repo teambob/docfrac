@@ -30,7 +30,7 @@ namespace DoxEngine
         int commandValue)
       {
         parent->commandLineBreak();
-		}
+		  }
 
 	  virtual RtfBaseHandler* Clone() const
 	  {
@@ -537,7 +537,21 @@ namespace DoxEngine
 
   };
 
+  class SbknoneHandler : public RtfBaseHandler
+  {
+    public:
+      virtual void handleCommand(DoxEngine::RtfReader* parent,
+      int commandValue)
+      {
+        parent->commandLineBreak();
+      }
 
+		virtual RtfBaseHandler* Clone() const
+		{
+			return new SbknoneHandler(*this);
+		}
+
+  };
 
   class PardHandler : public RtfBaseHandler
   {
@@ -582,6 +596,11 @@ namespace DoxEngine
 	newVector.push_back(RtfCommandElement("tc", DestinationHandler()));
 	newVector.push_back(RtfCommandElement("tcn", DestinationHandler()));
 	newVector.push_back(RtfCommandElement("nonshppict", DestinationHandler()));
+
+  // Section handling code
+  newVector.push_back(RtfCommandElement("sbknone", SbknoneHandler()));
+  newVector.push_back(RtfCommandElement("cols", IntblHandler()));
+  newVector.push_back(RtfCommandElement("sbkcol", CellHandler()));
 
 
 	//handler = new ColorTblHandler;
