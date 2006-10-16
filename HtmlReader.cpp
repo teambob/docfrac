@@ -31,9 +31,12 @@ namespace DoxEngine
 
   bool HtmlReader::processData(void)
   {
-    int character;
+    char character;
 
-	character = stream.get();
+	  stream.get(character);
+
+    if (!stream.good())
+      return false;
 
     switch(character)
     {
@@ -61,21 +64,18 @@ namespace DoxEngine
       }
       break;
 
-      case EOF:
-      break;
-
       default:
       {
         if ((!script)&&(!iframe))
         {
-          writer.writeChar(UnicodeCharacter((char)character));
+          writer.writeChar(UnicodeCharacter(character));
           lineEmpty = false;
         }
       }
       break;
     }
 
-    return (!stream.eof());
+    return stream.good();
 
   }
 
@@ -94,12 +94,12 @@ namespace DoxEngine
   {
     using namespace std;
     string line, command;
-    int character;
+    char character;
 
-    character = stream.get();
-    while((!stream.eof())&&(character!='>'))
+    stream.get(character);
+    while(stream.good() && character != '>' )
     {
-      line += (char)character;
+      line.append(1, character);
       if (line=="!--")  // '<' has been thrown away, comment
       {
         readComment();
@@ -117,7 +117,7 @@ namespace DoxEngine
     }
 
     command = command.substr(0, command.find_first_of(" \n"));
-    
+
     *debugStream << "Line="<<line<<endl;
     *debugStream << "Command="<<command<<endl;
     if (!command.compare("BR"))
@@ -155,31 +155,32 @@ namespace DoxEngine
 
     stream.get(c);
 
-    while(!stream.eof() && c != ';')
+    while(stream.good() && c != ';')
     {
-      code.append(c);
+      code.append(1, c);
 
       c = stream.get();
 
       // Handle entities missing a terminating semicolon
       if (isalnum(c) || c == '#')
       {
-        stream.putchar(c);
+        stream.putback(c);
         break;
       }
 
     }
 
 
-  if (!stream.eof())
+  if (stream.good())
   {
       if (code.find("#x") == 0 || code.find("#X") == 0)
       {
         // hex number
         // Chop off first two bytes (i.e. index 1)
         std::string numberString = code.substr(2);
-        long number = strtol(numberString.c_str(), NULL, 16);
-        writer.writeChar(number);
+        unsigned long number = strtoul(numberString.c_str(), NULL, 16);
+        UnicodeCharacter character(number);
+        writer.writeChar(character);
 
 
       }
@@ -188,7 +189,7 @@ namespace DoxEngine
         //decimal number
         // Chop off first two bytes (i.e. index 1)
         std::string numberString = code.substr(2);
-        long number = strtol(numberString.c_str(), NULL, 10);
+        unsigned long number = strtoul(numberString.c_str(), NULL, 10);
         writer.writeChar(number);
 
       }
@@ -210,13 +211,13 @@ namespace DoxEngine
     using namespace std;
     string line, commentEnd="-->";
 
-		for (unsigned i=0;(!stream.eof())&&(i<commentEnd.length());i++)
-      line += (char)stream.get();
+		for (unsigned i=0;stream.good()&&(i<commentEnd.length());i++)
+      line.append(1, (char)stream.get());
 
-	while((!stream.eof())&&(line!=commentEnd))
+	while(stream.good()&&(line!=commentEnd))
     {
       line = line.substr(1, line.npos);
-      line += (char)stream.get();
+      line.append(1, (char)stream.get());
     }
   }
 

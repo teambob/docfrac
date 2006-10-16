@@ -107,7 +107,7 @@ namespace DoxEngine
           flushTable();
           if (character >= 32)
           {
-            UnicodeCharacter unicodeCharacter((char)character);
+            UnicodeCharacter unicodeCharacter(character);
             writer->writeChar(unicodeCharacter);
           }
           break;
@@ -138,13 +138,13 @@ namespace DoxEngine
 		inputString.append(1, inputCharacter);
 
  	  stream->get(character);
-		while (!stream->eof())
+		while (stream->good())
 		{
 
       if (isdigit(character))
       {
         // this is the parameter for the command
-        while (isdigit(character) && !stream->eof())
+        while (isdigit(character) && stream->good())
         {
           inputString.append(1, character);
           stream->get(character);
