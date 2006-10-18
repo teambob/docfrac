@@ -543,7 +543,11 @@ namespace DoxEngine
       virtual void handleCommand(DoxEngine::RtfReader* parent,
       int commandValue)
       {
-        parent->commandLineBreak();
+        if (parent->getRtfStyle().getSectionColumns())
+          parent->commandEndRow();
+        else
+          parent->commandLineBreak();
+
       }
 
 		virtual RtfBaseHandler* Clone() const
@@ -552,6 +556,27 @@ namespace DoxEngine
 		}
 
   };
+
+  class ColsHandler : public RtfBaseHandler
+  {
+  public:
+    virtual void handleCommand(DoxEngine::RtfReader* parent,
+      int commandValue)
+    {
+      RtfStyle rtfStyle = parent->getRtfStyle();
+      rtfStyle.setSectionColumns(commandValue);
+      parent->setRtfStyle(rtfStyle);
+
+		}
+
+		virtual RtfBaseHandler* Clone() const
+		{
+			return new ColsHandler(*this);
+		}
+
+
+  };
+
 
   class PardHandler : public RtfBaseHandler
   {
@@ -599,7 +624,7 @@ namespace DoxEngine
 
   // Section handling code
   newVector.push_back(RtfCommandElement("sbknone", SbknoneHandler()));
-  newVector.push_back(RtfCommandElement("cols", IntblHandler()));
+  newVector.push_back(RtfCommandElement("cols", ColsHandler()));
   newVector.push_back(RtfCommandElement("sbkcol", CellHandler()));
 
 

@@ -15,6 +15,7 @@ namespace DoxEngine
 	std::vector<Colour> colour;
 	Colour currentColour;
 	Style style;
+  int sectionColumns;
 
   public:
     RtfStyle();
@@ -23,6 +24,12 @@ namespace DoxEngine
     void setPlain( void );
     void setInTable( bool insideTable);
     bool getInTable();
+
+    void setSectionPlain( void );
+    void setSectionColumns( int columns );
+    int getSectionColumns( void );
+
+
     void setRed( int value );
     void setGreen( int value );
     void setBlue( int value );

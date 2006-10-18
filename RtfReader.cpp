@@ -150,7 +150,10 @@ namespace DoxEngine
           stream->get(character);
         }
 
-        stream->putback(character);
+        if (!isspace(character))
+          stream->putback(character);
+          
+        handleCommand(inputString);
         return;
       }
 
@@ -320,25 +323,27 @@ namespace DoxEngine
   {
     // Note: RTF does not allow nested tables
 		style.setInTable( true );
-		if (!tableStarted)
-		{
-			// Beginning of table
-			writer->writeTable(TableStart);
-			tableStarted = true;
-
-			writer->writeTable(TableRowStart);
-			rowStarted = true;
-
-			writer->writeTable(TableCellStart);
-			cellStarted = true;
-		}
 
 	}
 
 	void RtfReader::flushTable(void)
 	{
-		if (style.getInTable())
+		if (style.getInTable() || style.getSectionColumns())
 		{
+  		if (!tableStarted)
+	  	{
+		  	// Beginning of table
+			  writer->writeTable(TableStart);
+  			tableStarted = true;
+
+	  		writer->writeTable(TableRowStart);
+		  	rowStarted = true;
+
+			  writer->writeTable(TableCellStart);
+  			cellStarted = true;
+	  	}
+
+
 			if (!rowStarted)
 			{
 				writer->writeTable(TableRowStart);
@@ -362,13 +367,19 @@ namespace DoxEngine
 
   void RtfReader::commandEndCell(void)
   {
-    writer->writeTable(TableCellEnd);
+    if (style.getInTable() || style.getSectionColumns())
+      writer->writeTable(TableCellEnd);
+
     cellStarted = false;
 	}
 
   void RtfReader::commandEndRow(void)
   {
-    writer->writeTable(TableRowEnd);
+    commandEndCell();
+    
+    if (style.getInTable() || style.getSectionColumns())
+      writer->writeTable(TableRowEnd);
+
     rowStarted = false;
   }
 

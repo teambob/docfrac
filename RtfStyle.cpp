@@ -35,6 +35,22 @@ namespace DoxEngine
     return inTable;
   }
 
+  void RtfStyle::setSectionPlain( void )
+  {
+    sectionColumns = 0;
+  }
+  
+  void RtfStyle::setSectionColumns( int columns )
+  {
+    sectionColumns = columns;
+  }
+
+  int RtfStyle::getSectionColumns( void )
+  {
+    return sectionColumns;
+  }
+
+
   void RtfStyle::setRed( int value )
   {
     //cout << "Setting red to " << value << "\n";
@@ -64,8 +80,9 @@ namespace DoxEngine
 
   void RtfStyle::setForegroundColour( int index )
   {
+    // Colour index is based on 1
 		//cout << "Setting foreground colour\n";
-		if (index <= 0)
+		if (index < 0)
 		{
 			// integer index can't be compared to unsigned size if negative
 		}

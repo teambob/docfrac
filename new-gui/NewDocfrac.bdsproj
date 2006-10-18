@@ -41,9 +41,6 @@
         <property category="win32.*.win32b.tasm32" name="param.listfile.merge" value="1"/>
         <property category="win32.*.win32b.tasm32" name="param.objfile.merge" value="1"/>
         <property category="win32.*.win32b.tasm32" name="param.xreffile.merge" value="1"/>
-        <property category="win32.Debug_Build.win32b.bcc32" name="option.4.enabled" value="0"/>
-        <property category="win32.Debug_Build.win32b.bcc32" name="option.5.enabled" value="0"/>
-        <property category="win32.Debug_Build.win32b.bcc32" name="option.6.enabled" value="0"/>
         <property category="win32.Debug_Build.win32b.bcc32" name="option.D.arg.1" value="_DEBUG"/>
         <property category="win32.Debug_Build.win32b.bcc32" name="option.D.arg.merge" value="1"/>
         <property category="win32.Debug_Build.win32b.bcc32" name="option.D.enabled" value="1"/>
@@ -105,6 +102,10 @@
         <property category="win32.Release_Build.win32b.tasm32" name="option.zn.enabled" value="1"/>
         <optionset name="all_configurations">
           <property category="node" name="displayname" value="All Configurations"/>
+          <property category="win32.*.win32b.bcc32" name="option.3.enabled" value="1"/>
+          <property category="win32.*.win32b.bcc32" name="option.4.enabled" value="0"/>
+          <property category="win32.*.win32b.bcc32" name="option.5.enabled" value="0"/>
+          <property category="win32.*.win32b.bcc32" name="option.6.enabled" value="0"/>
           <property category="win32.*.win32b.bcc32" name="option.D.arg.1" value="NO_WIN32_LEAN_AND_MEAN"/>
           <property category="win32.*.win32b.bcc32" name="option.D.arg.merge" value="1"/>
           <property category="win32.*.win32b.bcc32" name="option.D.enabled" value="1"/>

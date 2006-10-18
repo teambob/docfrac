@@ -52,7 +52,7 @@ namespace DoxEngine
       void commandEndCell(void);
       void commandEndRow(void);
 
-			Style getStyle(void) const;
+      Style getStyle(void) const;
 			void setStyle( const Style &style );
 
 			RtfStyle getRtfStyle(void) const;

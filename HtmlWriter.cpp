@@ -81,10 +81,16 @@ namespace DoxEngine
         whiteSpaces++;
       }
       else
+      {
+        whiteSpaces = 0;
 	      outputStream << character.getASCII();
+      }
     }
 	  else
+    {
+      whiteSpaces = 0;
       outputStream << "&#" << character.unicode() << ";";
+    }
 
   }
 
