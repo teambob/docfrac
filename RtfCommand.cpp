@@ -493,8 +493,6 @@ namespace DoxEngine
       RtfStyle rtfStyle = parent->getRtfStyle();
       rtfStyle.setInTable( commandValue );
       parent->setRtfStyle(rtfStyle);
-      if (!commandValue)
-       parent->flushTable();
 		}
 
 		virtual RtfBaseHandler* Clone() const
@@ -652,7 +650,7 @@ namespace DoxEngine
 	newVector.insert(RtfCommands::value_type("qr", RtfCommandElement(RightJustifyHandler())));
 	newVector.insert(RtfCommands::value_type("qc", RtfCommandElement(CentreJustifyHandler())));
 	newVector.insert(RtfCommands::value_type("intbl", RtfCommandElement(IntblHandler())));
-	newVector.insert(RtfCommands::value_type("intbl", RtfCommandElement(RowHandler())));
+	newVector.insert(RtfCommands::value_type("row", RtfCommandElement(RowHandler())));
 	newVector.insert(RtfCommands::value_type("cell", RtfCommandElement(CellHandler())));
 	newVector.insert(RtfCommands::value_type("pard", RtfCommandElement(PardHandler())));
 	newVector.insert(RtfCommands::value_type("cf", RtfCommandElement(CfHandler())));

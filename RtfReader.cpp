@@ -382,7 +382,7 @@ namespace DoxEngine
 
   void RtfReader::commandEndCell(void)
   {
-    if (style.getInTable() || style.getSectionColumns())
+    if (cellStarted)
       writer->writeTable(TableCellEnd);
 
     cellStarted = false;
@@ -391,8 +391,8 @@ namespace DoxEngine
   void RtfReader::commandEndRow(void)
   {
     commandEndCell();
-    
-    if (style.getInTable() || style.getSectionColumns())
+
+    if (rowStarted)
       writer->writeTable(TableRowEnd);
 
     rowStarted = false;
