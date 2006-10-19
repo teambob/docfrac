@@ -490,7 +490,11 @@ namespace DoxEngine
     virtual void handleCommand(DoxEngine::RtfReader* parent,
       int commandValue)
     {
-      parent->commandInTable();
+      RtfStyle rtfStyle = parent->getRtfStyle();
+      rtfStyle.setInTable( commandValue );
+      parent->setRtfStyle(rtfStyle);
+      if (!commandValue)
+       parent->flushTable();
 		}
 
 		virtual RtfBaseHandler* Clone() const
@@ -597,92 +601,73 @@ namespace DoxEngine
 
 
 
-  VectorFactory& VectorFactory::instance(void)
+  RtfCommandFactory& RtfCommandFactory::instance(void)
   {
-    static VectorFactory singleton;
+    static RtfCommandFactory singleton;
     return singleton;
   }
 
-	RtfCommandVector VectorFactory::getCommandList(void)
+	RtfCommands RtfCommandFactory::getCommandList(void)
 	{
-    RtfCommandVector newVector;
+    RtfCommands newVector;
 
 
-	newVector.push_back(RtfCommandElement("par", ParHandler()));
-	newVector.push_back(RtfCommandElement("*", DestinationHandler()));
-	newVector.push_back(RtfCommandElement("fonttbl", DestinationHandler()));
-	newVector.push_back(RtfCommandElement("pict", DestinationHandler()));
-	newVector.push_back(RtfCommandElement("colortbl", ColorTblHandler()));
-	newVector.push_back(RtfCommandElement("stylesheet", DestinationHandler()));
-	newVector.push_back(RtfCommandElement("info", DestinationHandler()));
-	newVector.push_back(RtfCommandElement("xe", DestinationHandler()));
-	newVector.push_back(RtfCommandElement("header", DestinationHandler()));
-	newVector.push_back(RtfCommandElement("footer", DestinationHandler()));
-	newVector.push_back(RtfCommandElement("tc", DestinationHandler()));
-	newVector.push_back(RtfCommandElement("tcn", DestinationHandler()));
-	newVector.push_back(RtfCommandElement("nonshppict", DestinationHandler()));
+	newVector.insert(RtfCommands::value_type("par", RtfCommandElement(ParHandler())));
+	newVector.insert(RtfCommands::value_type("*", RtfCommandElement(DestinationHandler())));
+	newVector.insert(RtfCommands::value_type("fonttbl", RtfCommandElement(DestinationHandler())));
+	newVector.insert(RtfCommands::value_type("pict", RtfCommandElement(DestinationHandler())));
+	newVector.insert(RtfCommands::value_type("colortbl", RtfCommandElement(ColorTblHandler())));
+	newVector.insert(RtfCommands::value_type("stylesheet", RtfCommandElement(DestinationHandler())));
+	newVector.insert(RtfCommands::value_type("info", RtfCommandElement(DestinationHandler())));
+	newVector.insert(RtfCommands::value_type("xe", RtfCommandElement(DestinationHandler())));
+	newVector.insert(RtfCommands::value_type("header", RtfCommandElement(DestinationHandler())));
+	newVector.insert(RtfCommands::value_type("footer", RtfCommandElement(DestinationHandler())));
+	newVector.insert(RtfCommands::value_type("tc", RtfCommandElement(DestinationHandler())));
+	newVector.insert(RtfCommands::value_type("tcn", RtfCommandElement(DestinationHandler())));
+	newVector.insert(RtfCommands::value_type("nonshppict", RtfCommandElement(DestinationHandler())));
 
   // Section handling code
-  newVector.push_back(RtfCommandElement("sbknone", SbknoneHandler()));
-  newVector.push_back(RtfCommandElement("cols", ColsHandler()));
-  newVector.push_back(RtfCommandElement("sbkcol", CellHandler()));
+  newVector.insert(RtfCommands::value_type("sbknone", RtfCommandElement(SbknoneHandler())));
+  newVector.insert(RtfCommands::value_type("cols", RtfCommandElement(ColsHandler())));
+  newVector.insert(RtfCommands::value_type("sbkcol", RtfCommandElement(CellHandler())));
 
 
-	//handler = new ColorTblHandler;
-	//element = new RtfCommandElement("colortbl", handler);
-	//newVector.push_back(*element);
-	//delete element;
-
-
-
-
-
-
-
-
-
-
-
-	newVector.push_back(RtfCommandElement("\\", BackslashHandler()));
-	newVector.push_back(RtfCommandElement("{", OpeningBraceHandler()));
-	newVector.push_back(RtfCommandElement("}", ClosingBraceHandler()));
-	newVector.push_back(RtfCommandElement(";", SemiColonHandler()));
-	newVector.push_back(RtfCommandElement("lquote", LQuoteHandler()));
-	newVector.push_back(RtfCommandElement("rquote", RQuoteHandler()));
-	newVector.push_back(RtfCommandElement("ldblquote", LDblQuoteHandler()));
-	newVector.push_back(RtfCommandElement("rdblquote", RDblQuoteHandler()));
-	newVector.push_back(RtfCommandElement("bullet", BulletHandler()));
-	newVector.push_back(RtfCommandElement("endash", EnDashHandler()));
-	newVector.push_back(RtfCommandElement("emdash", EmDashHandler()));
-	newVector.push_back(RtfCommandElement("b", BoldHandler()));
-	newVector.push_back(RtfCommandElement("i", ItalicHandler()));
-	newVector.push_back(RtfCommandElement("ul", UnderlineHandler()));
-	newVector.push_back(RtfCommandElement("ulnone", NoUnderlineHandler()));
-	newVector.push_back(RtfCommandElement("plain", PlainHandler()));
-	newVector.push_back(RtfCommandElement("ql", LeftJustifyHandler()));
-	newVector.push_back(RtfCommandElement("qr", RightJustifyHandler()));
-	newVector.push_back(RtfCommandElement("qc", CentreJustifyHandler()));
-	newVector.push_back(RtfCommandElement("intbl", IntblHandler()));
-	newVector.push_back(RtfCommandElement("row", RowHandler()));
-	newVector.push_back(RtfCommandElement("cell", CellHandler()));
-	newVector.push_back(RtfCommandElement("pard", PardHandler()));
-	newVector.push_back(RtfCommandElement("cf", CfHandler()));
+	newVector.insert(RtfCommands::value_type("\\", RtfCommandElement(BackslashHandler())));
+	newVector.insert(RtfCommands::value_type("{", RtfCommandElement(OpeningBraceHandler())));
+	newVector.insert(RtfCommands::value_type("}", RtfCommandElement(ClosingBraceHandler())));
+	newVector.insert(RtfCommands::value_type(";", RtfCommandElement(SemiColonHandler())));
+	newVector.insert(RtfCommands::value_type("lquote", RtfCommandElement(LQuoteHandler())));
+	newVector.insert(RtfCommands::value_type("rquote", RtfCommandElement(RQuoteHandler())));
+	newVector.insert(RtfCommands::value_type("ldblquote", RtfCommandElement(LDblQuoteHandler())));
+	newVector.insert(RtfCommands::value_type("rdblquote", RtfCommandElement(RDblQuoteHandler())));
+	newVector.insert(RtfCommands::value_type("bullet", RtfCommandElement(BulletHandler())));
+	newVector.insert(RtfCommands::value_type("endash", RtfCommandElement(EnDashHandler())));
+	newVector.insert(RtfCommands::value_type("emdash", RtfCommandElement(EmDashHandler())));
+	newVector.insert(RtfCommands::value_type("b", RtfCommandElement(BoldHandler())));
+	newVector.insert(RtfCommands::value_type("i", RtfCommandElement(ItalicHandler())));
+	newVector.insert(RtfCommands::value_type("ul", RtfCommandElement(UnderlineHandler())));
+	newVector.insert(RtfCommands::value_type("ulnone", RtfCommandElement(NoUnderlineHandler())));
+	newVector.insert(RtfCommands::value_type("plain", RtfCommandElement(PlainHandler())));
+	newVector.insert(RtfCommands::value_type("ql", RtfCommandElement(LeftJustifyHandler())));
+	newVector.insert(RtfCommands::value_type("qr", RtfCommandElement(RightJustifyHandler())));
+	newVector.insert(RtfCommands::value_type("qc", RtfCommandElement(CentreJustifyHandler())));
+	newVector.insert(RtfCommands::value_type("intbl", RtfCommandElement(IntblHandler())));
+	newVector.insert(RtfCommands::value_type("intbl", RtfCommandElement(RowHandler())));
+	newVector.insert(RtfCommands::value_type("cell", RtfCommandElement(CellHandler())));
+	newVector.insert(RtfCommands::value_type("pard", RtfCommandElement(PardHandler())));
+	newVector.insert(RtfCommands::value_type("cf", RtfCommandElement(CfHandler())));
 
     return newVector;
   }
 
 
-  RtfCommandElement::RtfCommandElement(
-	const std::string &newCommand,
-	const RtfBaseHandler& newHandler)
+  RtfCommandElement::RtfCommandElement(	const RtfBaseHandler& newHandler)
   {
-	  command = newCommand;
     handler = newHandler.Clone();
   }
 
 	RtfCommandElement::RtfCommandElement(const RtfCommandElement& element)
   {
-		command = element.command;
 		// Will this call the correct copy constructor?
 		handler = element.handler->Clone(); // Houston we have a problem!!!
   }
@@ -692,7 +677,6 @@ namespace DoxEngine
 	if (&rhs == this)
 	  return *this;
 
-	command = rhs.command;
 	handler = rhs.handler->Clone();
 
 	return *this;
@@ -710,32 +694,6 @@ namespace DoxEngine
     handler->handleCommand(parent, commandValue);
   }
 
-  bool RtfCommandElement::operator<(const DoxEngine::RtfCommandElement& rhs)
-  {
-	return command<rhs.command;
-  }
 
-  bool RtfCommandElement::operator<(const std::string& rhs)
-  {
-	  return command<rhs;
-	}
-
-	bool RtfCommandElement::operator==(const DoxEngine::RtfCommandElement& rhs)
-	{
-		return command==rhs.command;
-  }
-
-
-
-  bool RtfCommandElement::operator==(const std::string& rhs)
-  {
-	  return command==rhs;
-  }
-
-
-  bool RtfCommandElement::operator!=(const std::string rhs)
-  {
-	  return command!=rhs;
-  }
 
 }

@@ -7,6 +7,8 @@ namespace DoxEngine
 
   RtfStyle::RtfStyle()
   {
+    setPlain();
+    setSectionPlain();
   }
 
 

@@ -8,6 +8,7 @@ DefaultDirName={pf}\DocFrac\
 DefaultGroupName=DocFrac
 ShowLanguageDialog=yes
 InternalCompressLevel=ultra
+OutputBaseFilename=docfrac-win32-gui
 [Icons]
 Name: {group}\DocFrac; Filename: {app}\NewDocfrac.exe; WorkingDir: {app}; IconFilename: {app}\NewDocfrac.exe
 Name: {group}\{cm:UninstallProgram, DocFrac}; Filename: {uninstallexe}

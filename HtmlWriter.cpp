@@ -1,5 +1,6 @@
 #include <string>
 #include <iostream>
+#include <ostream>
 #include <ctype.h>
 
 #include "UnicodeCharacter.h"
@@ -50,10 +51,13 @@ namespace DoxEngine
 
   HtmlWriter::~HtmlWriter()
   {
+
     clearStyles();
 
-	outputStream << "</BODY>\r\n";
-	outputStream << "</HTML>\r\n";
+
+
+	  outputStream << "</BODY>\r\n";
+	  outputStream << "</HTML>\r\n";
 
   }
 
@@ -143,7 +147,7 @@ namespace DoxEngine
     if (!styleChanged)
 	  oldStyle = style;
 
-	styleChanged = true;
+	  styleChanged = true;
     style = newStyle;
 
   }
@@ -250,10 +254,10 @@ namespace DoxEngine
 
   void HtmlWriter::clearStyles( void )
   {
-	oldStyle = style;
+	  oldStyle = style;
 
-	style.setDefault();
-	outputStyles();
+	  style.setDefault();
+	  outputStyles();
   }
 
 
@@ -274,8 +278,8 @@ namespace DoxEngine
 
   void HtmlWriter::tableRestartStyle( void )
   {
-	oldStyle.setDefault();
-	outputStyles();
+	  oldStyle.setDefault();
+  	outputStyles();
   }
 
 }

@@ -106,7 +106,7 @@ namespace DoxEngine
         return;
       }
 
-      character = stream.get();
+      stream.get(character);
     }
 
     std::string::iterator i;
@@ -159,7 +159,7 @@ namespace DoxEngine
     {
       code.append(1, c);
 
-      c = stream.get();
+      stream.get(c);
 
       // Handle entities missing a terminating semicolon
       if (isalnum(c) || c == '#')

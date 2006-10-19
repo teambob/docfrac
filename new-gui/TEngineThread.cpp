@@ -11,7 +11,6 @@
 #include "TEngineThread.h"
 #include "ReaderInterface.h"
 #include "WriterInterface.h"
-#include "DoxFactory.h"
 #include "WriterFactory.h"
 #include "ReaderFactory.h"
 #include "debug.h"

@@ -10,7 +10,7 @@ namespace DoxEngine
 
   class WriterInterface;
   class RtfCommandElement;
-  class RtfCommandVector;
+  class RtfCommands;
   class UnicodeCharacter;
   class RtfStyle;
   class RtfStyleStack;
@@ -23,19 +23,20 @@ namespace DoxEngine
       long fileLength;
       std::istream* stream;
       WriterInterface* writer;
-			RtfCommandVector *elements;
+			RtfCommands *elements;
 			RtfStyleStack rtfStack;
 			RtfStyle style;
       bool tableStarted, rowStarted, cellStarted;
 
       void readCommand(char inputCharacter);
       void handleCommand(std::string& inputString);
-      void flushTable(void);
 
 
     public:
+      void flushTable(void);
       RtfReader(std::istream& newStream, WriterInterface& newWriter);
-      RtfReader(RtfReader &oldReader);
+      RtfReader(const RtfReader &oldReader);
+      RtfReader& operator=(const RtfReader &rhs);
       ~RtfReader();
       virtual bool processData(void);
       virtual int getPercentComplete(void);

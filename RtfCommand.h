@@ -1,4 +1,5 @@
 #include <string>
+#include <map>
 
 namespace DoxEngine
 {
@@ -17,38 +18,32 @@ namespace DoxEngine
   class RtfCommandElement
   {
   private:
- 	  std::string command;
     RtfBaseHandler* handler;
 
   public:
-    RtfCommandElement(const std::string &newCommand, const RtfBaseHandler& newHandler);
+    RtfCommandElement(const RtfBaseHandler& newHandler);
     RtfCommandElement(const RtfCommandElement& element);
     RtfCommandElement& operator=(const RtfCommandElement& element);
     ~RtfCommandElement();
     void handleCommand(DoxEngine::RtfReader* parent, int commandValue);
 
 
-    bool operator<(const DoxEngine::RtfCommandElement& rhs);
-    bool operator<(const std::string& rhs);
-    bool operator==(const DoxEngine::RtfCommandElement& rhs);
-    bool operator==(const std::string& rhs);
-    bool operator!=(const std::string rhs);
   };
 
 
-	class RtfCommandVector : public std::vector<DoxEngine::RtfCommandElement>
+	class RtfCommands : public std::map<std::string, DoxEngine::RtfCommandElement>
   {
   };
 
 
 
 
-  class VectorFactory
+  class RtfCommandFactory
   {
   public:
-    static VectorFactory& instance(void);
+    static RtfCommandFactory& instance(void);
 
-    DoxEngine::RtfCommandVector getCommandList(void);
+    DoxEngine::RtfCommands getCommandList(void);
   };
 
 }

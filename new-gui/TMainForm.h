@@ -10,6 +10,7 @@
 #include <Menus.hpp>
 #include <ToolWin.hpp>
 #include <Dialogs.hpp>
+#include <ImgList.hpp>
 //---------------------------------------------------------------------------
 class Documents;
 

@@ -36,22 +36,37 @@ namespace DoxEngine
   {
     writer = &newWriter;
     stream = &newStream;
-    elements = new RtfCommandVector
-      ((VectorFactory::instance()).getCommandList() ) ;
+    elements = new RtfCommands
+      ((RtfCommandFactory::instance()).getCommandList() ) ;
 
     tableStarted = false;
 
   }
 
-  RtfReader::RtfReader(RtfReader &oldReader)
+  RtfReader::RtfReader(const RtfReader &oldReader)
   {
     writer = oldReader.writer;
     stream = oldReader.stream;
-    elements = oldReader.elements;
+    elements = new RtfCommands( *oldReader.elements );
 		style = oldReader.style;
 		rtfStack = oldReader.rtfStack;
 		tableStarted = oldReader.tableStarted;
 
+  }
+
+  RtfReader& RtfReader::operator=(const RtfReader &rhs)
+  {
+    if (this == &rhs)
+      return *this;
+
+    writer = rhs.writer;
+    stream = rhs.stream;
+    elements = new RtfCommands( *rhs.elements );
+		style = rhs.style;
+		rtfStack = rhs.rtfStack;
+		tableStarted = rhs.tableStarted;
+
+    return *this;
   }
 
   RtfReader::~RtfReader()
@@ -61,11 +76,11 @@ namespace DoxEngine
 
   bool RtfReader::processData(void)
   {
+    char character;
+    stream->get(character);
+
     if (stream->good())
     {
-      char character;
-
-      stream->get(character);
 
       switch(character)
       {
@@ -255,11 +270,11 @@ namespace DoxEngine
     //value = 1;
   }
 
-  RtfCommandVector::iterator found =
-    std::find(elements->begin(), elements->end(), commandString);
+
+  RtfCommands::iterator found = elements->find(commandString);
 
   if (found != elements->end())
-    (*found).handleCommand(this, value);
+    found->second.handleCommand(this, value);
   //else
   //  cout << "Command " << commandString << " not found\n";
 

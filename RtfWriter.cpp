@@ -35,7 +35,7 @@ RtfWriter::RtfWriter(std::ostream& stream)
 
 RtfWriter::RtfWriter(RtfWriter &oldWriter)
 {
-
+  outputStream = oldWriter.outputStream;
 }
 
 void RtfWriter::writeChar(const UnicodeCharacter& character)

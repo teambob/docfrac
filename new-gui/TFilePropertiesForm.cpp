@@ -28,7 +28,7 @@ __fastcall TFilePropertiesForm::TFilePropertiesForm(TComponent* Owner)
 
 __fastcall TFilePropertiesForm::~TFilePropertiesForm()
 {
-
+  delete lastFile;
 }
 
 void TFilePropertiesForm::SetMultiFile(bool value)
