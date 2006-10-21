@@ -157,12 +157,14 @@ namespace DoxEngine
 
     while(stream.good() && c != ';')
     {
-      code.append(1, c);
-
-      stream.get(c);
 
       // Handle entities missing a terminating semicolon
       if (isalnum(c) || c == '#')
+      {
+        code.append(1, c);
+        stream.get(c);
+      }
+      else
       {
         stream.putback(c);
         break;

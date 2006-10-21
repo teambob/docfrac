@@ -13,10 +13,10 @@ WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
         Application->Initialize();
         Application->Title = "DocFrac";
         Application->CreateForm(__classid(TMainForm), &MainForm);
-		Application->CreateForm(__classid(TFilePropertiesForm), &FilePropertiesForm);
-		Application->CreateForm(__classid(TProgressForm), &ProgressForm);
-		Application->CreateForm(__classid(TAboutForm), &AboutForm);
-		Application->Run();
+     Application->CreateForm(__classid(TFilePropertiesForm), &FilePropertiesForm);
+     Application->CreateForm(__classid(TProgressForm), &ProgressForm);
+     Application->CreateForm(__classid(TAboutForm), &AboutForm);
+     Application->Run();
     }
     catch (Exception &exception)
     {
