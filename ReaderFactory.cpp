@@ -6,7 +6,7 @@
 #include "WriterFactory.h"
 #include "RtfReader.h"
 #include "HtmlReader.h"
-
+#include "TextReader.h"
 
 //---------------------------------------------------------------------------
 
@@ -32,7 +32,7 @@ namespace DoxEngine
 			readers = new ReaderFactories;
 			readers->insert(ReaderFactories::value_type(FORMAT_RTF, (ReaderFactoryAdapter)(new ReaderFactoryTemplate<RtfReader>)));
 			readers->insert(ReaderFactories::value_type(FORMAT_HTML, (ReaderFactoryAdapter)(new ReaderFactoryTemplate<HtmlReader>)));
-//			readers->insert(ReaderFactories::value_type(FORMAT_TEXT, (ReaderFactoryAdapter)(new ReaderFactoryTemplate<TextReader>)));
+			readers->insert(ReaderFactories::value_type(FORMAT_TEXT, (ReaderFactoryAdapter)(new ReaderFactoryTemplate<TextReader>)));
 		}
 
 		return *readers;

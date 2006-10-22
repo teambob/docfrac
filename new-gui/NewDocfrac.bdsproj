@@ -289,6 +289,7 @@
         <FILE FILENAME="..\Colour.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="Colour" FORMNAME="" DESIGNCLASS="" ADDITIONAL="..\Colour.h"/>
         <FILE FILENAME="..\WriterFactory.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="WriterFactory" FORMNAME="" DESIGNCLASS="" ADDITIONAL="..\WriterFactory.h"/>
         <FILE FILENAME="..\ReaderFactory.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="ReaderFactory" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\TextReader.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="TextReader" FORMNAME="" DESIGNCLASS=""/>
       </FILELIST>
       <IDEOPTIONS>
         <VersionInfo>
