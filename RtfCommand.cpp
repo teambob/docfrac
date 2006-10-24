@@ -599,98 +599,58 @@ namespace DoxEngine
 
 
 
-  RtfCommandFactory& RtfCommandFactory::instance(void)
-  {
-    static RtfCommandFactory singleton;
-    return singleton;
-  }
 
-	RtfCommands RtfCommandFactory::getCommandList(void)
+	RtfCommands::RtfCommands():RtfCommandMap()
 	{
-    RtfCommands newVector;
 
-
-	newVector.insert(RtfCommands::value_type("par", RtfCommandElement(ParHandler())));
-	newVector.insert(RtfCommands::value_type("*", RtfCommandElement(DestinationHandler())));
-	newVector.insert(RtfCommands::value_type("fonttbl", RtfCommandElement(DestinationHandler())));
-	newVector.insert(RtfCommands::value_type("pict", RtfCommandElement(DestinationHandler())));
-	newVector.insert(RtfCommands::value_type("colortbl", RtfCommandElement(ColorTblHandler())));
-	newVector.insert(RtfCommands::value_type("stylesheet", RtfCommandElement(DestinationHandler())));
-	newVector.insert(RtfCommands::value_type("info", RtfCommandElement(DestinationHandler())));
-	newVector.insert(RtfCommands::value_type("xe", RtfCommandElement(DestinationHandler())));
-	newVector.insert(RtfCommands::value_type("header", RtfCommandElement(DestinationHandler())));
-	newVector.insert(RtfCommands::value_type("footer", RtfCommandElement(DestinationHandler())));
-	newVector.insert(RtfCommands::value_type("tc", RtfCommandElement(DestinationHandler())));
-	newVector.insert(RtfCommands::value_type("tcn", RtfCommandElement(DestinationHandler())));
-	newVector.insert(RtfCommands::value_type("nonshppict", RtfCommandElement(DestinationHandler())));
+	insert(RtfCommands::value_type("par", RtfCommandElement(new ParHandler())));
+	insert(RtfCommands::value_type("*", RtfCommandElement(new DestinationHandler())));
+	insert(RtfCommands::value_type("fonttbl", RtfCommandElement(new DestinationHandler())));
+	insert(RtfCommands::value_type("pict", RtfCommandElement(new DestinationHandler())));
+	insert(RtfCommands::value_type("colortbl", RtfCommandElement(new ColorTblHandler())));
+	insert(RtfCommands::value_type("stylesheet", RtfCommandElement(new DestinationHandler())));
+	insert(RtfCommands::value_type("info", RtfCommandElement(new DestinationHandler())));
+	insert(RtfCommands::value_type("xe", RtfCommandElement(new DestinationHandler())));
+	insert(RtfCommands::value_type("header", RtfCommandElement(new DestinationHandler())));
+	insert(RtfCommands::value_type("footer", RtfCommandElement(new DestinationHandler())));
+	insert(RtfCommands::value_type("tc", RtfCommandElement(new DestinationHandler())));
+	insert(RtfCommands::value_type("tcn", RtfCommandElement(new DestinationHandler())));
+	insert(RtfCommands::value_type("nonshppict", RtfCommandElement(new DestinationHandler())));
 
   // Section handling code
-  newVector.insert(RtfCommands::value_type("sbknone", RtfCommandElement(SbknoneHandler())));
-  newVector.insert(RtfCommands::value_type("cols", RtfCommandElement(ColsHandler())));
-  newVector.insert(RtfCommands::value_type("sbkcol", RtfCommandElement(CellHandler())));
+  insert(RtfCommands::value_type("sbknone", RtfCommandElement(new SbknoneHandler())));
+  insert(RtfCommands::value_type("cols", RtfCommandElement(new ColsHandler())));
+  insert(RtfCommands::value_type("sbkcol", RtfCommandElement(new CellHandler())));
 
 
-	newVector.insert(RtfCommands::value_type("\\", RtfCommandElement(BackslashHandler())));
-	newVector.insert(RtfCommands::value_type("{", RtfCommandElement(OpeningBraceHandler())));
-	newVector.insert(RtfCommands::value_type("}", RtfCommandElement(ClosingBraceHandler())));
-	newVector.insert(RtfCommands::value_type(";", RtfCommandElement(SemiColonHandler())));
-	newVector.insert(RtfCommands::value_type("lquote", RtfCommandElement(LQuoteHandler())));
-	newVector.insert(RtfCommands::value_type("rquote", RtfCommandElement(RQuoteHandler())));
-	newVector.insert(RtfCommands::value_type("ldblquote", RtfCommandElement(LDblQuoteHandler())));
-	newVector.insert(RtfCommands::value_type("rdblquote", RtfCommandElement(RDblQuoteHandler())));
-	newVector.insert(RtfCommands::value_type("bullet", RtfCommandElement(BulletHandler())));
-	newVector.insert(RtfCommands::value_type("endash", RtfCommandElement(EnDashHandler())));
-	newVector.insert(RtfCommands::value_type("emdash", RtfCommandElement(EmDashHandler())));
-	newVector.insert(RtfCommands::value_type("b", RtfCommandElement(BoldHandler())));
-	newVector.insert(RtfCommands::value_type("i", RtfCommandElement(ItalicHandler())));
-	newVector.insert(RtfCommands::value_type("ul", RtfCommandElement(UnderlineHandler())));
-	newVector.insert(RtfCommands::value_type("ulnone", RtfCommandElement(NoUnderlineHandler())));
-	newVector.insert(RtfCommands::value_type("plain", RtfCommandElement(PlainHandler())));
-	newVector.insert(RtfCommands::value_type("ql", RtfCommandElement(LeftJustifyHandler())));
-	newVector.insert(RtfCommands::value_type("qr", RtfCommandElement(RightJustifyHandler())));
-	newVector.insert(RtfCommands::value_type("qc", RtfCommandElement(CentreJustifyHandler())));
-	newVector.insert(RtfCommands::value_type("intbl", RtfCommandElement(IntblHandler())));
-	newVector.insert(RtfCommands::value_type("row", RtfCommandElement(RowHandler())));
-	newVector.insert(RtfCommands::value_type("cell", RtfCommandElement(CellHandler())));
-	newVector.insert(RtfCommands::value_type("pard", RtfCommandElement(PardHandler())));
-	newVector.insert(RtfCommands::value_type("cf", RtfCommandElement(CfHandler())));
+	insert(RtfCommands::value_type("\\", RtfCommandElement(new BackslashHandler())));
+	insert(RtfCommands::value_type("{", RtfCommandElement(new OpeningBraceHandler())));
+	insert(RtfCommands::value_type("}", RtfCommandElement(new ClosingBraceHandler())));
+	insert(RtfCommands::value_type(";", RtfCommandElement(new SemiColonHandler())));
+	insert(RtfCommands::value_type("lquote", RtfCommandElement(new LQuoteHandler())));
+	insert(RtfCommands::value_type("rquote", RtfCommandElement(new RQuoteHandler())));
+	insert(RtfCommands::value_type("ldblquote", RtfCommandElement(new LDblQuoteHandler())));
+	insert(RtfCommands::value_type("rdblquote", RtfCommandElement(new RDblQuoteHandler())));
+	insert(RtfCommands::value_type("bullet", RtfCommandElement(new BulletHandler())));
+	insert(RtfCommands::value_type("endash", RtfCommandElement(new EnDashHandler())));
+	insert(RtfCommands::value_type("emdash", RtfCommandElement(new EmDashHandler())));
+	insert(RtfCommands::value_type("b", RtfCommandElement(new BoldHandler())));
+	insert(RtfCommands::value_type("i", RtfCommandElement(new ItalicHandler())));
+	insert(RtfCommands::value_type("ul", RtfCommandElement(new UnderlineHandler())));
+	insert(RtfCommands::value_type("ulnone", RtfCommandElement(new NoUnderlineHandler())));
+	insert(RtfCommands::value_type("plain", RtfCommandElement(new PlainHandler())));
+	insert(RtfCommands::value_type("ql", RtfCommandElement(new LeftJustifyHandler())));
+	insert(RtfCommands::value_type("qr", RtfCommandElement(new RightJustifyHandler())));
+	insert(RtfCommands::value_type("qc", RtfCommandElement(new CentreJustifyHandler())));
+	insert(RtfCommands::value_type("intbl", RtfCommandElement(new IntblHandler())));
+	insert(RtfCommands::value_type("row", RtfCommandElement(new RowHandler())));
+	insert(RtfCommands::value_type("cell", RtfCommandElement(new CellHandler())));
+	insert(RtfCommands::value_type("pard", RtfCommandElement(new PardHandler())));
+	insert(RtfCommands::value_type("cf", RtfCommandElement(new CfHandler())));
 
-    return newVector;
   }
 
 
-  RtfCommandElement::RtfCommandElement(	const RtfBaseHandler& newHandler)
-  {
-    handler = newHandler.Clone();
-  }
-
-	RtfCommandElement::RtfCommandElement(const RtfCommandElement& element)
-  {
-		// Will this call the correct copy constructor?
-		handler = element.handler->Clone(); // Houston we have a problem!!!
-  }
-
-  RtfCommandElement& RtfCommandElement::operator=(const RtfCommandElement& rhs)
-  {
-	if (&rhs == this)
-	  return *this;
-
-	handler = rhs.handler->Clone();
-
-	return *this;
-  }
-
-
-  RtfCommandElement::~RtfCommandElement()
-  {
-    delete handler;
-  }
-
-  void RtfCommandElement::handleCommand(DoxEngine::RtfReader* parent,
-    int commandValue)
-  {
-    handler->handleCommand(parent, commandValue);
-  }
 
 
 

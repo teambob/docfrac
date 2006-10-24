@@ -3,14 +3,13 @@
 
 #include "ReaderInterface.h"
 #include "RtfStyle.h"
+#include "RtfCommand.h"
 
 
 namespace DoxEngine
 {
 
   class WriterInterface;
-  class RtfCommandElement;
-  class RtfCommands;
   class UnicodeCharacter;
   class RtfStyle;
   class RtfStyleStack;
@@ -23,7 +22,7 @@ namespace DoxEngine
       long fileLength;
       std::istream* stream;
       WriterInterface* writer;
-			RtfCommands *elements;
+			RtfCommands elements;
 			RtfStyleStack rtfStack;
 			RtfStyle style;
       bool tableStarted, rowStarted, cellStarted;

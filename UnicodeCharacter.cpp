@@ -36,7 +36,10 @@ long UnicodeCharacter::unicode(void) const
 
 }
 
-
+UnicodeCharacter::UnicodeCharacter()
+{
+  character = 0;
+}
 
 }
 

@@ -13,6 +13,7 @@ namespace DoxEngine
     public:
       UnicodeCharacter(unsigned long initialCharacter);
       UnicodeCharacter(char initialCharacter);
+      UnicodeCharacter();
 
       void setCharacter(long newCharacter);
       bool isASCII(void) const;

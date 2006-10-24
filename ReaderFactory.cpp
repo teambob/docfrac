@@ -30,31 +30,13 @@ namespace DoxEngine
 		if (!readers)
 		{
 			readers = new ReaderFactories;
-			readers->insert(ReaderFactories::value_type(FORMAT_RTF, (ReaderFactoryAdapter)(new ReaderFactoryTemplate<RtfReader>)));
-			readers->insert(ReaderFactories::value_type(FORMAT_HTML, (ReaderFactoryAdapter)(new ReaderFactoryTemplate<HtmlReader>)));
-			readers->insert(ReaderFactories::value_type(FORMAT_TEXT, (ReaderFactoryAdapter)(new ReaderFactoryTemplate<TextReader>)));
+			readers->insert(ReaderFactories::value_type(FORMAT_RTF, ReaderFactoryPtr(new ReaderFactoryTemplate<RtfReader>)));
+			readers->insert(ReaderFactories::value_type(FORMAT_HTML, ReaderFactoryPtr(new ReaderFactoryTemplate<HtmlReader>)));
+			readers->insert(ReaderFactories::value_type(FORMAT_TEXT, ReaderFactoryPtr(new ReaderFactoryTemplate<TextReader>)));
 		}
 
 		return *readers;
 
 	}
-
-	ReaderFactoryAdapter::ReaderFactoryAdapter(ReaderFactory* newFactory)
-	{
-		factory = newFactory;
-	}
-
-	ReaderFactoryAdapter::~ReaderFactoryAdapter()
-	{
-    // Possible memory leak
-		//delete factory;
-	}
-
-	ReadInterface* ReaderFactoryAdapter::Create(std::istream &stream, WriterInterface &writer)
-	{
-    return factory->Create(stream, writer);
-  }
-
-
 
 }

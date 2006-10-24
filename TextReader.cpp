@@ -12,6 +12,7 @@
 
 #include "debug.h"
 
+
 namespace DoxEngine
 {
 
@@ -40,7 +41,7 @@ namespace DoxEngine
       break;
 
       case '\n':
-        writer.writeBreak(WriterInterface::LineBreak);
+        writer.writeBreak(LineBreak);
       break;
 
       default:

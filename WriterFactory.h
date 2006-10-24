@@ -5,6 +5,7 @@
 #include <map>
 #include "WriterInterface.h"
 #include "FileFormat.h"
+#include "shared_ptr.h"
 // This class uses an abstract factory to hide the details of
 // the writer instantiation
 
@@ -18,20 +19,8 @@ namespace DoxEngine
 			virtual WriterInterface* Create(std::ostream &stream) = 0;
 	};
 
-
-	// Slicing = Stroustrup incompetence
-	class WriterFactoryAdapter
-	{
-		private:
-			WriterFactory *factory;
-
-		public:
-			WriterFactoryAdapter(WriterFactory* newFactory);
-			~WriterFactoryAdapter();
-			WriterInterface* Create(std::ostream &stream);
-	};
-
-	typedef std::map<const FileFormat, WriterFactoryAdapter> WriterFactories;
+  typedef shared_ptr<WriterFactory> WriterFactoryPtr;
+	typedef std::map<const FileFormat,  WriterFactoryPtr> WriterFactories;
 
 	class WriterFactoriesSingleton
 	{

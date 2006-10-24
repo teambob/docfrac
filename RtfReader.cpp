@@ -36,9 +36,6 @@ namespace DoxEngine
   {
     writer = &newWriter;
     stream = &newStream;
-    elements = new RtfCommands
-      ((RtfCommandFactory::instance()).getCommandList() ) ;
-
     tableStarted = false;
 
   }
@@ -47,7 +44,6 @@ namespace DoxEngine
   {
     writer = oldReader.writer;
     stream = oldReader.stream;
-    elements = new RtfCommands( *oldReader.elements );
 		style = oldReader.style;
 		rtfStack = oldReader.rtfStack;
 		tableStarted = oldReader.tableStarted;
@@ -61,7 +57,6 @@ namespace DoxEngine
 
     writer = rhs.writer;
     stream = rhs.stream;
-    elements = new RtfCommands( *rhs.elements );
 		style = rhs.style;
 		rtfStack = rhs.rtfStack;
 		tableStarted = rhs.tableStarted;
@@ -71,7 +66,6 @@ namespace DoxEngine
 
   RtfReader::~RtfReader()
   {
-    delete elements;
   }
 
   bool RtfReader::processData(void)
@@ -271,10 +265,10 @@ namespace DoxEngine
   }
 
 
-  RtfCommands::iterator found = elements->find(commandString);
+  RtfCommands::iterator found = elements.find(commandString);
 
-  if (found != elements->end())
-    found->second.handleCommand(this, value);
+  if (found != elements.end())
+    found->second->handleCommand(this, value);
   //else
   //  cout << "Command " << commandString << " not found\n";
 
@@ -414,12 +408,13 @@ namespace DoxEngine
 	void RtfReader::commandColourTable(void)
 	{
 		int brackets = 1;
-		int character;
+		char character;
 		std::string inputString;
 
-		while (brackets > 0)
+    stream->get(character);
+
+		while (brackets > 0 && stream->good())
 		{
-			character = stream->get();
 			//cout << "Colour character = " << character;
 
 			if (inputString.length() > 0)
@@ -507,8 +502,9 @@ namespace DoxEngine
 			}
 
 
-
+      stream->get(character);
 		}
+
 	}
 
 	RtfStyle RtfReader::getRtfStyle(void) const

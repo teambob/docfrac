@@ -6,7 +6,6 @@
 namespace DoxEngine
 {
   class WriterInterface;
-  class HtmlCharacterMaps;
 
   class HtmlReader : public ReadInterface
   {

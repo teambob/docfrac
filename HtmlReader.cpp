@@ -20,8 +20,6 @@ namespace DoxEngine
   HtmlReader::HtmlReader(std::istream& newStream, WriterInterface& newWriter)
 	:stream(newStream), writer(newWriter)
   {
-    maps = HtmlCharacterMapsFactory::instance().getMaps();
-
     lineEmpty = true;
     script = false;
     iframe = false;
@@ -198,10 +196,10 @@ namespace DoxEngine
       else
       {
         *debugStream << "Found escape code:" << code << std::endl;
-   	    HtmlCharacterMaps::iterator i = find(maps.begin(), maps.end(), code);
+   	    HtmlCharacterMaps::iterator i = maps.find(code);
 	      if ((i != maps.end())&&(!script)&&(!iframe))
 	      {
-		      writer.writeChar(i->getCharacter());
+		      writer.writeChar(i->second);
         }
       }
     }

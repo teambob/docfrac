@@ -12,14 +12,19 @@ __fastcall TAboutForm::TAboutForm(TComponent* Owner)
     : TForm(Owner)
 {
   DWORD dwHandle = 0;
-  LPTSTR lpFileName = Application->ExeName.c_str();
-  DWORD dwLen = GetFileVersionInfoSize(lpFileName, &dwHandle);
+  AnsiString asFilename = Application->ExeName;
+  int size = asFilename.WideCharBufSize();
+  LPWSTR lpFileName = new wchar_t [size];
+  asFilename.WideChar(lpFileName, size);
+
+  DWORD dwLen = GetFileVersionInfoSizeW(lpFileName, &dwHandle);
+
   if(dwLen)
   {
     LPVOID lpData = new char[dwLen];
 
     // the next call fails, but GetLastError returns 0
-    if(GetFileVersionInfo(lpFileName, dwHandle, dwLen, lpData))
+    if(GetFileVersionInfoW(lpFileName, dwHandle, dwLen, lpData))
     {
         LPVOID lplpBuffer = NULL;
         UINT uLen;
@@ -34,8 +39,9 @@ __fastcall TAboutForm::TAboutForm(TComponent* Owner)
             + "." + IntToStr(LOWORD(Info.dwFileVersionLS));
 
     }
-    delete lpData;
+    delete [] lpData;
   }
+  delete [] lpFileName;
 }
 //---------------------------------------------------------------------------
 void __fastcall TAboutForm::LinkLabelClick(TObject *Sender)

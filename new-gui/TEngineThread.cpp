@@ -7,6 +7,8 @@
 #include <iostream>
 #include <ios>
 
+#include <errno.h>
+
 #include "Document.h"
 #include "TEngineThread.h"
 #include "ReaderInterface.h"
@@ -151,7 +153,7 @@ void __fastcall TEngineThread::Execute()
 		{
 			// First type is the key (file format)
 			// Second type is the value (factory instance)
-			writer = writerIterator->second.Create(output);
+			writer = writerIterator->second->Create(output);
 		}
 
 
@@ -167,13 +169,14 @@ void __fastcall TEngineThread::Execute()
 		{
 			// First type is the key (file format)
 			// Second type is the value (factory instance)
-			reader = readerIterator->second.Create(input, *writer);
+			reader = readerIterator->second->Create(input, *writer);
 		}
 
 		input.exceptions(input.badbit);
 		output.exceptions(output.badbit);
-		
-		while ((reader->processData())&&(!Terminated))
+
+
+		while (reader->processData()&&!Terminated && input.good())
 		{
 			percentage = 100*input.tellg()/fileSize; // Calculate percentage
 			Synchronize((TThreadMethod)&UpdateProgress);

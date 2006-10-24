@@ -1,5 +1,9 @@
+#ifndef __RTF_COMMAND_H__
+#define __RTF_COMMAND_H__
+
 #include <string>
 #include <map>
+#include "shared_ptr.h"
 
 namespace DoxEngine
 {
@@ -15,36 +19,15 @@ namespace DoxEngine
 	};
 
 
-  class RtfCommandElement
+  typedef shared_ptr<RtfBaseHandler> RtfCommandElement;
+
+  typedef std::map<std::string, DoxEngine::RtfCommandElement> RtfCommandMap;
+	class RtfCommands : public RtfCommandMap
   {
-  private:
-    RtfBaseHandler* handler;
-
-  public:
-    RtfCommandElement(const RtfBaseHandler& newHandler);
-    RtfCommandElement(const RtfCommandElement& element);
-    RtfCommandElement& operator=(const RtfCommandElement& element);
-    ~RtfCommandElement();
-    void handleCommand(DoxEngine::RtfReader* parent, int commandValue);
-
-
-  };
-
-
-	class RtfCommands : public std::map<std::string, DoxEngine::RtfCommandElement>
-  {
-  };
-
-
-
-
-  class RtfCommandFactory
-  {
-  public:
-    static RtfCommandFactory& instance(void);
-
-    DoxEngine::RtfCommands getCommandList(void);
+    public:
+      RtfCommands();
   };
 
 }
 
+#endif

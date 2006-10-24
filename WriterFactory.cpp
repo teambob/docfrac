@@ -30,31 +30,13 @@ namespace DoxEngine
 		if (!writers)
 		{
 			writers = new WriterFactories;
-			writers->insert(WriterFactories::value_type(FORMAT_RTF, (WriterFactoryAdapter)(new WriterFactoryTemplate<RtfWriter>)));
-			writers->insert(WriterFactories::value_type(FORMAT_HTML, (WriterFactoryAdapter)(new WriterFactoryTemplate<HtmlWriter>)));
-			writers->insert(WriterFactories::value_type(FORMAT_TEXT, (WriterFactoryAdapter)(new WriterFactoryTemplate<TextWriter>)));
+			writers->insert(WriterFactories::value_type(FORMAT_RTF, WriterFactoryPtr(new WriterFactoryTemplate<RtfWriter>)));
+			writers->insert(WriterFactories::value_type(FORMAT_HTML, WriterFactoryPtr(new WriterFactoryTemplate<HtmlWriter>)));
+			writers->insert(WriterFactories::value_type(FORMAT_TEXT, WriterFactoryPtr(new WriterFactoryTemplate<TextWriter>)));
 		}
 
 		return *writers;
 
 	}
-
-	WriterFactoryAdapter::WriterFactoryAdapter(WriterFactory* newFactory)
-	{
-		factory = newFactory;
-	}
-
-	WriterFactoryAdapter::~WriterFactoryAdapter()
-	{
-    // Possible memory leak
-		//delete factory;
-	}
-
-	WriterInterface* WriterFactoryAdapter::Create(std::ostream &stream)
-	{
-    return factory->Create(stream);
-  }
-
-
 
 }

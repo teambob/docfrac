@@ -7,6 +7,7 @@
 #include "ReaderInterface.h"
 #include "WriterInterface.h"
 #include "FileFormat.h"
+#include "shared_ptr.h"
 // This class uses an abstract factory to hide the details of
 // the writer instantiation
 
@@ -21,25 +22,15 @@ namespace DoxEngine
 	};
 
 
-	// Slicing = Stroustrup incompetence
-	class ReaderFactoryAdapter
-	{
-		private:
-			ReaderFactory *factory;
-
-		public:
-			ReaderFactoryAdapter(ReaderFactory* newFactory);
-			~ReaderFactoryAdapter();
-			ReadInterface* Create(std::istream &stream, WriterInterface &writer);
-	};
-
-	typedef std::map<const FileFormat, ReaderFactoryAdapter> ReaderFactories;
+  typedef shared_ptr<ReaderFactory> ReaderFactoryPtr;
+	typedef std::map<const FileFormat, ReaderFactoryPtr> ReaderFactories;
 
 	class ReaderFactoriesSingleton
 	{
 		public:
 			// This function should only be called from the main thread
 			static ReaderFactories& GetReaderFactories();
+      
 	};
 }
 
