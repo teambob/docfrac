@@ -318,7 +318,7 @@
         <FILE FILENAME="..\WriterFactory.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="WriterFactory" FORMNAME="" DESIGNCLASS="" ADDITIONAL="..\WriterFactory.h"/>
         <FILE FILENAME="..\ReaderFactory.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="ReaderFactory" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\TextReader.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="TextReader" FORMNAME="" DESIGNCLASS=""/>
-        <FILE FILENAME="shared_ptr.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="shared_ptr" FORMNAME="" DESIGNCLASS="" ADDITIONAL="shared_ptr.h"/>
+        <FILE FILENAME="..\shared_ptr.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="shared_ptr" FORMNAME="" DESIGNCLASS="" ADDITIONAL="..\shared_ptr.h"/>
       </FILELIST>
       <IDEOPTIONS>
         <VersionInfo>

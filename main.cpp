@@ -18,19 +18,20 @@
 #include <iostream>
 #include <fstream>
 #include <string.h>
-#include "DoxFactory.h"
+#include "WriterFactory.h"
+#include "ReaderFactory.h"
 #include "WriterInterface.h"
 #include "ReaderInterface.h"
+#include "FileFormat.h"
 #include "debug.h"
 
-enum Format { FORMAT_AUTO, FORMAT_RTF, FORMAT_HTML, FORMAT_TEXT };
 
 static void ShowHelp(void);
 
 int main(int argc, char *argv[])
 {
 
-  Format inFormat = FORMAT_AUTO, outFormat = FORMAT_AUTO;
+  FileFormat inFormat = FORMAT_UNKNOWN, outFormat = FORMAT_UNKNOWN;
   char *inFilename, *outFilename;
   int i;
   bool isOutfile = false;
@@ -86,46 +87,42 @@ int main(int argc, char *argv[])
         outFilename = argv[i];
         std::ifstream input(inFilename);
         std::ofstream output(outFilename);
-        DoxEngine::DoxFactory *factory = DoxEngine::DoxFactory::instance();
         DoxEngine::WriterInterface *writer;
         DoxEngine::ReadInterface *reader;
 
         
-        switch(outFormat)
-        {
-          case FORMAT_HTML:
-            writer = factory->createHtmlWriter(output);
-          break;
+		DoxEngine::WriterFactories &writerFactories = DoxEngine::WriterFactoriesSingleton::GetWriterFactories();
 
-          case FORMAT_RTF:
-            writer = factory->createRtfWriter(output);
-          break;
+		DoxEngine::WriterFactories::iterator writerIterator = writerFactories.find(inFormat);
+		if (writerIterator == writerFactories.end())
+		{
+			std::cerr << "Internal error initialising writer";
+			break;
+		}
+		else
+		{
+			// First type is the key (file format)
+			// Second type is the value (factory instance)
+			writer = writerIterator->second->Create(output);
+		}
 
-          case FORMAT_TEXT:
-            writer = factory->createTextWriter(output);
-          break;
 
-          default:
-            return 3;
-        }
 
-        switch(inFormat)
-        {
-          case FORMAT_HTML:
-            reader = factory->createHtmlReader(input, *writer);
-          break;
+		DoxEngine::ReaderFactories &readerFactories = DoxEngine::ReaderFactoriesSingleton::GetReaderFactories();
 
-          case FORMAT_RTF:
-            reader = factory->createRtfReader(input, *writer);
-          break;
+		DoxEngine::ReaderFactories::iterator readerIterator = readerFactories.find(outFormat);
+		if (readerIterator == readerFactories.end())
+		{
+			std::cerr << "Internal error initialising reader";
+			break;
+		}
+		else
+		{
+			// First type is the key (file format)
+			// Second type is the value (factory instance)
+			reader = readerIterator->second->Create(input, *writer);
+		}
 
-          case FORMAT_TEXT:
-            reader = factory->createTextReader(input, *writer);
-          break;
-
-          default:
-            return 4;
-        }
 
         printf("Converting %s to %s\n", inFilename, outFilename);
         
@@ -158,8 +155,8 @@ void ShowHelp(void)
 {
   using namespace std;
 
-  cout << "DocFrac Version 3.1.1" << endl;
-  cout << "Copyright 2004 Andrew Punch" << endl;
+  cout << "DocFrac Version 3.1.3" << endl;
+  cout << "Copyright 2004-2006 Andrew Punch" << endl;
   cout << "Released under LGPL" << endl;
   cout << "Converts between RTF, HTML and text documents" << endl;
   cout << endl;

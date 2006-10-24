@@ -44,8 +44,8 @@ namespace DoxEngine
     return *this;
 
   Release();
-  ptr = original.ptr;
-  count = original.count;
+  ptr = rhs.ptr;
+  count = rhs.count;
   Acquire();
 
   return *this;
@@ -54,10 +54,10 @@ namespace DoxEngine
       shared_ptr<T> &operator=(const T* rhs)
 {
   if (ptr == rhs)
-    return this;
+    return *this;
 
   Release();
-  ptr = original;
+  ptr = rhs;
   count = new int;
   *count = 1;
 }
@@ -74,12 +74,12 @@ namespace DoxEngine
       T* ptr;
       int* count;
 
-      Acquire()
+      void Acquire()
       {
         (*count)++;
       }
       
-      Release()
+      void Release()
 {
   (*count)--;
   if (!(*count))
