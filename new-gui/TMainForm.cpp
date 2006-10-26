@@ -37,7 +37,7 @@ TMainForm *MainForm;
 __fastcall TMainForm::TMainForm(TComponent* Owner)
     : TForm(Owner)
 {
-  documents = new Documents;
+
 }
 //---------------------------------------------------------------------------
 void __fastcall TMainForm::FileAddClick(TObject *Sender)
@@ -72,7 +72,7 @@ void __fastcall TMainForm::FileAddClick(TObject *Sender)
     if (AddNewFiles(newDocuments))
     {
       std::copy(newDocuments.begin(), newDocuments.end()
-        , std::back_inserter(*documents));
+        , std::back_inserter(documents));
       UpdateDisplay();
     }
 
@@ -106,7 +106,7 @@ void TMainForm::UpdateDisplay(void)
   Documents::iterator i;
 
   FileList->Items->Clear();
-  for(i=documents->begin();i!=documents->end();i++)
+  for(i=documents.begin();i!=documents.end();i++)
   {
     TListItem *item;
     item = FileList->Items->Add();
@@ -117,23 +117,23 @@ void TMainForm::UpdateDisplay(void)
 
   }
 
-  MainStatusBar->SimpleText = documents->size();
+  MainStatusBar->SimpleText = documents.size();
 
   UpdateEnabled();
 }
 
 void TMainForm::UpdateEnabled(void)
 {
-  ClearIcon->Enabled = !documents->empty();
-  EditClear->Enabled = !documents->empty();
-  EditSelectAll->Enabled = !documents->empty();
+  ClearIcon->Enabled = !documents.empty();
+  EditClear->Enabled = !documents.empty();
+  EditSelectAll->Enabled = !documents.empty();
 
 
   RemoveIcon->Enabled = FileList->SelCount;
   EditRemove->Enabled = FileList->SelCount;
 
-  ConvertIcon->Enabled = !documents->empty();
-  FileConvert->Enabled = !documents->empty();
+  ConvertIcon->Enabled = !documents.empty();
+  FileConvert->Enabled = !documents.empty();
 
   // Can only set properties for one file
   if (FileList->SelCount == 1)
@@ -154,8 +154,14 @@ void TMainForm::UpdateEnabled(void)
 
 void __fastcall TMainForm::ClearIconClick(TObject *Sender)
 {
-  documents->clear();
-  UpdateDisplay();
+  if (Application->MessageBox(
+    "Are you sure you want to clear your list of files?",
+    "Clear list?",
+    MB_YESNO) == IDYES)
+  {
+    documents.clear();
+    UpdateDisplay();
+  }
 }
 //---------------------------------------------------------------------------
 
@@ -164,7 +170,7 @@ void __fastcall TMainForm::FormShow(TObject *Sender)
   Documents newDocuments(CheckArguments(_argc, _argv));
 
   std::copy(newDocuments.begin(), newDocuments.end(),
-    std::back_inserter(*documents));
+    std::back_inserter(documents));
 
   DragAcceptFiles(Handle, TRUE);
   UpdateDisplay();
@@ -181,14 +187,17 @@ void __fastcall TMainForm::FileExitClick(TObject *Sender)
 
 void __fastcall TMainForm::ConvertClick(TObject *Sender)
 {
-  Documents::iterator i;
+  Document i;
 
-  for (i=documents->begin();i != documents->end();i++)
+  while(!documents.empty())
   {
-    ProgressForm->SetInPathname(i->GetInputPathname());
-    ProgressForm->SetOutPathname(i->GetOutputPathname());
+    // Equivalent to std::queue::front()
+    i = documents.front();
 
-    TEngineThread *thread = new TEngineThread(true, *i);
+    ProgressForm->SetInPathname(i.GetInputPathname());
+    ProgressForm->SetOutPathname(i.GetOutputPathname());
+
+    TEngineThread *thread = new TEngineThread(true, i);
     thread->SetOnFinished(ProgressForm->OnFinished);
     thread->SetOnProgress(ProgressForm->OnProgress);
     thread->Resume();
@@ -214,11 +223,11 @@ void __fastcall TMainForm::ConvertClick(TObject *Sender)
         delete thread;
     }
 
-
+    // Equivalent to std::queue::pop() or pop_front()
+    documents.erase(documents.begin());
 
   }
 
-  documents->clear();
   UpdateDisplay();
 }
 //---------------------------------------------------------------------------
@@ -248,7 +257,7 @@ void __fastcall TMainForm::OnDropFiles(TWMDropFiles& Message)
   if (AddNewFiles(newDocuments))
   {
     std::copy(newDocuments.begin(), newDocuments.end()
-      , std::back_inserter(*documents));
+      , std::back_inserter(documents));
     UpdateDisplay();
   }
 }
@@ -256,7 +265,7 @@ void __fastcall TMainForm::PropertiesClick(TObject *Sender)
 {
 
   FilePropertiesForm->SetMultiFile(false);
-  Document *document = &((*documents)[FileList->Selected->Index]);
+  Document *document = &((documents)[FileList->Selected->Index]);
 
   // Set the values of File Properties here
   if (document->IsAutomatic())
@@ -332,7 +341,7 @@ void __fastcall TMainForm::RemoveIconClick(TObject *Sender)
   for (int i=FileList->Items->Count;i>0;i--)
   {
     if (FileList->Items->Item[i-1]->Selected)
-      documents->erase(documents->begin()+(i-1));
+      documents.erase(documents.begin()+(i-1));
   }
   UpdateDisplay();
 
@@ -344,6 +353,22 @@ void __fastcall TMainForm::FileListChange(TObject *Sender, TListItem *Item,
 {
   if(Change == ctState)
     UpdateEnabled();    
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TMainForm::FormCloseQuery(TObject *Sender, bool &CanClose)
+{
+  if (!documents.empty())
+  {
+    if (Application->MessageBox(
+      "Your list of files will be cleared. Are you sure you want to exit?",
+      "Exit?",
+      MB_YESNO) == IDNO)
+    {
+      CanClose = false;
+    }
+
+  }
 }
 //---------------------------------------------------------------------------
 

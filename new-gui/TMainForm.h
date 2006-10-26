@@ -12,7 +12,7 @@
 #include <Dialogs.hpp>
 #include <ImgList.hpp>
 //---------------------------------------------------------------------------
-class Documents;
+#include "Document.h"
 
 class TMainForm : public TForm
 {
@@ -64,8 +64,9 @@ __published:	// IDE-managed Components
     void __fastcall RemoveIconClick(TObject *Sender);
     void __fastcall FileListChange(TObject *Sender, TListItem *Item,
           TItemChange Change);
+  void __fastcall FormCloseQuery(TObject *Sender, bool &CanClose);
 private:	// User declarations
-  Documents *documents;
+  Documents documents;
   void UpdateDisplay(void);
   void UpdateEnabled(void);
   void __fastcall OnDropFiles(TWMDropFiles& Message);

@@ -2,6 +2,7 @@
 #ifndef DocumentH
 #define DocumentH
 //---------------------------------------------------------------------------
+#include <vector>
 #include "FileFormat.h"
 
   enum FilenameCreate
@@ -44,10 +45,7 @@
 
 
   
-  class Documents : public std::vector<Document>
-  {
-    /* Empty class */
-  };
+  typedef std::vector<Document> Documents;
 
 
 
