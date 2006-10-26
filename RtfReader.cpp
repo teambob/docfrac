@@ -413,7 +413,7 @@ namespace DoxEngine
 
     stream->get(character);
 
-		while (brackets > 0 && stream->good())
+		while (brackets && stream->good())
 		{
 			//cout << "Colour character = " << character;
 
@@ -501,8 +501,8 @@ namespace DoxEngine
 				}
 			}
 
-
-      stream->get(character);
+      if (brackets)
+        stream->get(character);
 		}
 
 	}
