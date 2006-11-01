@@ -10,15 +10,15 @@
 #include "UnicodeCharacter.h"
 #include "HtmlCharacterMap.h"
 
-#include "debug.h"
+#include "debug_global.h"
 
 namespace DoxEngine
 {
 
 
 
-  HtmlReader::HtmlReader(std::istream& newStream, WriterInterface& newWriter)
-	:stream(newStream), writer(newWriter)
+  HtmlReader::HtmlReader(std::istream& newStream, WriterInterface& newWriter, DebugLog &newLog)
+	:stream(newStream), writer(newWriter), log(newLog)
   {
     lineEmpty = true;
     script = false;

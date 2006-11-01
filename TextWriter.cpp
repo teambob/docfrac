@@ -10,7 +10,7 @@
 namespace DoxEngine
 {
 
-  TextWriter::TextWriter(std::ostream& stream)
+  TextWriter::TextWriter(std::ostream& stream, DebugLog& newLog): log(newLog)
   {
     outputStream = &stream;
     inTable = false;

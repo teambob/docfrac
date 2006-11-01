@@ -8,6 +8,7 @@
 #include "WriterInterface.h"
 #include "FileFormat.h"
 #include "shared_ptr.h"
+#include "DebugLog.h"
 // This class uses an abstract factory to hide the details of
 // the writer instantiation
 
@@ -18,7 +19,7 @@ namespace DoxEngine
 	class ReaderFactory
 	{
 		public:
-			virtual ReadInterface* Create(std::istream &stream, WriterInterface &writer) = 0;
+			virtual ReadInterface* Create(std::istream &stream, WriterInterface &writer, DebugLog& newLog) = 0;
 	};
 
 

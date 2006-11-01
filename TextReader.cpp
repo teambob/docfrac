@@ -18,8 +18,8 @@ namespace DoxEngine
 
 
 
-  TextReader::TextReader(std::istream& newStream, WriterInterface& newWriter)
-	:stream(newStream), writer(newWriter)
+  TextReader::TextReader(std::istream& newStream, WriterInterface& newWriter, DebugLog& newLog)
+	:stream(newStream), writer(newWriter), log(newLog)
   {
   }
 

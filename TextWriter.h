@@ -2,6 +2,7 @@
 #ifndef TextWriterH
 #define TextWriterH
 
+#include "DebugLog.h"
 
 namespace DoxEngine
 {
@@ -10,10 +11,11 @@ namespace DoxEngine
   {
     private:
       std::ostream* outputStream;
+      DebugLog& log;
       bool inTable;
 
     public:
-      TextWriter(std::ostream& stream);
+      TextWriter(std::ostream& stream, DebugLog& newLog);
       virtual void writeChar(const UnicodeCharacter& character);
       virtual ~TextWriter();
       virtual void writeBreak(BreakType type);

@@ -15,7 +15,7 @@
 #include "WriterInterface.h"
 #include "WriterFactory.h"
 #include "ReaderFactory.h"
-#include "debug.h"
+#include "debug_global.h"
 #pragma package(smart_init)
 
 class ThreadException
@@ -132,7 +132,7 @@ void __fastcall TEngineThread::Execute()
 
     }
 
-
+    DoxEngine::DebugLog log;
     DoxEngine::debugStream = &std::cout;
     DoxEngine::ReadInterface *reader = NULL;
     DoxEngine::WriterInterface *writer = NULL;
@@ -153,7 +153,7 @@ void __fastcall TEngineThread::Execute()
 		{
 			// First type is the key (file format)
 			// Second type is the value (factory instance)
-			writer = writerIterator->second->Create(output);
+			writer = writerIterator->second->Create(output, log);
 		}
 
 
@@ -169,7 +169,7 @@ void __fastcall TEngineThread::Execute()
 		{
 			// First type is the key (file format)
 			// Second type is the value (factory instance)
-			reader = readerIterator->second->Create(input, *writer);
+			reader = readerIterator->second->Create(input, *writer, log);
 		}
 
 		input.exceptions(input.badbit);

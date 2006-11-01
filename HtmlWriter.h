@@ -2,6 +2,7 @@
 #define __HTML_WRITER_H__
 
 #include "Style.h"
+#include "DebugLog.h"
 
 namespace DoxEngine
 {
@@ -11,6 +12,7 @@ namespace DoxEngine
   {
 	private:
 	  std::ostream& outputStream;
+    DebugLog& log;
 	  Style style, oldStyle;
 	  bool styleChanged;
     int whiteSpaces;
@@ -24,7 +26,7 @@ namespace DoxEngine
 
 
 	public:
-	  HtmlWriter(std::ostream& stream);
+	  HtmlWriter(std::ostream& stream, DebugLog &newLog);
 	  virtual void writeChar(const UnicodeCharacter& character);
 	  virtual void writeTable(TableType table);
       virtual ~HtmlWriter();

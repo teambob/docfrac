@@ -4,6 +4,7 @@
 #include "ReaderInterface.h"
 #include "RtfStyle.h"
 #include "RtfCommand.h"
+#include "DebugLog.h"
 
 
 namespace DoxEngine
@@ -21,6 +22,7 @@ namespace DoxEngine
     private:
       long fileLength;
       std::istream* stream;
+      DebugLog &log;
       WriterInterface* writer;
 			RtfCommands elements;
 			RtfStyleStack rtfStack;
@@ -33,9 +35,7 @@ namespace DoxEngine
 
     public:
       void flushTable(void);
-      RtfReader(std::istream& newStream, WriterInterface& newWriter);
-      RtfReader(const RtfReader &oldReader);
-      RtfReader& operator=(const RtfReader &rhs);
+      RtfReader(std::istream& newStream, WriterInterface& newWriter, DebugLog &newLog);
       ~RtfReader();
       virtual bool processData(void);
       virtual int getPercentComplete(void);

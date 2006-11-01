@@ -18,6 +18,7 @@
 #ifndef __RTF_WRITER_H__
 #define __RTF_WRITER_H__
 
+#include "DebugLog.h"
 
 namespace DoxEngine
 {
@@ -26,10 +27,10 @@ namespace DoxEngine
   {
     private:
       std::ostream* outputStream;
+      DebugLog& log;
 
     public:
-      RtfWriter(std::ostream& stream);
-      RtfWriter(RtfWriter &oldWriter);
+      RtfWriter(std::ostream& stream, DebugLog& newLog);
       virtual void writeChar(const UnicodeCharacter& character);
       virtual void writeTable(TableType table);
       virtual ~RtfWriter();

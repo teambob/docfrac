@@ -16,9 +16,9 @@ namespace DoxEngine
 {
 	template <class T> class WriterFactoryTemplate: public WriterFactory
 	{
-		virtual WriterInterface* Create(std::ostream &stream)
+		virtual WriterInterface* Create(std::ostream &stream, DebugLog &log)
 		{
-      return new T(stream);
+      return new T(stream, log);
     }
   };
 

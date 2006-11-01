@@ -16,9 +16,9 @@ namespace DoxEngine
 {
 	template <class T> class ReaderFactoryTemplate: public ReaderFactory
 	{
-		virtual ReadInterface* Create(std::istream &stream, WriterInterface &writer)
+		virtual ReadInterface* Create(std::istream &stream, WriterInterface &writer, DebugLog& newLog)
 		{
-      return new T(stream, writer);
+      return new T(stream, writer, newLog);
     }
   };
 

@@ -7,7 +7,7 @@
 #include "WriterInterface.h"
 #include "HtmlWriter.h"
 #include "Style.h"
-#include "debug.h"
+#include "debug_global.h"
 
 namespace DoxEngine
 {
@@ -36,8 +36,8 @@ namespace DoxEngine
 
 
 
-  HtmlWriter::HtmlWriter(std::ostream& stream)
-	:outputStream(stream)
+  HtmlWriter::HtmlWriter(std::ostream& stream, DebugLog &newLog)
+	:outputStream(stream), log(newLog)
   {
 	outputStream << "<HTML>\r\n";
     outputStream << "<BODY>\r\n";
@@ -75,19 +75,39 @@ namespace DoxEngine
 
     if (character.isASCII())
     {
-      if (isspace(character.getASCII()))
+      char ASCIICharacter = character.getASCII();
+
+      if (isspace(ASCIICharacter))
       {
         if (whiteSpaces)
           outputStream << "&nbsp;";
         else
-	        outputStream << character.getASCII();
-          
+	        outputStream << ASCIICharacter;
+
         whiteSpaces++;
       }
       else
       {
         whiteSpaces = 0;
-	      outputStream << character.getASCII();
+        switch (ASCIICharacter)
+        {
+          case '&':
+            outputStream << "&amp;";
+          break;
+
+          case '<':
+            outputStream << "&lt;";
+          break;
+
+          case '>':
+            outputStream << "&gt;";
+          break;
+
+          default:
+            outputStream << ASCIICharacter;
+          break;
+        }
+
       }
     }
 	  else

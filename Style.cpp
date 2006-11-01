@@ -1,7 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include "Style.h"
-#include "debug.h"
+#include "debug_global.h"
 
 namespace DoxEngine
 {

@@ -13,7 +13,7 @@
 #include "RtfCommand.h"
 #include "Style.h"
 #include "RtfStyle.h"
-#include "debug.h"
+#include "debug_global.h"
 
 namespace DoxEngine
 {
@@ -32,36 +32,13 @@ namespace DoxEngine
   }
 
 
-  RtfReader::RtfReader(std::istream& newStream, WriterInterface& newWriter)
+  RtfReader::RtfReader(std::istream& newStream, WriterInterface& newWriter, DebugLog& newLog):
+    log(newLog)
   {
     writer = &newWriter;
     stream = &newStream;
     tableStarted = false;
 
-  }
-
-  RtfReader::RtfReader(const RtfReader &oldReader)
-  {
-    writer = oldReader.writer;
-    stream = oldReader.stream;
-		style = oldReader.style;
-		rtfStack = oldReader.rtfStack;
-		tableStarted = oldReader.tableStarted;
-
-  }
-
-  RtfReader& RtfReader::operator=(const RtfReader &rhs)
-  {
-    if (this == &rhs)
-      return *this;
-
-    writer = rhs.writer;
-    stream = rhs.stream;
-		style = rhs.style;
-		rtfStack = rhs.rtfStack;
-		tableStarted = rhs.tableStarted;
-
-    return *this;
   }
 
   RtfReader::~RtfReader()

@@ -2,6 +2,7 @@
 #define HtmlReaderH
 
 #include "HtmlCharacterMap.h"
+#include "DebugLog.h"
 
 namespace DoxEngine
 {
@@ -12,6 +13,8 @@ namespace DoxEngine
     private:
 	  std::istream &stream;
 	  WriterInterface &writer;
+    DebugLog &log;
+    
       HtmlCharacterMaps maps;
       bool lineEmpty;
       bool script, iframe;
@@ -22,7 +25,7 @@ namespace DoxEngine
 
 
     public:
-      HtmlReader(std::istream& newStream, WriterInterface& newWriter);
+      HtmlReader(std::istream& newStream, WriterInterface& newWriter, DebugLog &newLog);
 
       virtual bool processData(void);
       virtual int getPercentComplete(void);

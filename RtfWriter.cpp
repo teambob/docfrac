@@ -26,17 +26,14 @@ namespace DoxEngine
 {
   
 
-RtfWriter::RtfWriter(std::ostream& stream)
+RtfWriter::RtfWriter(std::ostream& stream, DebugLog& newLog):
+  log(newLog)
 {
   outputStream = &stream;
 
   *outputStream << "{\\rtf\\ansi";
 }
 
-RtfWriter::RtfWriter(RtfWriter &oldWriter)
-{
-  outputStream = oldWriter.outputStream;
-}
 
 void RtfWriter::writeChar(const UnicodeCharacter& character)
 {
