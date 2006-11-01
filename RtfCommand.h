@@ -15,7 +15,6 @@ namespace DoxEngine
 		virtual ~RtfBaseHandler() { }
 		virtual void handleCommand(DoxEngine::RtfReader* parent,
 			int commandValue) = 0;
-		virtual RtfBaseHandler* Clone() const = 0;
 	};
 
 

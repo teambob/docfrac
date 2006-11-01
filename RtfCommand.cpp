@@ -32,10 +32,6 @@ namespace DoxEngine
         parent->commandLineBreak();
 		  }
 
-	  virtual RtfBaseHandler* Clone() const
-	  {
-			return new ParHandler(*this);
-		}
   };
 
 
@@ -51,11 +47,6 @@ namespace DoxEngine
 			parent->commandIgnoreDestinationKeyword();
 		}
 
-		virtual RtfBaseHandler* Clone() const
-		{
-			return new DestinationHandler(*this);
-		}
-
 	};
 
 	class ColorTblHandler : public RtfBaseHandler
@@ -65,11 +56,6 @@ namespace DoxEngine
 			int commandValue)
 		{
 			parent->commandColourTable();
-		}
-
-		virtual RtfBaseHandler* Clone() const
-		{
-			return new ColorTblHandler(*this);
 		}
 
 	};
@@ -88,10 +74,6 @@ namespace DoxEngine
 
 		}
 
-		virtual RtfBaseHandler* Clone() const
-		{
-			return new CfHandler(*this);
-		}
 
 	};
 
@@ -107,11 +89,6 @@ namespace DoxEngine
 			parent->commandCharacter(character);
 		}
 
-		virtual RtfBaseHandler* Clone() const
-		{
-			return new BackslashHandler(*this);
-		}
-
 	};
 
 
@@ -123,11 +100,6 @@ namespace DoxEngine
 		{
 			UnicodeCharacter character('{');
 			parent->commandCharacter(character);
-		}
-
-		virtual RtfBaseHandler* Clone() const
-		{
-			return new OpeningBraceHandler(*this);
 		}
 
 
@@ -144,11 +116,6 @@ namespace DoxEngine
 			parent->commandCharacter(character);
 		}
 
-		virtual RtfBaseHandler* Clone() const
-		{
-			return new ClosingBraceHandler(*this);
-		}
-
 
 	};
 
@@ -163,12 +130,6 @@ namespace DoxEngine
 			parent->commandCharacter(character);
 		}
 
-		virtual RtfBaseHandler* Clone() const
-		{
-			return new SemiColonHandler(*this);
-		}
-
-
 	};
 
 	class LQuoteHandler : public RtfBaseHandler
@@ -180,12 +141,6 @@ namespace DoxEngine
 			UnicodeCharacter character((unsigned long)0x91);
 			parent->commandCharacter(character);
 		}
-
-		virtual RtfBaseHandler* Clone() const
-		{
-			return new LQuoteHandler(*this);
-		}
-
 
 	};
 
@@ -200,10 +155,6 @@ namespace DoxEngine
 			parent->commandCharacter(character);
 		}
 
-		virtual RtfBaseHandler* Clone() const
-		{
-			return new RQuoteHandler(*this);
-		}
 	};
 
 
@@ -217,11 +168,6 @@ namespace DoxEngine
       parent->commandCharacter(character);
 		}
 
-		virtual RtfBaseHandler* Clone() const
-		{
-			return new LDblQuoteHandler(*this);
-		}
-
   };
 
   class RDblQuoteHandler : public RtfBaseHandler
@@ -233,12 +179,6 @@ namespace DoxEngine
       UnicodeCharacter character((unsigned long)0x94);
       parent->commandCharacter(character);
 		}
-
-		virtual RtfBaseHandler* Clone() const
-		{
-			return new RDblQuoteHandler(*this);
-		}
-
 
   };
 
@@ -254,11 +194,6 @@ namespace DoxEngine
       parent->commandCharacter(character);
 		}
 
-		virtual RtfBaseHandler* Clone() const
-		{
-			return new BulletHandler(*this);
-		}
-
   };
 
   class EnDashHandler : public RtfBaseHandler
@@ -269,11 +204,6 @@ namespace DoxEngine
     {
       UnicodeCharacter character((unsigned long)0x96);
       parent->commandCharacter(character);
-		}
-
-		virtual RtfBaseHandler* Clone() const
-		{
-			return new EnDashHandler(*this);
 		}
 
   };
@@ -289,11 +219,6 @@ namespace DoxEngine
     {
       UnicodeCharacter character((unsigned long)0x97);
       parent->commandCharacter(character);
-		}
-
-		virtual RtfBaseHandler* Clone() const
-		{
-			return new EmDashHandler(*this);
 		}
 
   };
@@ -316,11 +241,6 @@ namespace DoxEngine
       parent->setStyle(style);
 		}
 
-		virtual RtfBaseHandler* Clone() const
-		{
-			return new BoldHandler(*this);
-		}
-
 	};
 
 	class ItalicHandler : public RtfBaseHandler
@@ -338,10 +258,6 @@ namespace DoxEngine
 			parent->setStyle(style);
 		}
 
-		virtual RtfBaseHandler* Clone() const
-		{
-			return new ItalicHandler(*this);
-		}
 	};
 
 
@@ -360,10 +276,6 @@ namespace DoxEngine
 			parent->setStyle(style);
 		}
 
-		virtual RtfBaseHandler* Clone() const
-		{
-			return new UnderlineHandler(*this);
-		}
 
 	};
 
@@ -378,11 +290,6 @@ namespace DoxEngine
 			style.setUnderline(false);
 
 			parent->setStyle(style);
-		}
-
-		virtual RtfBaseHandler* Clone() const
-		{
-			return new NoUnderlineHandler(*this);
 		}
 
   };
@@ -401,11 +308,6 @@ namespace DoxEngine
         style.setJustification(DefaultJustified);
 
       parent->setStyle(style);
-		}
-
-		virtual RtfBaseHandler* Clone() const
-		{
-			return new LeftJustifyHandler(*this);
 		}
 
 	};
@@ -430,11 +332,6 @@ namespace DoxEngine
 			parent->setStyle(style);
 		}
 
-		virtual RtfBaseHandler* Clone() const
-		{
-			return new CentreJustifyHandler(*this);
-		}
-
 	};
 
 	class RightJustifyHandler : public RtfBaseHandler
@@ -450,11 +347,6 @@ namespace DoxEngine
         style.setJustification(DefaultJustified);
 
       parent->setStyle(style);
-		}
-
-		virtual RtfBaseHandler* Clone() const
-		{
-			return new RightJustifyHandler(*this);
 		}
 
 
@@ -475,11 +367,6 @@ namespace DoxEngine
       parent->setRtfStyle(style);
 		}
 
-		virtual RtfBaseHandler* Clone() const
-		{
-			return new PlainHandler(*this);
-		}
-
 
   };
 
@@ -495,12 +382,6 @@ namespace DoxEngine
       parent->setRtfStyle(rtfStyle);
 		}
 
-		virtual RtfBaseHandler* Clone() const
-		{
-			return new IntblHandler(*this);
-		}
-
-
   };
 
   class RowHandler : public RtfBaseHandler
@@ -513,12 +394,6 @@ namespace DoxEngine
       parent->commandEndRow();
 		}
 
-		virtual RtfBaseHandler* Clone() const
-		{
-			return new RowHandler(*this);
-		}
-
-
   };
 
 
@@ -530,11 +405,6 @@ namespace DoxEngine
     {
       //cout << "Table cell\n";
       parent->commandEndCell();
-		}
-
-		virtual RtfBaseHandler* Clone() const
-		{
-			return new CellHandler(*this);
 		}
 
   };
@@ -552,11 +422,6 @@ namespace DoxEngine
 
       }
 
-		virtual RtfBaseHandler* Clone() const
-		{
-			return new SbknoneHandler(*this);
-		}
-
   };
 
   class ColsHandler : public RtfBaseHandler
@@ -571,12 +436,6 @@ namespace DoxEngine
 
 		}
 
-		virtual RtfBaseHandler* Clone() const
-		{
-			return new ColsHandler(*this);
-		}
-
-
   };
 
 
@@ -588,12 +447,6 @@ namespace DoxEngine
     {
       parent->commandParagraphDefault();
 		}
-
-		virtual RtfBaseHandler* Clone() const
-		{
-			return new PardHandler(*this);
-		}
-
 
   };
 
