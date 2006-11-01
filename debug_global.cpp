@@ -18,7 +18,7 @@
 #include <ostream>
 #include <iostream>
 #include <stdio.h>
-#include "debug.h"
+#include "debug_global.h"
 
 namespace DoxEngine
 {
