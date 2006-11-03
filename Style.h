@@ -1,7 +1,7 @@
 #ifndef __STYLE_H__
 #define __STYLE_H__
-
-
+#include "DebugLog.h"
+#include "Colour.h"
 namespace DoxEngine
 {
 
@@ -17,23 +17,24 @@ namespace DoxEngine
   class Style
   {
   private:
-    DoxEngine::Justification justification;
-    //int justification;
+    Justification justification;
     bool bold;
     bool italic;
     bool underline;
 
     bool defaultColour;
-    int red, green, blue;
+    Colour colour;
+    DebugLog log;
 
 
   public:
 	Style();
-	virtual ~Style();
+  Style(DebugLog &newLog);
+  Style(const Style &style);
+	~Style();
+    Style& operator=(const Style& rhs);
 
-    Style& operator=(const Style &rhs);
-
-    void setDefault( void );
+      void setDefault( void );
 
     void setBold( bool value );
     void setItalic( bool value );

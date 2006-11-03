@@ -310,7 +310,6 @@
         <FILE FILENAME="FilenameClass.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="FilenameClass" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="TEngineThread.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="TEngineThread" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="TProgressForm.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="TProgressForm" FORMNAME="ProgressForm" DESIGNCLASS=""/>
-        <FILE FILENAME="..\debug.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="debug" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="TAboutForm.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="TAboutForm" FORMNAME="AboutForm" DESIGNCLASS=""/>
         <FILE FILENAME="CheckArguments.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="CheckArguments" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\Colour.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="Colour" FORMNAME="" DESIGNCLASS="" ADDITIONAL="..\Colour.h"/>
@@ -318,6 +317,7 @@
         <FILE FILENAME="..\ReaderFactory.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="ReaderFactory" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\TextReader.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="TextReader" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\shared_ptr.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="shared_ptr" FORMNAME="" DESIGNCLASS="" ADDITIONAL="..\shared_ptr.h"/>
+        <FILE FILENAME="..\DebugLog.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="DebugLog" FORMNAME="" DESIGNCLASS=""/>
       </FILELIST>
       <IDEOPTIONS>
         <VersionInfo>
@@ -326,7 +326,7 @@
           <VersionInfo Name="MajorVer">3</VersionInfo>
           <VersionInfo Name="MinorVer">1</VersionInfo>
           <VersionInfo Name="Release">4</VersionInfo>
-          <VersionInfo Name="Build">73</VersionInfo>
+          <VersionInfo Name="Build">75</VersionInfo>
           <VersionInfo Name="Debug">False</VersionInfo>
           <VersionInfo Name="PreRelease">False</VersionInfo>
           <VersionInfo Name="Special">False</VersionInfo>
@@ -338,7 +338,7 @@
         <VersionInfoKeys>
           <VersionInfoKeys Name="CompanyName">Andrew Punch</VersionInfoKeys>
           <VersionInfoKeys Name="FileDescription">Document converter</VersionInfoKeys>
-          <VersionInfoKeys Name="FileVersion">3.1.4.73</VersionInfoKeys>
+          <VersionInfoKeys Name="FileVersion">3.1.4.75</VersionInfoKeys>
           <VersionInfoKeys Name="InternalName"></VersionInfoKeys>
           <VersionInfoKeys Name="LegalCopyright">Copyright 2004 by Andrew Punch</VersionInfoKeys>
           <VersionInfoKeys Name="LegalTrademarks"></VersionInfoKeys>

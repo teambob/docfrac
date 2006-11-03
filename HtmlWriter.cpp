@@ -7,7 +7,6 @@
 #include "WriterInterface.h"
 #include "HtmlWriter.h"
 #include "Style.h"
-#include "debug_global.h"
 
 namespace DoxEngine
 {
@@ -165,7 +164,7 @@ namespace DoxEngine
   {
 
     if (!styleChanged)
-	  oldStyle = style;
+	    oldStyle = style;
 
 	  styleChanged = true;
     style = newStyle;
@@ -202,20 +201,26 @@ namespace DoxEngine
 	  )
 	  )
 	{
-	  *debugStream<<"Clearing colour\n";
+#ifdef ENABLE_LOG_DEBUG
+	  log[LOG_DEBUG] << DEBUG_ID << "Clearing colour\n";
+#endif
 	  outputStream << "</font>";
 	}
 
 
 	if (!style.getDefaultColour())
 	{
-	  *debugStream << "Not default colour\n";
+#ifdef ENABLE_LOG_DEBUG
+	  log[LOG_DEBUG] << DEBUG_ID << "Not default colour\n";
+#endif
 
 	  if ((oldStyle.getColourRed()!=style.getColourRed())||
 	  (oldStyle.getColourGreen()!=style.getColourGreen())||
 	  (oldStyle.getColourBlue()!=style.getColourBlue()))
 	  {
-		*debugStream << "Colour has changed\n";
+#ifdef ENABLE_LOG_DEBUG
+		log[LOG_DEBUG] << DEBUG_ID << "Colour has changed\n";
+#endif
 
 		outputStream << "<font color=";
 		outputStream << HexToString(style.getColourRed());
@@ -225,7 +230,9 @@ namespace DoxEngine
 	  }
 	  else if (oldStyle.getDefaultColour())
 	  {
-		*debugStream << "Colour is now non-default\n";
+#ifdef ENABLE_LOG_DEBUG
+		log[LOG_DEBUG] << DEBUG_ID << "Colour is now non-default\n";
+#endif    
 		outputStream << "<font color=";
 		outputStream << HexToString(style.getColourRed());
 		outputStream << HexToString(style.getColourGreen());
@@ -233,7 +240,9 @@ namespace DoxEngine
 		outputStream << ">";
 	  }
 
-	  //std::cout << "Finished setting colour\n";
+#ifdef ENABLE_LOG_DEBUG
+	  log[LOG_DEBUG] << DEBUG_ID << "Finished setting colour\n";
+#endif    
 	}
 
 
@@ -251,16 +260,24 @@ namespace DoxEngine
 
 	if (oldStyle.getJustification() != style.getJustification())
 	{
-	  //std::cout << "Justification changed\n";
-	  //if (style->getJustification() == DefaultJustified)
-	  //  std::cout << "No Justification\n";
+#ifdef ENABLE_LOG_DEBUG
+	  log[LOG_DEBUG] << DEBUG_ID << "Justification changed\n";
+#endif    
+
+#ifdef ENABLE_LOG_DEBUG
+	  if (style.getJustification() == DefaultJustified)
+	    log[LOG_DEBUG] << DEBUG_ID << "No Justification\n";
+    else
+#endif
 	  if (style.getJustification() == LeftJustified)
 		outputStream << "<div align=left>";
 	  else if (style.getJustification() == RightJustified)
 		outputStream << "<div align=right>";
 	  else if (style.getJustification() == CentreJustified)
 	  {
-		//std::cout << "Writing centre\n";
+#ifdef ENABLE_LOG_DEBUG
+		log[LOG_DEBUG] << DEBUG_ID << "Writing centre\n";
+#endif    
 		outputStream << "<div align=center>";
 	  }
 	  else if (style.getJustification() == Justified)

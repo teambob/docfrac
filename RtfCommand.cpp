@@ -65,7 +65,6 @@ namespace DoxEngine
 	public:
 		virtual void handleCommand(DoxEngine::RtfReader* parent, int commandValue)
 		{
-			//cout << "Handling \\cf\n";
 			RtfStyle style = parent->getRtfStyle();
 
 			style.setForegroundColour(commandValue);
@@ -319,12 +318,10 @@ namespace DoxEngine
 		virtual void handleCommand(DoxEngine::RtfReader* parent,
 			int commandValue)
 		{
-			//cout << "Centre\n";
 			Style style = parent->getStyle();
 			if (commandValue)
 			{
 				style.setJustification(CentreJustified);
-				//cout << "Centre set\n";
 			}
 			else
 				style.setJustification(DefaultJustified);
@@ -390,7 +387,6 @@ namespace DoxEngine
     virtual void handleCommand(DoxEngine::RtfReader* parent,
       int commandValue)
     {
-      //cout << "Table row\n";
       parent->commandEndRow();
 		}
 
@@ -403,7 +399,6 @@ namespace DoxEngine
     virtual void handleCommand(DoxEngine::RtfReader* parent,
       int commandValue)
     {
-      //cout << "Table cell\n";
       parent->commandEndCell();
 		}
 

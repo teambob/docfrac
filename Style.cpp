@@ -1,37 +1,56 @@
 #include <iostream>
 #include <fstream>
 #include "Style.h"
-#include "debug_global.h"
+
 
 namespace DoxEngine
 {
 
-	Style::Style()
+	Style::Style():log()
 	{
 		setDefault();
 	}
+
+	Style::Style(DebugLog &newLog):log(newLog)
+	{
+		setDefault();
+	}
+
+  Style::Style(const Style &rhs)
+  {
+    justification = rhs.justification;
+    bold = rhs.bold;
+    italic = rhs.italic;
+    underline = rhs.underline;
+
+    colour = rhs.colour;
+    log = rhs.log;
+  }
+
 
 	Style::~Style()
 	{
 
   }
 
-	Style& Style::operator=(const Style &rhs)
-    {
-      if (&rhs == this)
-        return *this;
-
-      bold = rhs.bold;
-      italic = rhs.italic;
-      underline = rhs.underline;
-      justification = rhs.justification;
-      defaultColour = rhs.defaultColour;
-      red = rhs.red;
-      green = rhs.green;
-      blue = rhs.blue;
-
+  Style& Style::operator=(const Style& rhs)
+  {
+    if (this == &rhs)
       return *this;
-    }
+
+
+    justification = rhs.justification;
+    bold = rhs.bold;
+    italic = rhs.italic;
+    underline = rhs.underline;
+
+    colour = rhs.colour;
+    log = rhs.log;
+
+    return *this;
+
+  }
+
 
 
     void Style::setDefault( void )
@@ -40,7 +59,7 @@ namespace DoxEngine
       italic = false;
       underline = false;
       justification = DefaultJustified;
-      defaultColour = true;
+      colour.SetDefault();
 
     }
 
@@ -62,24 +81,33 @@ namespace DoxEngine
 
     void Style::setJustification( Justification value )
     {
-      //std::cout << "Justification being set to " << value << "\n";
+#ifdef ENABLE_LOG_DEBUG
+      log[LOG_DEBUG] << DEBUG_ID << "Justification being set to " << value << "\n";
+#endif
+
       justification = value;
     }
 
     void Style::setColour( void )
     {
-      defaultColour = true;
-      *debugStream<<"Setting default colour\n";
+      colour.SetDefault();
+
+#ifdef ENABLE_LOG_DEBUG
+      log[LOG_DEBUG] << DEBUG_ID <<"Setting default colour\n";
+#endif
     }
+
+    
 
     void Style::setColour( int redValue, int greenValue, int blueValue )
     {
-      defaultColour = false;
+#ifdef ENABLE_LOG_DEBUG
+      log[LOG_DEBUG] << DEBUG_ID << "Setting colour to " << redValue << "," << greenValue << "," << blueValue << "\n";
+#endif
 
-      *debugStream << "Setting colour to " << redValue << "," << greenValue << "," << blueValue << "\n";
-      red = redValue;
-      green = greenValue;
-      blue = blueValue;
+      colour.SetRed(redValue);
+      colour.SetGreen(greenValue);
+      colour.SetBlue(blueValue);
     }
 
 
@@ -101,29 +129,31 @@ namespace DoxEngine
 
     Justification Style::getJustification( void )
     {
-      //std::cout << "Returning justification of " << justification << "\n";
+#ifdef ENABLE_LOG_DEBUG
+      log[LOG_DEBUG] << DEBUG_ID << "Returning justification of " << justification << "\n";
+#endif
       return justification;
     }
 
     int Style::getColourRed( void )
     {
-      return red;
+      return colour.GetRed();
     }
 
     int Style::getColourBlue( void )
     {
-      return blue;
+      return colour.GetBlue();
     }
 
     int Style::getColourGreen( void )
     {
-      return green;
+      return colour.GetGreen();
     }
 
 
     bool Style::getDefaultColour( void )
     {
-      return defaultColour;
+      return colour.IsDefault();
     }
 }
 

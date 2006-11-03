@@ -2,12 +2,10 @@
 #include <vcl.h>
 #pragma hdrstop
 
-#include <vector>
 #include <fstream>
 #include <iostream>
 #include <ios>
 
-#include <errno.h>
 
 #include "Document.h"
 #include "TEngineThread.h"
@@ -15,7 +13,6 @@
 #include "WriterInterface.h"
 #include "WriterFactory.h"
 #include "ReaderFactory.h"
-#include "debug_global.h"
 #pragma package(smart_init)
 
 class ThreadException
@@ -133,7 +130,6 @@ void __fastcall TEngineThread::Execute()
     }
 
     DoxEngine::DebugLog log;
-    DoxEngine::debugStream = &std::cout;
     DoxEngine::ReadInterface *reader = NULL;
     DoxEngine::WriterInterface *writer = NULL;
 

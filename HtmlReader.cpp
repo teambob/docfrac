@@ -10,7 +10,6 @@
 #include "UnicodeCharacter.h"
 #include "HtmlCharacterMap.h"
 
-#include "debug_global.h"
 
 namespace DoxEngine
 {
@@ -116,17 +115,25 @@ namespace DoxEngine
 
     command = command.substr(0, command.find_first_of(" \n"));
 
-    *debugStream << "Line="<<line<<endl;
-    *debugStream << "Command="<<command<<endl;
+#ifdef ENABLE_LOG_DEBUG
+    log[LOG_DEBUG] << DEBUG_ID << "Line="<<line<<endl;
+    log[LOG_DEBUG] << DEBUG_ID << "Command="<<command<<endl;
+#endif
+
     if (!command.compare("BR"))
     {
       writer.writeBreak(LineBreak);
-      *debugStream << "Line break" << endl;
+
+#ifdef ENABLE_LOG_DEBUG
+      log[LOG_DEBUG] << DEBUG_ID << "Line break" << endl;
+#endif
     }
     else if (!command.compare("P"))
     {
       writer.writeBreak(ParagraphBreak);
-      *debugStream << "Paragraph break" << endl;
+#ifdef ENABLE_LOG_DEBUG
+      log[LOG_DEBUG] << DEBUG_ID << "Paragraph break" << endl;
+#endif      
     }
     else if (!command.compare("SCRIPT"))
     {
@@ -195,7 +202,9 @@ namespace DoxEngine
       }
       else
       {
-        *debugStream << "Found escape code:" << code << std::endl;
+#ifdef ENABLE_LOG_DEBUG
+        log[LOG_DEBUG] << DEBUG_ID << "Found escape code:" << code << std::endl;
+#endif        
    	    HtmlCharacterMaps::iterator i = maps.find(code);
 	      if ((i != maps.end())&&(!script)&&(!iframe))
 	      {

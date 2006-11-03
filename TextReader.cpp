@@ -10,7 +10,7 @@
 #include "UnicodeCharacter.h"
 #include "HtmlCharacterMap.h"
 
-#include "debug_global.h"
+
 
 
 namespace DoxEngine

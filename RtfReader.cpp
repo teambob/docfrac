@@ -13,7 +13,6 @@
 #include "RtfCommand.h"
 #include "Style.h"
 #include "RtfStyle.h"
-#include "debug_global.h"
 
 namespace DoxEngine
 {
@@ -33,7 +32,7 @@ namespace DoxEngine
 
 
   RtfReader::RtfReader(std::istream& newStream, WriterInterface& newWriter, DebugLog& newLog):
-    log(newLog)
+    log(newLog),style(newLog)
   {
     writer = &newWriter;
     stream = &newStream;
@@ -57,13 +56,17 @@ namespace DoxEngine
       {
         case '{':
           // push
-          *debugStream << "rtf push" << std::endl;
+#ifdef ENABLE_LOG_DEBUG
+          log[LOG_DEBUG] << DEBUG_ID << "rtf push" << std::endl;
+#endif          
           rtfStack.push(style);
           break;
 
         case '}':
           // pop
-          *debugStream << "rtf pop" << std::endl;
+#ifdef ENABLE_LOG_DEBUG
+          log[LOG_DEBUG] << DEBUG_ID << "rtf pop" << std::endl;
+#endif          
 					style = rtfStack.top();
 					if (rtfStack.size())
 					{
@@ -73,12 +76,15 @@ namespace DoxEngine
 					else
 					{
 							// Mismatched closing brackets
+              log[LOG_WARNING] << DEBUG_ID << "Mismatched closing brackets" << std::endl;
 					}
 				break;
 
 				case '\\':
 					// command
-          *debugStream << "command" << std::endl;
+#ifdef ENABLE_LOG_DEBUG
+          log[LOG_DEBUG] << DEBUG_ID << "command" << std::endl;
+#endif
           readCommand(character);
           break;
 
@@ -89,7 +95,9 @@ namespace DoxEngine
 
         default:
           // character
-          *debugStream << "Writing character" << character << std::endl;
+#ifdef ENABLE_LOG_DEBUG
+          log[LOG_DEBUG] << "Writing character" << character << std::endl;
+#endif          
           flushTable();
           if (character >= 32)
           {
@@ -206,7 +214,9 @@ namespace DoxEngine
   {
   using namespace std;
 
-  //cout << "Handling command: " << inputString << "\n";
+#ifdef ENABLE_LOG_DEBUG
+  log[LOG_DEBUG] << DEBUG_ID << "Handling command: " << inputString << "\n";
+#endif  
 
   if (inputString[1] == '\'')
   {
@@ -229,7 +239,9 @@ namespace DoxEngine
   else
     commandString = inputString.substr(1);
 
-  //cout << "digitIndex = " << digitIndex << "\n";
+#ifdef ENABLE_LOG_DEBUG
+  log[LOG_DEBUG] << DEBUG_ID << "digitIndex = " << digitIndex << "\n";
+#endif
 
   int value;
   if (digitIndex >= inputString.length())
@@ -238,7 +250,6 @@ namespace DoxEngine
   {
     string valueString(inputString, digitIndex);
     value = atoi(valueString.c_str());
-    //value = 1;
   }
 
 
@@ -246,8 +257,8 @@ namespace DoxEngine
 
   if (found != elements.end())
     found->second->handleCommand(this, value);
-  //else
-  //  cout << "Command " << commandString << " not found\n";
+  else
+    log[LOG_INFO] << DEBUG_ID << "Command " << commandString << " not found\n";
 
 
   }
@@ -377,7 +388,9 @@ namespace DoxEngine
 
 	void RtfReader::setStyle( const Style &value )
 	{
-		//cout << "Setting style\n";
+#ifdef ENABLE_DEBUG_LOG
+		log[LOG_DEBUG] << DEBUG_ID << "Setting style\n";
+#endif    
 		style.setStyle(value);
 		writer->setStyle( value );
 	}
@@ -392,7 +405,9 @@ namespace DoxEngine
 
 		while (brackets && stream->good())
 		{
-			//cout << "Colour character = " << character;
+#ifdef ENABLE_LOG_DEBUG
+			log[LOG_DEBUG] << DEBUG_ID << "Colour character = " << character;
+#endif
 
 			if (inputString.length() > 0)
 			{
@@ -408,9 +423,11 @@ namespace DoxEngine
             std::string::size_type digitIndex = inputString.find_first_of("-0123456789", 0);
             std::string commandString(inputString, 1, digitIndex-1);
 
-            //cout << "inputString.length() = " << inputString.length() << "\n";
-            //cout << "digitIndex = " << digitIndex << "\n";
-						//cout << "inputString = " << inputString << "\n";
+#ifdef ENABLE_LOG_DEBUG
+            log[LOG_DEBUG] << DEBUG_ID << "inputString.length() = " << inputString.length() << "\n";
+            log[LOG_DEBUG] << DEBUG_ID << "digitIndex = " << digitIndex << "\n";
+						log[LOG_DEBUG] << DEBUG_ID << "inputString = " << inputString << "\n";
+#endif
 
 						int value;
 
@@ -420,44 +437,59 @@ namespace DoxEngine
             {
               std::string valueString(inputString, digitIndex);
               value = atoi(valueString.c_str());
-              //cout << "value = " << value << "\n";
+#ifdef ENABLE_LOG_DEBUG
+              log[LOG_DEBUG] << DEBUG_ID << "value = " << value << "\n";
+#endif
             }
 
-            //cout << "commandString = \"" << commandString << "\"\n";
-            //cout << "commandString.length() = " << commandString.length() << "\n";
+#ifdef ENABLE_LOG_DEBUG
+            log[LOG_DEBUG] << DEBUG_ID << "commandString = \"" << commandString << "\"\n";
+            log[LOG_DEBUG] << DEBUG_ID << "commandString.length() = " << commandString.length() << "\n";
+#endif
 
 						if (commandString == "red")
 						{
-							//cout << "red\n";
+#ifdef ENABLE_LOG_DEBUG
+							log[LOG_DEBUG] << DEBUG_ID << "red\n";
+#endif
 							style.setRed(value);
             }
             else if (commandString == "green")
             {
-              //cout << "green\n";
+#ifdef ENABLE_LOG_DEBUG
+              log[LOG_DEBUG] << DEBUG_ID << "green\n";
+#endif
 							style.setGreen(value);
             }
             else if (commandString == "blue")
             {
-              //cout << "blue\n";
+#ifdef ENABLE_LOG_DEBUG
+              log[LOG_DEBUG] << DEBUG_ID << "blue\n";
+#endif
               style.setBlue(value);
             }
-            //else
-						//  cout << "Not recognised\n";
+            else
+						  log[LOG_WARNING] << DEBUG_ID << "Not recognised\n";
 
 						inputString.assign("");
           }
           break;
 
           default:
-            //cout << "character = " << character << "\n";
             inputString.append(1, (char)character);
-            //cout << "inputString = " << inputString << "\n";
+#ifdef ENABLE_LOG_DEBUG
+            log[LOG_DEBUG] << DEBUG_ID << "character = " << character << "\n";
+            log[LOG_DEBUG] << DEBUG_ID << "inputString = " << inputString << "\n";
+#endif
           break;
         }
       }
       else
       {
-        //cout << "Contol character: " << character;
+#ifdef ENABLE_LOG_DEBUG
+        log[LOG_DEBUG] << DEBUG_ID << "Contol character: " << character;
+#endif
+
 				switch(character)
 				{
 					case '{':

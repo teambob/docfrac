@@ -5,6 +5,7 @@
 #include <vector>
 #include "Colour.h"
 #include "Style.h"
+#include "DebugLog.h"
 
 namespace DoxEngine
 {
@@ -16,9 +17,11 @@ namespace DoxEngine
 	Colour currentColour;
 	Style style;
   int sectionColumns;
+  DebugLog log;
 
   public:
     RtfStyle();
+    RtfStyle(DebugLog &log);
 	virtual ~RtfStyle();
 
     void setPlain( void );

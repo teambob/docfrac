@@ -11,6 +11,12 @@ namespace DoxEngine
     setSectionPlain();
   }
 
+  RtfStyle::RtfStyle(DebugLog &newLog):log(newLog)
+  {
+    setPlain();
+    setSectionPlain();
+  }
+
 
   RtfStyle::~RtfStyle()
   {
@@ -55,42 +61,54 @@ namespace DoxEngine
 
   void RtfStyle::setRed( int value )
   {
-    //cout << "Setting red to " << value << "\n";
+#ifdef ENABLE_LOG_DEBUG
+    log[LOG_DEBUG] << DEBUG_ID << "Setting red to " << value << "\n";
+#endif
+
 	currentColour.SetRed(value);
   }
 
   void RtfStyle::setGreen( int value )
   {
-    //cout << "Setting green to " << value << "\n";
+#ifdef ENABLE_LOG_DEBUG
+    log[LOG_DEBUG] << DEBUG_ID << "Setting green to " << value << "\n";
+#endif
 	currentColour.SetGreen(value);
   }
 
   void RtfStyle::setBlue( int value )
   {
-    //cout << "Setting blue to " << value << "\n";
+#ifdef ENABLE_LOG_DEBUG
+    log[LOG_DEBUG] << DEBUG_ID << "Setting blue to " << value << "\n";
+#endif
+
     currentColour.SetBlue(value);
   }
 
   void RtfStyle::colourTerminate( void )
   {
-    //cout << "Saving colour table entry\n";
-    //cout << "red = " << redColour << "\n";
-    //cout << "green = " << greenColour << "\n";
-    //cout << "blue = " << blueColour << "\n";
-	colour.push_back(currentColour);
+#ifdef ENABLE_LOG_DEBUG
+    log[LOG_DEBUG] << DEBUG_ID << "Saving colour table entry\n";
+#endif
+
+	  colour.push_back(currentColour);
   }
 
   void RtfStyle::setForegroundColour( int index )
   {
     // Colour index is based on 1
-		//cout << "Setting foreground colour\n";
+#ifdef ENABLE_LOG_DEBUG
+		log[LOG_DEBUG] << DEBUG_ID << "Setting foreground colour\n";
+#endif
+
 		if (index < 0)
 		{
 			// integer index can't be compared to unsigned size if negative
+      log[LOG_WARNING] << DEBUG_ID << "Index cannot be negative\n";
 		}
 		else if (unsigned(index) >= colour.size()) // cast to unsigned
 		{
-			//cout << index << "is beyond bounds (" << redTable->size() << "\n";
+			log[LOG_WARNING] << DEBUG_ID << index << "is beyond bounds (" << colour.size() << "\n";
 		}
 		else
 		{
