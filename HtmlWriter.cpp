@@ -192,14 +192,13 @@ namespace DoxEngine
 	  (oldStyle.getJustification() != DefaultJustified))
 	  outputStream << "</div>";
 
-	if ((!oldStyle.getDefaultColour())&&
+	if ( !oldStyle.getDefaultColour() &&
 	  (
-	  (style.getDefaultColour())||
-	  (oldStyle.getColourRed()!=style.getColourRed())||
-	  (oldStyle.getColourGreen()!=style.getColourGreen())||
-	  (oldStyle.getColourBlue()!=style.getColourBlue())
-	  )
-	  )
+	    style.getDefaultColour() ||
+	    (oldStyle.getColourRed()!=style.getColourRed()) ||
+	    (oldStyle.getColourGreen()!=style.getColourGreen()) ||
+	    (oldStyle.getColourBlue()!=style.getColourBlue())
+	  ) )
 	{
 #ifdef ENABLE_LOG_DEBUG
 	  log[LOG_DEBUG] << DEBUG_ID << "Clearing colour\n";
@@ -214,9 +213,20 @@ namespace DoxEngine
 	  log[LOG_DEBUG] << DEBUG_ID << "Not default colour\n";
 #endif
 
-	  if ((oldStyle.getColourRed()!=style.getColourRed())||
-	  (oldStyle.getColourGreen()!=style.getColourGreen())||
-	  (oldStyle.getColourBlue()!=style.getColourBlue()))
+    if (oldStyle.getDefaultColour())
+	  {
+#ifdef ENABLE_LOG_DEBUG
+		log[LOG_DEBUG] << DEBUG_ID << "Colour is now non-default\n";
+#endif
+		outputStream << "<font color=";
+		outputStream << HexToString(style.getColourRed());
+		outputStream << HexToString(style.getColourGreen());
+		outputStream << HexToString(style.getColourBlue());
+		outputStream << ">";
+	  }
+    else if ( (oldStyle.getColourRed()!=style.getColourRed())||
+	    (oldStyle.getColourGreen()!=style.getColourGreen())||
+	    (oldStyle.getColourBlue()!=style.getColourBlue()))
 	  {
 #ifdef ENABLE_LOG_DEBUG
 		log[LOG_DEBUG] << DEBUG_ID << "Colour has changed\n";
@@ -228,17 +238,7 @@ namespace DoxEngine
 		outputStream << HexToString(style.getColourBlue());
 		outputStream << ">";
 	  }
-	  else if (oldStyle.getDefaultColour())
-	  {
-#ifdef ENABLE_LOG_DEBUG
-		log[LOG_DEBUG] << DEBUG_ID << "Colour is now non-default\n";
-#endif    
-		outputStream << "<font color=";
-		outputStream << HexToString(style.getColourRed());
-		outputStream << HexToString(style.getColourGreen());
-		outputStream << HexToString(style.getColourBlue());
-		outputStream << ">";
-	  }
+
 
 #ifdef ENABLE_LOG_DEBUG
 	  log[LOG_DEBUG] << DEBUG_ID << "Finished setting colour\n";

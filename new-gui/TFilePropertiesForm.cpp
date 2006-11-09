@@ -17,6 +17,32 @@
 #pragma resource "*.dfm"
 TFilePropertiesForm *FilePropertiesForm;
 
+static int CALLBACK BrowseCallbackProc(
+  HWND hwnd,
+  UINT uMsg,
+  LPARAM lParam,
+  LPARAM lpData
+  );
+
+
+
+
+int CALLBACK BrowseCallbackProc(
+  HWND hwnd,
+  UINT uMsg,
+  LPARAM lParam,
+  LPARAM lpData
+  )
+{
+  if (uMsg == BFFM_INITIALIZED)
+  {
+    SendMessage(hwnd, BFFM_SETSELECTION, TRUE, lpData);
+  }
+
+
+}
+
+
 
 
 //---------------------------------------------------------------------------
@@ -96,17 +122,20 @@ void __fastcall TFilePropertiesForm::OutputDirectoryBrowseClick(
 	  TObject *Sender)
 {
 	char Buffer[MAX_PATH];
+  char lastDirectory[MAX_PATH];
 	BROWSEINFO Lpbi; // See MS OLE Reference.
   LPITEMIDLIST PIDL;
+
+  strncpy(lastDirectory, OutputDirectoryEdit->Text.c_str(), MAX_PATH);
 
 
   Lpbi.hwndOwner = Application->DialogHandle; // Window housekeeping
   Lpbi.pidlRoot = NULL;                         // Start from desktop
   Lpbi.pszDisplayName = Buffer;                 // Buffer for value
-  Lpbi.lpszTitle = "Please select an output folder.";
-  Lpbi.ulFlags = 0;   // No restrictions
-  Lpbi.lpfn = NULL;   // No callback
-  Lpbi.lParam = NULL; // No callback
+  Lpbi.lpszTitle = "Please select an output folder";
+  Lpbi.ulFlags = BIF_USENEWUI;     // Allow create folder etc.
+  Lpbi.lpfn = BrowseCallbackProc;  // Set inital directory
+  Lpbi.lParam = reinterpret_cast<long>(lastDirectory);  // Parameter for callback
   Lpbi.iImage = NULL; // No icon return
 
 
@@ -115,7 +144,9 @@ void __fastcall TFilePropertiesForm::OutputDirectoryBrowseClick(
 	{
 		if (SHGetPathFromIDList(PIDL, Buffer))
 		  OutputDirectoryEdit->Text = Buffer;
+      // Should free the PIDL
   }
+
 }
 //---------------------------------------------------------------------------
 

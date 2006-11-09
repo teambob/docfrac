@@ -10,6 +10,7 @@ WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 {
     try
     {
+        CoInitialize(NULL);
         Application->Initialize();
         Application->Title = "DocFrac";
         Application->CreateForm(__classid(TMainForm), &MainForm);
