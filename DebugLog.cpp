@@ -11,12 +11,15 @@
 
 namespace DoxEngine
 {
-   DebugLog::DebugLog()
+
+   // basic_ostream::basic_ostream(NULL) generates a NULL stream
+   DebugLog::DebugLog():nullstream(NULL)
    {
 
    }
 
-   DebugLog::DebugLog(const DebugLog &rhs):defaultStream()
+   // basic_ostream::basic_ostream(NULL) generates a NULL stream   
+   DebugLog::DebugLog(const DebugLog &rhs):nullstream(NULL)
    {
      map = rhs.map;
    }
@@ -47,7 +50,7 @@ namespace DoxEngine
     if (streamIterator != map.end())
       return *(streamIterator->second);
     else
-      return defaultStream;
+      return nullstream;
 
   }
 

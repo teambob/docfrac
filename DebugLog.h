@@ -11,8 +11,6 @@
 
 namespace DoxEngine
 {
-  typedef std::stringstream NullStream;
-
   enum LogLevel
   {
     LOG_DEBUG,
@@ -39,7 +37,7 @@ namespace DoxEngine
       
     private:
       LevelToStreamMap map;
-      NullStream defaultStream;
+      std::ostream nullstream;
 
   };
 }
