@@ -11,6 +11,8 @@ int main(int argc, char* argv[])
 {
   using namespace DoxEngine;
   using namespace std;
+  
+  DebugLog log;
 
   try
   {
@@ -25,13 +27,16 @@ int main(int argc, char* argv[])
     {
 
 
-      ifstream inputStream(argv[1], fstream::in);
-      ofstream outputStream(argv[2], fstream::out);
+      ifstream input(argv[1], fstream::in);
+      ofstream output(argv[2], fstream::out);
 
 
 	  DoxEngine::WriterFactories &writerFactories = DoxEngine::WriterFactoriesSingleton::GetWriterFactories();
 
 	  DoxEngine::WriterFactories::iterator writerIterator = writerFactories.find(FORMAT_RTF);
+
+      DoxEngine::WriterInterface *writer;
+	  
 	  if (writerIterator == writerFactories.end())
 	  {
 	    std::cerr << "Internal error initialising writer";
@@ -41,16 +46,30 @@ int main(int argc, char* argv[])
 	  {
 		// First type is the key (file format)
 		// Second type is the value (factory instance)
-		writer = writerIterator->second->Create(output);
+		writer = writerIterator->second->Create(output, log);
+	  }
+
+ 	  DoxEngine::ReaderFactories &readerFactories = DoxEngine::ReaderFactoriesSingleton::GetReaderFactories();
+
+	  DoxEngine::ReaderFactories::iterator readerIterator = readerFactories.find(FORMAT_HTML);
+      DoxEngine::ReadInterface *reader;
+	  if (readerIterator == readerFactories.end())
+	  {
+		std::cerr << "Internal error initialising reader";
+		break;
+	  }
+	  else
+	  {
+		// First type is the key (file format)
+		// Second type is the value (factory instance)
+		reader = readerIterator->second->Create(input, *writer, log);
 	  }
 
 
-      ReadInterface* reader = doxFactory->createRtfReader(inputStream, *writer);
-
       while(reader->processData());
 
-      delete &reader;
-      delete &writer;
+      delete reader;
+      delete writer;
     }
 
 

@@ -23,7 +23,7 @@
 #include "WriterInterface.h"
 #include "ReaderInterface.h"
 #include "FileFormat.h"
-#include "debug.h"
+#include "DebugLog.h"
 
 
 static void ShowHelp(void);
@@ -35,10 +35,9 @@ int main(int argc, char *argv[])
   char *inFilename, *outFilename;
   int i;
   bool isOutfile = false;
-  std::ofstream nullStream("/dev/null"); /* This will only work under UNIX */
 
   /* No debug by default */
-  DoxEngine::debugStream = &nullStream;
+  DoxEngine::DebugLog log;
   
   if (argc == 1)
   {
@@ -66,8 +65,8 @@ int main(int argc, char *argv[])
       else if (!strcmp(argv[i], "--to-text"))
         outFormat = FORMAT_TEXT;
 
-      else if (!strcmp(argv[i], "--debug"))
-        DoxEngine::debugStream = &(std::cerr);
+      //else if (!strcmp(argv[i], "--debug"))
+      //  DoxEngine::debugStream = &(std::cerr);
 
         
       else
@@ -103,7 +102,7 @@ int main(int argc, char *argv[])
 		{
 			// First type is the key (file format)
 			// Second type is the value (factory instance)
-			writer = writerIterator->second->Create(output);
+			writer = writerIterator->second->Create(output, log);
 		}
 
 
@@ -120,7 +119,7 @@ int main(int argc, char *argv[])
 		{
 			// First type is the key (file format)
 			// Second type is the value (factory instance)
-			reader = readerIterator->second->Create(input, *writer);
+			reader = readerIterator->second->Create(input, *writer, log);
 		}
 
 
