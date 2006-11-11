@@ -1,7 +1,7 @@
 READER_OBJ=ReaderInterface.o RtfReader.o RtfCommand.o HtmlReader.o\
  HtmlCharacterMap.o TextReader.o
 WRITER_OBJ=WriterInterface.o TextWriter.o HtmlWriter.o HtmlWriter.o RtfWriter.o
-HELPER_OBJ=UnicodeCharacter.o Style.o RtfStyle.o debug.o Colour.o
+HELPER_OBJ=UnicodeCharacter.o Style.o RtfStyle.o DebugLog.o Colour.o
 OBJ=WriterFactory.o ReaderFactory.o ${HELPER_OBJ} ${READER_OBJ} ${WRITER_OBJ}
 LIB=libdox.a
 TARGETS=test testtxt testhtml docfrac

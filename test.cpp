@@ -2,7 +2,8 @@
 #include <fstream>
 #include <stdlib.h>
 
-#include "DoxFactory.h"
+#include "WriterFactory.h"
+#include "ReaderFactory.h"
 #include "ReaderInterface.h"
 #include "WriterInterface.h"
 
@@ -28,9 +29,22 @@ int main(int argc, char* argv[])
       ofstream outputStream(argv[2], fstream::out);
 
 
-      DoxFactory* doxFactory = DoxFactory::instance();
+	  DoxEngine::WriterFactories &writerFactories = DoxEngine::WriterFactoriesSingleton::GetWriterFactories();
 
-      WriterInterface* writer = doxFactory->createHtmlWriter(outputStream);
+	  DoxEngine::WriterFactories::iterator writerIterator = writerFactories.find(FORMAT_RTF);
+	  if (writerIterator == writerFactories.end())
+	  {
+	    std::cerr << "Internal error initialising writer";
+		break;
+	  }
+	  else
+	  {
+		// First type is the key (file format)
+		// Second type is the value (factory instance)
+		writer = writerIterator->second->Create(output);
+	  }
+
+
       ReadInterface* reader = doxFactory->createRtfReader(inputStream, *writer);
 
       while(reader->processData());
