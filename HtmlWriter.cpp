@@ -188,8 +188,9 @@ namespace DoxEngine
 	  outputStream << "</u>";
 
 
-	if ((oldStyle.getJustification() != style.getJustification())&&
-	  (oldStyle.getJustification() != DefaultJustified))
+	if (oldStyle.getJustification() != style.getJustification() &&
+	    oldStyle.getJustification() != DefaultJustified &&
+      oldStyle.getJustification() != LeftJustified)
 	  outputStream << "</div>";
 
 	if ( !oldStyle.getDefaultColour() &&
@@ -258,30 +259,39 @@ namespace DoxEngine
 	  outputStream << "<u>";
 
 
-	if (oldStyle.getJustification() != style.getJustification())
+
+  Justification oldJustification = oldStyle.getJustification();
+  Justification newJustification = style.getJustification();
+
+  if (oldJustification == DefaultJustified)
+    oldJustification = LeftJustified;
+
+  if (newJustification == DefaultJustified)
+    newJustification = LeftJustified;
+
+
+	if (oldJustification != newJustification)
 	{
 #ifdef ENABLE_LOG_DEBUG
 	  log[LOG_DEBUG] << DEBUG_ID << "Justification changed\n";
-#endif    
-
-#ifdef ENABLE_LOG_DEBUG
-	  if (style.getJustification() == DefaultJustified)
-	    log[LOG_DEBUG] << DEBUG_ID << "No Justification\n";
-    else
 #endif
-	  if (style.getJustification() == LeftJustified)
-		outputStream << "<div align=left>";
+
+	  if (style.getJustification() == DefaultJustified ||
+	    style.getJustification() == LeftJustified)
+    {
+
+    }
 	  else if (style.getJustification() == RightJustified)
-		outputStream << "<div align=right>";
+		  outputStream << "<div align=right>";
 	  else if (style.getJustification() == CentreJustified)
 	  {
 #ifdef ENABLE_LOG_DEBUG
-		log[LOG_DEBUG] << DEBUG_ID << "Writing centre\n";
-#endif    
-		outputStream << "<div align=center>";
+		  log[LOG_DEBUG] << DEBUG_ID << "Writing centre\n";
+#endif
+		  outputStream << "<div align=center>";
 	  }
 	  else if (style.getJustification() == Justified)
-		outputStream << "<div align=justify>";
+		  outputStream << "<div align=justify>";
 	}
 
 

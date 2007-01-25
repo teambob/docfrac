@@ -26,6 +26,7 @@
         <property category="build.config.1" name="type" value="Toolset"/>
         <property category="build.config.1" name="win32.win32b.builddir" value="Release_Build"/>
         <property category="build.node" name="dontverifylibs" value="0"/>
+        <property category="build.node" name="lastconfig" value="Release_Build"/>
         <property category="build.node" name="libraries" value="vcl.lib rtl.lib"/>
         <property category="build.node" name="name" value="NewDocfrac.exe"/>
         <property category="build.node" name="packages" value="vclx;rtl;vcl;dbrtl;vcldb;bdertl;vcldbx;bcbsmp;teeui;vclsmp;teedb;tee;inetdb;inet"/>
@@ -326,7 +327,7 @@
           <VersionInfo Name="MajorVer">3</VersionInfo>
           <VersionInfo Name="MinorVer">1</VersionInfo>
           <VersionInfo Name="Release">4</VersionInfo>
-          <VersionInfo Name="Build">75</VersionInfo>
+          <VersionInfo Name="Build">78</VersionInfo>
           <VersionInfo Name="Debug">False</VersionInfo>
           <VersionInfo Name="PreRelease">False</VersionInfo>
           <VersionInfo Name="Special">False</VersionInfo>
@@ -338,7 +339,7 @@
         <VersionInfoKeys>
           <VersionInfoKeys Name="CompanyName">Andrew Punch</VersionInfoKeys>
           <VersionInfoKeys Name="FileDescription">Document converter</VersionInfoKeys>
-          <VersionInfoKeys Name="FileVersion">3.1.4.75</VersionInfoKeys>
+          <VersionInfoKeys Name="FileVersion">3.1.4.78</VersionInfoKeys>
           <VersionInfoKeys Name="InternalName"></VersionInfoKeys>
           <VersionInfoKeys Name="LegalCopyright">Copyright 2004 by Andrew Punch</VersionInfoKeys>
           <VersionInfoKeys Name="LegalTrademarks"></VersionInfoKeys>
