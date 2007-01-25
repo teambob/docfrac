@@ -67,9 +67,9 @@ namespace DoxEngine
 #ifdef ENABLE_LOG_DEBUG
           log[LOG_DEBUG] << DEBUG_ID << "rtf pop" << std::endl;
 #endif          
-					style = rtfStack.top();
 					if (rtfStack.size())
 					{
+					  style = rtfStack.top();
 						rtfStack.pop();
 						writer->setStyle(style.getStyle());
 					}
@@ -126,18 +126,48 @@ namespace DoxEngine
 	void RtfReader::readCommand(char inputCharacter)
 	{
 		std::string inputString;
+    const std::string escapedCharacters = "\\{}";
 		char character;
 
-		// need to check for \{ \} \\
+
 		inputString.append(1, inputCharacter);
+
+    // Command must be at least two characters long
+    stream->get(character);
+    if (stream->good())
+    {
+      inputString.append(1, character);
+
+		  // need to check for \{ \} \\
+      if (escapedCharacters.find(character) != escapedCharacters.npos)
+      {
+        handleCommand(inputString);
+        return;
+      } 
+    }
+    else
+    {
+      // Read failed
+      return;
+    }
+
 
  	  stream->get(character);
 		while (stream->good())
 		{
-
-      if (isdigit(character))
+      if (inputString.compare("\\\'") == 0)
       {
-        // this is the parameter for the command
+					// Numeric representation of a character in hex
+					inputString.append(1, character);
+					stream->get(character);
+					inputString.append(1, character);
+					handleCommand(inputString);
+					return;
+      }
+      else if (isdigit(character))
+      {
+        // this is the numeric parameter for the command
+        // cannot be hex: decimal only
         while (isdigit(character) && stream->good())
         {
           inputString.append(1, character);
@@ -146,60 +176,47 @@ namespace DoxEngine
 
         if (!isspace(character))
           stream->putback(character);
-          
+
         handleCommand(inputString);
         return;
       }
+      else
+      {
 
-      
-			switch(character)
-			{
-				case '\'':
-				{
-					// Numeric representation of a character
-					inputString.append(1, character);
-					stream->get(character);
-					inputString.append(1, character);
-					stream->get(character);
-					inputString.append(1, character);
-					handleCommand(inputString);
-					return;
-				}
+  			switch(character)
+	  		{
+
+		  		case '\\':
+			  	{
+				  	stream->putback(character);
+  					handleCommand(inputString);
+	  				return;
+		  		}
 
 
-				case '\\':
-				{
-					stream->putback(character);
-					handleCommand(inputString);
-					return;
-				}
+  				case '{':
+	  			case '}':
+  				case ';':
+	  			{
+		  			stream->putback(character);
+			  		handleCommand(inputString);
+				  	return;
+  				}
 
+	  			case ' ':
+		  		case '\r':
+			  	case '\n':
+  				{
+	  				handleCommand(inputString);
+		  			return;
+			  	}
 
-				case '{':
-				case '}':
-				case ';':
-				{
-					stream->putback(character);
-					handleCommand(inputString);
-					return;
-				}
+  				default:
+	  				inputString.append(1, character);
+		  		break;
 
-				case ' ':
-				case '\r':
-				case '\n':
-				{
-					handleCommand(inputString);
-					return;
-				}
-
-				default:
-					inputString.append(1, character);
-				break;
-
-
-
+        }
       }
-
       stream->get(character);
     }
 
@@ -220,8 +237,9 @@ namespace DoxEngine
 
   if (inputString[1] == '\'')
   {
-    unsigned long value =
-     (hexToInt(inputString[2])<<4)+hexToInt(inputString[3]);
+    unsigned int lsd = hexToInt(inputString[3]);
+    unsigned int msd = hexToInt(inputString[2]);
+    unsigned long value = msd << 4 | lsd;
 
     UnicodeCharacter character(value);
 
