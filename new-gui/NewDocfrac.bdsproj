@@ -319,6 +319,7 @@
         <FILE FILENAME="..\TextReader.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="TextReader" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\shared_ptr.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="shared_ptr" FORMNAME="" DESIGNCLASS="" ADDITIONAL="..\shared_ptr.h"/>
         <FILE FILENAME="..\DebugLog.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="DebugLog" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\HtmlTag.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="HtmlTag" FORMNAME="" DESIGNCLASS="" ADDITIONAL="..\HtmlTag.h"/>
       </FILELIST>
       <IDEOPTIONS>
         <VersionInfo>

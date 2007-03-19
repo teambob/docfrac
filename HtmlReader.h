@@ -2,6 +2,7 @@
 #define HtmlReaderH
 
 #include "HtmlCharacterMap.h"
+#include "HtmlTag.h"
 #include "DebugLog.h"
 
 namespace DoxEngine
@@ -21,7 +22,6 @@ namespace DoxEngine
 
       void readCommand(void);
       void readCharacter(void);
-      void readComment(void);
 
 
     public:

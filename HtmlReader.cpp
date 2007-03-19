@@ -2,6 +2,9 @@
 #include <algorithm>
 #include <vector>
 #include <iostream>
+#include <iterator>
+#include <cctype>
+
 
 #include "ReaderInterface.h"
 #include "HtmlReader.h"
@@ -91,36 +94,27 @@ namespace DoxEngine
   {
     using namespace std;
     string line, command;
-    char character;
+    HtmlTag tag(stream);
 
-    stream.get(character);
-    while(stream.good() && character != '>' )
-    {
-      line.append(1, character);
-      if (line=="!--")  // '<' has been thrown away, comment
-      {
-        readComment();
-        return;
-      }
 
-      stream.get(character);
-    }
+    command = tag.GetElement();
 
-    std::string::iterator i;
+    // Warning W8091: known bug in Borland 
+    std::transform(
+      command.begin(),
+      command.end(),
+      //std::back_inserter(commandLower),
+      command.begin(),
+      std::tolower);
 
-    for(i=line.begin();i!=line.end();i++)
-    {
-      command += (char)toupper(*i); // Convert command to upper case
-    }
 
-    command = command.substr(0, command.find_first_of(" \n"));
 
 #ifdef ENABLE_LOG_DEBUG
     log[LOG_DEBUG] << DEBUG_ID << "Line="<<line<<endl;
     log[LOG_DEBUG] << DEBUG_ID << "Command="<<command<<endl;
 #endif
 
-    if (!command.compare("BR"))
+    if (!command.compare("br"))
     {
       writer.writeBreak(LineBreak);
 
@@ -128,24 +122,24 @@ namespace DoxEngine
       log[LOG_DEBUG] << DEBUG_ID << "Line break" << endl;
 #endif
     }
-    else if (!command.compare("P"))
+    else if (!command.compare("p"))
     {
       writer.writeBreak(ParagraphBreak);
 #ifdef ENABLE_LOG_DEBUG
       log[LOG_DEBUG] << DEBUG_ID << "Paragraph break" << endl;
 #endif      
     }
-    else if (!command.compare("SCRIPT"))
+    else if (!command.compare("script"))
     {
       script = true;
     }
-    else if (!command.compare("/SCRIPT"))
+    else if (!command.compare("/script"))
     {
       script = false;
     }
-    else if (!command.compare("IFRAME"))
+    else if (!command.compare("iframe"))
       iframe = true;
-    else if (!command.compare("/IFRAME"))
+    else if (!command.compare("/iframe"))
       iframe = false;
 
 
@@ -215,20 +209,6 @@ namespace DoxEngine
 
   }
 
-  void HtmlReader::readComment(void)
-  {
-    using namespace std;
-    string line, commentEnd="-->";
-
-		for (unsigned i=0;stream.good()&&(i<commentEnd.length());i++)
-      line.append(1, (char)stream.get());
-
-	while(stream.good()&&(line!=commentEnd))
-    {
-      line = line.substr(1, line.npos);
-      line.append(1, (char)stream.get());
-    }
-  }
 
 }
 

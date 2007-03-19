@@ -30,7 +30,7 @@ docfrac: main.o libdox.a
 .PHONY: clean build install
 
 clean:
-	rm -f ${OBJ} ${LIB} ${TARGETS} testhtml.o testtext.o test.o main.o
+	rm -f ${OBJ} ${LIB} ${TARGETS} testhtml.o testtxt.o test.o main.o
 
 build: clean all
 
