@@ -4,7 +4,8 @@
 #include <iostream>
 #include <iterator>
 #include <cctype>
-
+#include <string>
+#include <istream>
 
 #include "ReaderInterface.h"
 #include "HtmlReader.h"
@@ -18,13 +19,13 @@ namespace DoxEngine
 {
 
 
-
   HtmlReader::HtmlReader(std::istream& newStream, WriterInterface& newWriter, DebugLog &newLog)
-	:stream(newStream), writer(newWriter), log(newLog)
+	:stream(&newStream),writer(newWriter), log(newLog)
   {
     lineEmpty = true;
     script = false;
     iframe = false;
+    startOfFile = true;
   }
 
 
@@ -33,9 +34,22 @@ namespace DoxEngine
   {
     char character;
 
-	  stream.get(character);
 
-    if (!stream.good())
+
+	  stream->get( character );
+
+    // Windows often puts a UTF8 BOM at the beginning of a file
+    if ( startOfFile && ( character == BYTE_ORDER_MARK_UTF8_BYTE1 ) )
+    {
+      stream->get();
+      stream->get();
+      startOfFile = false;
+      return true;
+    }
+    else
+      startOfFile = false;
+
+    if (!stream->good())
       return false;
 
     switch(character)
@@ -75,7 +89,7 @@ namespace DoxEngine
       break;
     }
 
-    return stream.good();
+    return stream->good();
 
   }
 
@@ -94,18 +108,15 @@ namespace DoxEngine
   {
     using namespace std;
     string line, command;
-    HtmlTag tag(stream);
+    HtmlTag tag(*stream);
 
 
     command = tag.GetElement();
 
-    // Warning W8091: known bug in Borland 
-    std::transform(
-      command.begin(),
-      command.end(),
-      //std::back_inserter(commandLower),
-      command.begin(),
-      std::tolower);
+    for (string::iterator i=command.begin();i != command.end();i++)
+    {
+      *i = std::tolower(*i);
+    }
 
 
 
@@ -114,34 +125,12 @@ namespace DoxEngine
     log[LOG_DEBUG] << DEBUG_ID << "Command="<<command<<endl;
 #endif
 
-    if (!command.compare("br"))
-    {
-      writer.writeBreak(LineBreak);
+    HtmlCommands::iterator i = commands.find(command);
 
-#ifdef ENABLE_LOG_DEBUG
-      log[LOG_DEBUG] << DEBUG_ID << "Line break" << endl;
-#endif
-    }
-    else if (!command.compare("p"))
+    if (i != commands.end())
     {
-      writer.writeBreak(ParagraphBreak);
-#ifdef ENABLE_LOG_DEBUG
-      log[LOG_DEBUG] << DEBUG_ID << "Paragraph break" << endl;
-#endif      
+      i->second->handleCommand(*this, tag);
     }
-    else if (!command.compare("script"))
-    {
-      script = true;
-    }
-    else if (!command.compare("/script"))
-    {
-      script = false;
-    }
-    else if (!command.compare("iframe"))
-      iframe = true;
-    else if (!command.compare("/iframe"))
-      iframe = false;
-
 
 
   }
@@ -152,27 +141,27 @@ namespace DoxEngine
     string code("");
     char c;
 
-    stream.get(c);
+    stream->get(c);
 
-    while(stream.good() && c != ';')
+    while(stream->good() && c != ';')
     {
 
       // Handle entities missing a terminating semicolon
       if (isalnum(c) || c == '#')
       {
         code.append(1, c);
-        stream.get(c);
+        stream->get(c);
       }
       else
       {
-        stream.putback(c);
+        stream->putback(c);
         break;
       }
 
     }
 
 
-  if (stream.good())
+  if (stream->good())
   {
       if (code.find("#x") == 0 || code.find("#X") == 0)
       {
@@ -208,6 +197,31 @@ namespace DoxEngine
     }
 
   }
+      WriterInterface& HtmlReader::GetWriterReference()
+      {
+        return writer;
+      }
+
+      Style HtmlReader::GetStyle()
+      {
+        return style;
+      }
+
+      void HtmlReader::SetStyle( const Style &value )
+      {
+        style = value;
+        writer.setStyle(style);
+      }
+
+      void HtmlReader::SetScript( bool value )
+      {
+        script = value;
+      }
+
+      void HtmlReader::SetIframe( bool value )
+      {
+        iframe = value;
+      }
 
 
 }

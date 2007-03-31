@@ -33,6 +33,8 @@ namespace DoxEngine
   Style(const Style &style);
 	~Style();
     Style& operator=(const Style& rhs);
+    bool operator==(const Style& rhs) const;
+    bool operator!=(const Style& rhs) const;
 
       void setDefault( void );
 
@@ -43,14 +45,14 @@ namespace DoxEngine
     void setColour( void );
     void setColour( int redValue, int greenValue, int blueValue );
 
-    bool getBold( void );
-    bool getItalic( void );
-    bool getUnderline( void );
-    Justification getJustification( void );
-    bool getDefaultColour( void );
-    int getColourRed( void );
-    int getColourBlue( void );
-    int getColourGreen( void );
+    bool getBold( void ) const;
+    bool getItalic( void ) const;
+    bool getUnderline( void ) const;
+    Justification getJustification( void ) const;
+    bool getDefaultColour( void ) const;
+    int getColourRed( void ) const;
+    int getColourBlue( void ) const;
+    int getColourGreen( void ) const;
 
   };
 }

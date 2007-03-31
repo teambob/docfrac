@@ -19,6 +19,7 @@
 #define __RTF_WRITER_H__
 
 #include "DebugLog.h"
+#include "Style.h"
 
 namespace DoxEngine
 {
@@ -28,6 +29,7 @@ namespace DoxEngine
     private:
       std::ostream* outputStream;
       DebugLog& log;
+      Style style;
 
     public:
       RtfWriter(std::ostream& stream, DebugLog& newLog);

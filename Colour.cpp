@@ -63,4 +63,12 @@ namespace DoxEngine
 	return blue;
   }
 
+
+  bool Colour::operator==( const Colour &rhs ) const
+  {
+    return
+      blue == rhs.blue
+      && green == rhs.green
+      && red == rhs.red;
+  }
 }

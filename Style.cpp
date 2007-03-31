@@ -112,22 +112,22 @@ namespace DoxEngine
 
 
 
-    bool Style::getBold( void )
+    bool Style::getBold( void ) const
     {
       return bold;
     }
 
-    bool Style::getItalic( void )
+    bool Style::getItalic( void ) const
     {
       return italic;
     }
 
-    bool Style::getUnderline( void )
+    bool Style::getUnderline( void ) const
     {
       return underline;
     }
 
-    Justification Style::getJustification( void )
+    Justification Style::getJustification( void ) const
     {
 #ifdef ENABLE_LOG_DEBUG
       log[LOG_DEBUG] << DEBUG_ID << "Returning justification of " << justification << "\n";
@@ -135,25 +135,41 @@ namespace DoxEngine
       return justification;
     }
 
-    int Style::getColourRed( void )
+    int Style::getColourRed( void ) const
     {
       return colour.GetRed();
     }
 
-    int Style::getColourBlue( void )
+    int Style::getColourBlue( void ) const
     {
       return colour.GetBlue();
     }
 
-    int Style::getColourGreen( void )
+    int Style::getColourGreen( void ) const
     {
       return colour.GetGreen();
     }
 
 
-    bool Style::getDefaultColour( void )
+    bool Style::getDefaultColour( void ) const
     {
       return colour.IsDefault();
+    }
+
+    bool Style::operator==(const Style& rhs) const
+    {
+      return
+        justification == rhs.justification
+        && bold == rhs.bold
+        && italic == rhs.italic
+        && underline == rhs.underline
+        && defaultColour == rhs.defaultColour
+        && ( defaultColour || colour == rhs.colour );
+    }
+
+    bool Style::operator!=(const Style& rhs) const
+    {
+      return !( *this == rhs );
     }
 }
 

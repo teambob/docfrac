@@ -320,6 +320,7 @@
         <FILE FILENAME="..\shared_ptr.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="shared_ptr" FORMNAME="" DESIGNCLASS="" ADDITIONAL="..\shared_ptr.h"/>
         <FILE FILENAME="..\DebugLog.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="DebugLog" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="..\HtmlTag.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="HtmlTag" FORMNAME="" DESIGNCLASS="" ADDITIONAL="..\HtmlTag.h"/>
+        <FILE FILENAME="..\HtmlCommand.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="HtmlCommand" FORMNAME="" DESIGNCLASS="" ADDITIONAL="..\HtmlCommand.h"/>
       </FILELIST>
       <IDEOPTIONS>
         <VersionInfo>
@@ -328,7 +329,7 @@
           <VersionInfo Name="MajorVer">3</VersionInfo>
           <VersionInfo Name="MinorVer">1</VersionInfo>
           <VersionInfo Name="Release">4</VersionInfo>
-          <VersionInfo Name="Build">78</VersionInfo>
+          <VersionInfo Name="Build">79</VersionInfo>
           <VersionInfo Name="Debug">False</VersionInfo>
           <VersionInfo Name="PreRelease">False</VersionInfo>
           <VersionInfo Name="Special">False</VersionInfo>
@@ -340,7 +341,7 @@
         <VersionInfoKeys>
           <VersionInfoKeys Name="CompanyName">Andrew Punch</VersionInfoKeys>
           <VersionInfoKeys Name="FileDescription">Document converter</VersionInfoKeys>
-          <VersionInfoKeys Name="FileVersion">3.1.4.78</VersionInfoKeys>
+          <VersionInfoKeys Name="FileVersion">3.1.4.79</VersionInfoKeys>
           <VersionInfoKeys Name="InternalName"></VersionInfoKeys>
           <VersionInfoKeys Name="LegalCopyright">Copyright 2004 by Andrew Punch</VersionInfoKeys>
           <VersionInfoKeys Name="LegalTrademarks"></VersionInfoKeys>

@@ -21,6 +21,8 @@ namespace DoxEngine
 		int GetGreen() const;
 		int GetBlue() const;
 
+    bool operator==( const Colour &rhs ) const;
+
 	private:
 	  bool redDefault, greenDefault, blueDefault;
 	  int red, green, blue;

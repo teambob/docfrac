@@ -239,7 +239,7 @@ namespace DoxEngine
   {
     unsigned int lsd = hexToInt(inputString[3]);
     unsigned int msd = hexToInt(inputString[2]);
-    unsigned long value = msd << 4 | lsd;
+    unsigned long value = (msd << 4) | lsd;
 
     UnicodeCharacter character(value);
 

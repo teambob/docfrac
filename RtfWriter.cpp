@@ -27,11 +27,11 @@ namespace DoxEngine
   
 
 RtfWriter::RtfWriter(std::ostream& stream, DebugLog& newLog):
-  log(newLog)
+  log(newLog),WriterInterface()
 {
   outputStream = &stream;
 
-  *outputStream << "{\\rtf\\ansi";
+  *outputStream << "{\\rtf\\ansi{";
 }
 
 
@@ -49,7 +49,7 @@ void RtfWriter::writeTable(TableType table)
 
 RtfWriter::~RtfWriter()
 {
-  *outputStream << "}";
+  *outputStream << "}}";
 }
 
 
@@ -64,6 +64,28 @@ void RtfWriter::writeBreak(BreakType type)
 
 void RtfWriter::setStyle( const Style &newStyle )
 {
+  if (newStyle != style)
+  {
+    *outputStream << "}{";
+
+    // Write out character styles
+    if (newStyle.getBold())
+    {
+      *outputStream << "\\b ";
+    }
+
+    if (newStyle.getItalic())
+    {
+      *outputStream << "\\i ";
+    }
+
+    if (newStyle.getUnderline())
+    {
+      *outputStream << "\\ul ";
+    }
+
+  }
+
 
 }
 
