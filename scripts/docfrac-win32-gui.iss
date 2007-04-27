@@ -3,7 +3,7 @@ Source: ..\new-gui\NewDocfrac.exe; DestDir: {app}; Flags: 32bit
 [Setup]
 AppName=DocFrac
 AppCopyright=Copyright 2006 Andrew Punch
-AppVerName=3.1.4
+AppVerName=3.1.5
 DefaultDirName={pf}\DocFrac\
 DefaultGroupName=DocFrac
 ShowLanguageDialog=yes

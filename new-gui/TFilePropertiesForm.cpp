@@ -39,6 +39,7 @@ int CALLBACK BrowseCallbackProc(
     SendMessage(hwnd, BFFM_SETSELECTION, TRUE, lpData);
   }
 
+  return 0;
 
 }
 

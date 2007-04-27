@@ -329,7 +329,7 @@
           <VersionInfo Name="MajorVer">3</VersionInfo>
           <VersionInfo Name="MinorVer">1</VersionInfo>
           <VersionInfo Name="Release">4</VersionInfo>
-          <VersionInfo Name="Build">79</VersionInfo>
+          <VersionInfo Name="Build">80</VersionInfo>
           <VersionInfo Name="Debug">False</VersionInfo>
           <VersionInfo Name="PreRelease">False</VersionInfo>
           <VersionInfo Name="Special">False</VersionInfo>
@@ -341,7 +341,7 @@
         <VersionInfoKeys>
           <VersionInfoKeys Name="CompanyName">Andrew Punch</VersionInfoKeys>
           <VersionInfoKeys Name="FileDescription">Document converter</VersionInfoKeys>
-          <VersionInfoKeys Name="FileVersion">3.1.4.79</VersionInfoKeys>
+          <VersionInfoKeys Name="FileVersion">3.1.4.80</VersionInfoKeys>
           <VersionInfoKeys Name="InternalName"></VersionInfoKeys>
           <VersionInfoKeys Name="LegalCopyright">Copyright 2004 by Andrew Punch</VersionInfoKeys>
           <VersionInfoKeys Name="LegalTrademarks"></VersionInfoKeys>

@@ -44,7 +44,27 @@ void RtfWriter::writeChar(const UnicodeCharacter& character)
 
 void RtfWriter::writeTable(TableType table)
 {
+  // RTF table out requires further investiagtion
+  switch(table)
+  {
+    case TableStart:
+    break;
 
+    case TableEnd:
+    break;
+
+    case TableRowStart:
+    break;
+
+    case TableRowEnd:
+    break;
+
+    case TableCellStart:
+    break;
+
+    case TableCellEnd:
+    break;
+  }
 }
 
 RtfWriter::~RtfWriter()

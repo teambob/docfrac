@@ -26,11 +26,11 @@ namespace DoxEngine
       HtmlTag( std::istream &in );
       HtmlTag( std::ostream &out );
 
-      std::string GetParameter( std::string &name );
-      void SetParameter( std::string &name, std::string &value );
+      std::string GetParameter( const std::string &name );
+      void SetParameter( const std::string &name, const std::string &value );
 
       std::string GetElement();
-      void SetElement( std::string &value );
+      void SetElement( const std::string &value );
 
       bool IsBeginning();
       bool IsEnd();

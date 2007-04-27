@@ -22,13 +22,13 @@ HtmlTag::HtmlTag( std::ostream &out )
   WriteTag( out );
 }
 
-std::string HtmlTag::GetParameter( std::string &name )
+std::string HtmlTag::GetParameter( const std::string &name )
 {
   HtmlTagParameters::iterator i = parameters.find( name );
   return i->second;
 }
 
-void HtmlTag::SetParameter( std::string &name, std::string &value )
+void HtmlTag::SetParameter( const std::string &name, const std::string &value )
 {
   parameters.insert( HtmlTagParameters::value_type(name, value) );
 }
@@ -38,7 +38,7 @@ std::string HtmlTag::GetElement()
   return element;
 }
 
-void HtmlTag::SetElement( std::string &value )
+void HtmlTag::SetElement( const std::string &value )
 {
   element = value;
 }
