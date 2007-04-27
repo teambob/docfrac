@@ -8,7 +8,7 @@
 #include "HtmlReader.h"
 
 //---------------------------------------------------------------------------
-
+#undef ENABLE_LOG_DEBUG
 #pragma package(smart_init)
 
 /* Notes for future refactoring:

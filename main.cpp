@@ -16,6 +16,7 @@
  ***************************************************************************/
 
 #include <iostream>
+#include <cstdio>
 #include <fstream>
 #include <string.h>
 #include "WriterFactory.h"
@@ -65,9 +66,14 @@ int main(int argc, char *argv[])
       else if (!strcmp(argv[i], "--to-text"))
         outFormat = FORMAT_TEXT;
 
-      //else if (!strcmp(argv[i], "--debug"))
-      //  DoxEngine::debugStream = &(std::cerr);
-
+      else if (!strcmp(argv[i], "--debug"))
+	  {
+#ifdef ENABLE_LOG_DEBUG
+        log.SetStream(DoxEngine::LOG_DEBUG, std::cerr);
+#else
+		std::cerr << "Compile option ENABLE_DEBUG_LOG required" << std::endl;
+#endif
+	  }
         
       else
       {
@@ -88,11 +94,18 @@ int main(int argc, char *argv[])
         std::ofstream output(outFilename);
         DoxEngine::WriterInterface *writer;
         DoxEngine::ReadInterface *reader;
+		
+#ifdef ENABLE_LOG_DEBUG
+		std::cerr << "HTML format: " << FORMAT_HTML << std::endl;
+		std::cerr << "Input format: " << inFormat << std::endl;
+		std::cerr << "Output format: " << outFormat << std::endl;
+#endif		
+		
 
         
 		DoxEngine::WriterFactories &writerFactories = DoxEngine::WriterFactoriesSingleton::GetWriterFactories();
 
-		DoxEngine::WriterFactories::iterator writerIterator = writerFactories.find(inFormat);
+		DoxEngine::WriterFactories::iterator writerIterator = writerFactories.find(outFormat);
 		if (writerIterator == writerFactories.end())
 		{
 			std::cerr << "Internal error initialising writer";
@@ -103,13 +116,16 @@ int main(int argc, char *argv[])
 			// First type is the key (file format)
 			// Second type is the value (factory instance)
 			writer = writerIterator->second->Create(output, log);
+#ifdef ENABLE_LOG_DEBUG			
+			std::cerr << "Verify out format: "<< writerIterator->first << std::endl;
+#endif			
 		}
 
 
 
 		DoxEngine::ReaderFactories &readerFactories = DoxEngine::ReaderFactoriesSingleton::GetReaderFactories();
 
-		DoxEngine::ReaderFactories::iterator readerIterator = readerFactories.find(outFormat);
+		DoxEngine::ReaderFactories::iterator readerIterator = readerFactories.find(inFormat);
 		if (readerIterator == readerFactories.end())
 		{
 			std::cerr << "Internal error initialising reader";
@@ -120,6 +136,10 @@ int main(int argc, char *argv[])
 			// First type is the key (file format)
 			// Second type is the value (factory instance)
 			reader = readerIterator->second->Create(input, *writer, log);
+#ifdef ENABLE_LOG_DEBUG
+			std::cerr << "Verify in format: "<< readerIterator->first << std::endl;
+#endif			
+
 		}
 
 

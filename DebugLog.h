@@ -31,9 +31,9 @@ namespace DoxEngine
       DebugLog& operator=(const  DebugLog &rhs);
 
       // Note: DebugLog does not take ownership or copy of stream
-      void SetStream(LogLevel level, std::ostream &stream);
-      std::ostream& GetStream(LogLevel level);
-      std::ostream& operator[](LogLevel level);
+      void SetStream(const LogLevel level, std::ostream &stream);
+      std::ostream& GetStream(const LogLevel level);
+      std::ostream& operator[](const LogLevel level);
       
     private:
       LevelToStreamMap map;

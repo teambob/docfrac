@@ -5,6 +5,8 @@
 //---------------------------------------------------------------------------
 #include <map>
 #include <string>
+#include <istream>
+#include <ostream>
 
 
 namespace DoxEngine

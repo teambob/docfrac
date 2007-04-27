@@ -39,12 +39,12 @@ namespace DoxEngine
    }
 
   // Note: DebugLog does not take ownership or copy of stream
-  void DebugLog::SetStream(LogLevel level, std::ostream &stream)
+  void DebugLog::SetStream(const LogLevel level, std::ostream &stream)
   {
     map.insert(LevelToStreamMap::value_type(level, &stream));
   }
 
-  std::ostream& DebugLog::GetStream(LogLevel level)
+  std::ostream& DebugLog::GetStream(const LogLevel level)
   {
     LevelToStreamMap::iterator streamIterator = map.find(level);
     if (streamIterator != map.end())
@@ -54,7 +54,7 @@ namespace DoxEngine
 
   }
 
-  std::ostream& DebugLog::operator[](LogLevel level)
+  std::ostream& DebugLog::operator[](const LogLevel level)
   {
     return GetStream(level);
   }

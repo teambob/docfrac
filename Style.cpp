@@ -130,7 +130,7 @@ namespace DoxEngine
     Justification Style::getJustification( void ) const
     {
 #ifdef ENABLE_LOG_DEBUG
-      log[LOG_DEBUG] << DEBUG_ID << "Returning justification of " << justification << "\n";
+      //log[LOG_DEBUG] << DEBUG_ID << "Returning justification of " << justification << "\n";
 #endif
       return justification;
     }
