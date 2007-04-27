@@ -11,7 +11,7 @@
 	<CPlusPlusBuilder.Personality>
 		<BCBPROJECT>
       <project version="10.0">
-        <property category="build.config" name="active" value="0"/>
+        <property category="build.config" name="active" value="1"/>
         <property category="build.config" name="count" value="1"/>
         <property category="build.config" name="excludedefaultforzero" value="0"/>
         <property category="build.config.0" name="builddir" value="Debug"/>
@@ -328,8 +328,8 @@
           <VersionInfo Name="AutoIncBuild">True</VersionInfo>
           <VersionInfo Name="MajorVer">3</VersionInfo>
           <VersionInfo Name="MinorVer">1</VersionInfo>
-          <VersionInfo Name="Release">4</VersionInfo>
-          <VersionInfo Name="Build">80</VersionInfo>
+          <VersionInfo Name="Release">5</VersionInfo>
+          <VersionInfo Name="Build">83</VersionInfo>
           <VersionInfo Name="Debug">False</VersionInfo>
           <VersionInfo Name="PreRelease">False</VersionInfo>
           <VersionInfo Name="Special">False</VersionInfo>
@@ -341,7 +341,7 @@
         <VersionInfoKeys>
           <VersionInfoKeys Name="CompanyName">Andrew Punch</VersionInfoKeys>
           <VersionInfoKeys Name="FileDescription">Document converter</VersionInfoKeys>
-          <VersionInfoKeys Name="FileVersion">3.1.4.80</VersionInfoKeys>
+          <VersionInfoKeys Name="FileVersion">3.1.5.83</VersionInfoKeys>
           <VersionInfoKeys Name="InternalName"></VersionInfoKeys>
           <VersionInfoKeys Name="LegalCopyright">Copyright 2004 by Andrew Punch</VersionInfoKeys>
           <VersionInfoKeys Name="LegalTrademarks"></VersionInfoKeys>
