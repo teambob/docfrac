@@ -6,7 +6,9 @@ OBJ=WriterFactory.o ReaderFactory.o ${HELPER_OBJ} ${READER_OBJ} ${WRITER_OBJ}
 LIB=libdox.a
 TARGETS=test testtxt testhtml docfrac
 
-CPPFLAGS=-c -g -Os -DENABLE_LOG_DEBUG
+
+CPPFLAGS=-c -O2
+#CPPFLAGS=-c -O2 -g -DENABLE_LOG_DEBUG
 
 all: ${LIB} ${TARGETS}
 
@@ -15,16 +17,16 @@ libdox.a: ${OBJ}
 	ar -Pcr $@ $^
 
 testhtml: testhtml.o libdox.a
-	gcc -o $@ $^ -lstdc++
+	g++ -o $@ $^
 
 testtxt: testtxt.o libdox.a
-	gcc -o $@ $^ -lstdc++
+	g++ -o $@ $^
 
 test: test.o libdox.a
-	gcc -o $@ $^ -lstdc++
+	g++ -o $@ $^
 
 docfrac: main.o libdox.a
-	gcc -o $@ $^ -lstdc++
+	g++ -o $@ $^
 
   
 .PHONY: clean build install

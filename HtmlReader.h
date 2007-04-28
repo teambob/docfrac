@@ -50,7 +50,7 @@ namespace DoxEngine
       void SetStyle( const Style &value );
       void SetScript( bool value );
       void SetIframe( bool value );
-      WriterInterface& HtmlReader::GetWriterReference();
+      WriterInterface& GetWriterReference();
 
   };
 

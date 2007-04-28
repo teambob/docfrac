@@ -6,6 +6,8 @@
 #include <stdlib.h>
 #include <ctype.h>
 
+#include <string.h>
+
 #include "ReaderInterface.h"
 #include "RtfReader.h"
 #include "WriterInterface.h"
@@ -13,6 +15,7 @@
 #include "RtfCommand.h"
 #include "Style.h"
 #include "RtfStyle.h"
+
 
 namespace DoxEngine
 {
@@ -139,9 +142,18 @@ namespace DoxEngine
       inputString.append(1, character);
 
 		  // need to check for \{ \} \\
-      if (escapedCharacters.find(character) != escapedCharacters.npos)
+
+#ifdef ENABLE_LOG_DEBUG	  
+	  log[LOG_DEBUG] << "Escaped characters:" << escapedCharacters << std::endl;
+	  log[LOG_DEBUG] << "Character:" << character << std::endl;
+#endif
+	  
+	  if (escapedCharacters.find(character) != std::string::npos)
       {
-        handleCommand(inputString);
+#ifdef ENABLE_LOG_DEBUG
+        log[LOG_DEBUG] << "Escaped character" << std::endl;
+#endif        
+		handleCommand(inputString);
         return;
       } 
     }
