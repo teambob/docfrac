@@ -6,7 +6,7 @@
 #include <map>
 #include "Document.h"
 #include "AddNewFiles.h"
-#include "../ExtensionToFormatMap.h"
+#include "../core/ExtensionToFormatMap.h"
 #include "TFilePropertiesForm.h"
 
 

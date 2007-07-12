@@ -16,7 +16,7 @@
 #include "FilenameClass.h"
 
 
-#include "../ExtensionToFormatMap.h"
+#include "../core/ExtensionToFormatMap.h"
 
 #include "TMainForm.h"
 #include "TEngineThread.h"

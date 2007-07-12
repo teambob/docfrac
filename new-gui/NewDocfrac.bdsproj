@@ -178,12 +178,13 @@
           <property category="win32.*.win32b.bcc32" name="option.D.arg.1" value="NO_WIN32_LEAN_AND_MEAN"/>
           <property category="win32.*.win32b.bcc32" name="option.D.arg.merge" value="1"/>
           <property category="win32.*.win32b.bcc32" name="option.D.enabled" value="1"/>
-          <property category="win32.*.win32b.bcc32" name="option.I.arg.1" value="..\boost"/>
-          <property category="win32.*.win32b.bcc32" name="option.I.arg.2" value="..\"/>
-          <property category="win32.*.win32b.bcc32" name="option.I.arg.3" value=".."/>
-          <property category="win32.*.win32b.bcc32" name="option.I.arg.4" value="$(BDS)\include"/>
-          <property category="win32.*.win32b.bcc32" name="option.I.arg.5" value="$(BDS)\include\vcl"/>
-          <property category="win32.*.win32b.bcc32" name="option.I.arg.6" value="$(BDS)\include\dinkumware"/>
+          <property category="win32.*.win32b.bcc32" name="option.I.arg.1" value="..\core"/>
+          <property category="win32.*.win32b.bcc32" name="option.I.arg.2" value="..\boost"/>
+          <property category="win32.*.win32b.bcc32" name="option.I.arg.3" value="..\"/>
+          <property category="win32.*.win32b.bcc32" name="option.I.arg.4" value=".."/>
+          <property category="win32.*.win32b.bcc32" name="option.I.arg.5" value="$(BDS)\include"/>
+          <property category="win32.*.win32b.bcc32" name="option.I.arg.6" value="$(BDS)\include\vcl"/>
+          <property category="win32.*.win32b.bcc32" name="option.I.arg.7" value="$(BDS)\include\dinkumware"/>
           <property category="win32.*.win32b.bcc32" name="option.I.arg.merge" value="1"/>
           <property category="win32.*.win32b.bcc32" name="option.I.enabled" value="1"/>
           <property category="win32.*.win32b.bcc32" name="option.O1.enabled" value="0"/>
@@ -220,45 +221,52 @@
           <property category="win32.*.win32b.brcc32" name="option.INCLUDEPATH.enabled" value="1"/>
           <property category="win32.*.win32b.dcc32" name="option.$D.enabled" value="0"/>
           <property category="win32.*.win32b.dcc32" name="option.$L.enabled" value="0"/>
-          <property category="win32.*.win32b.dcc32" name="option.I.arg.1" value="..\boost"/>
-          <property category="win32.*.win32b.dcc32" name="option.I.arg.2" value="..\"/>
+          <property category="win32.*.win32b.dcc32" name="option.I.arg.1" value="..\core"/>
+          <property category="win32.*.win32b.dcc32" name="option.I.arg.2" value="..\boost"/>
+          <property category="win32.*.win32b.dcc32" name="option.I.arg.3" value="..\"/>
           <property category="win32.*.win32b.dcc32" name="option.I.arg.merge" value="1"/>
           <property category="win32.*.win32b.dcc32" name="option.I.enabled" value="0"/>
           <property category="win32.*.win32b.dcc32" name="option.M.enabled" value="1"/>
-          <property category="win32.*.win32b.dcc32" name="option.O.arg.1" value="..\boost"/>
-          <property category="win32.*.win32b.dcc32" name="option.O.arg.2" value="..\"/>
+          <property category="win32.*.win32b.dcc32" name="option.O.arg.1" value="..\core"/>
+          <property category="win32.*.win32b.dcc32" name="option.O.arg.2" value="..\boost"/>
+          <property category="win32.*.win32b.dcc32" name="option.O.arg.3" value="..\"/>
           <property category="win32.*.win32b.dcc32" name="option.O.arg.merge" value="1"/>
           <property category="win32.*.win32b.dcc32" name="option.O.enabled" value="0"/>
-          <property category="win32.*.win32b.dcc32" name="option.R.arg.1" value="..\boost"/>
-          <property category="win32.*.win32b.dcc32" name="option.R.arg.2" value="..\"/>
+          <property category="win32.*.win32b.dcc32" name="option.R.arg.1" value="..\core"/>
+          <property category="win32.*.win32b.dcc32" name="option.R.arg.2" value="..\boost"/>
+          <property category="win32.*.win32b.dcc32" name="option.R.arg.3" value="..\"/>
           <property category="win32.*.win32b.dcc32" name="option.R.arg.merge" value="1"/>
           <property category="win32.*.win32b.dcc32" name="option.R.enabled" value="0"/>
-          <property category="win32.*.win32b.dcc32" name="option.U.arg.1" value="..\boost"/>
-          <property category="win32.*.win32b.dcc32" name="option.U.arg.2" value="..\"/>
-          <property category="win32.*.win32b.dcc32" name="option.U.arg.3" value=".\"/>
-          <property category="win32.*.win32b.dcc32" name="option.U.arg.4" value="$(BDS)\lib"/>
-          <property category="win32.*.win32b.dcc32" name="option.U.arg.5" value="$(BDS)\lib\obj"/>
+          <property category="win32.*.win32b.dcc32" name="option.U.arg.1" value="..\core"/>
+          <property category="win32.*.win32b.dcc32" name="option.U.arg.2" value="..\boost"/>
+          <property category="win32.*.win32b.dcc32" name="option.U.arg.3" value="..\"/>
+          <property category="win32.*.win32b.dcc32" name="option.U.arg.4" value=".\"/>
+          <property category="win32.*.win32b.dcc32" name="option.U.arg.5" value="$(BDS)\lib"/>
+          <property category="win32.*.win32b.dcc32" name="option.U.arg.6" value="$(BDS)\lib\obj"/>
           <property category="win32.*.win32b.dcc32" name="option.U.arg.merge" value="1"/>
           <property category="win32.*.win32b.dcc32" name="option.U.enabled" value="1"/>
           <property category="win32.*.win32b.dcc32" name="param.filenames.merge" value="1"/>
-          <property category="win32.*.win32b.idl2cpp" name="option.I.arg.1" value="..\boost"/>
-          <property category="win32.*.win32b.idl2cpp" name="option.I.arg.2" value="..\"/>
+          <property category="win32.*.win32b.idl2cpp" name="option.I.arg.1" value="..\core"/>
+          <property category="win32.*.win32b.idl2cpp" name="option.I.arg.2" value="..\boost"/>
+          <property category="win32.*.win32b.idl2cpp" name="option.I.arg.3" value="..\"/>
           <property category="win32.*.win32b.idl2cpp" name="option.I.arg.merge" value="1"/>
           <property category="win32.*.win32b.idl2cpp" name="option.I.enabled" value="1"/>
-          <property category="win32.*.win32b.ilink32" name="option.L.arg.1" value="..\boost"/>
-          <property category="win32.*.win32b.ilink32" name="option.L.arg.2" value="..\"/>
-          <property category="win32.*.win32b.ilink32" name="option.L.arg.3" value="..\..\docfra~1.0"/>
-          <property category="win32.*.win32b.ilink32" name="option.L.arg.4" value="..\..\docfrac-3.1.0"/>
-          <property category="win32.*.win32b.ilink32" name="option.L.arg.5" value="$(BDS)\lib"/>
-          <property category="win32.*.win32b.ilink32" name="option.L.arg.6" value=".."/>
-          <property category="win32.*.win32b.ilink32" name="option.L.arg.7" value="$(BDS)\lib\obj"/>
+          <property category="win32.*.win32b.ilink32" name="option.L.arg.1" value="..\core"/>
+          <property category="win32.*.win32b.ilink32" name="option.L.arg.2" value="..\boost"/>
+          <property category="win32.*.win32b.ilink32" name="option.L.arg.3" value="..\"/>
+          <property category="win32.*.win32b.ilink32" name="option.L.arg.4" value="..\..\docfra~1.0"/>
+          <property category="win32.*.win32b.ilink32" name="option.L.arg.5" value="..\..\docfrac-3.1.0"/>
+          <property category="win32.*.win32b.ilink32" name="option.L.arg.6" value="$(BDS)\lib"/>
+          <property category="win32.*.win32b.ilink32" name="option.L.arg.7" value=".."/>
+          <property category="win32.*.win32b.ilink32" name="option.L.arg.8" value="$(BDS)\lib\obj"/>
           <property category="win32.*.win32b.ilink32" name="option.L.arg.merge" value="1"/>
           <property category="win32.*.win32b.ilink32" name="option.L.enabled" value="1"/>
           <property category="win32.*.win32b.ilink32" name="option.Tpe.enabled" value="1"/>
           <property category="win32.*.win32b.ilink32" name="option.aa.enabled" value="1"/>
           <property category="win32.*.win32b.ilink32" name="option.dynamicrtl.enabled" value="0"/>
-          <property category="win32.*.win32b.ilink32" name="option.j.arg.1" value="..\boost"/>
-          <property category="win32.*.win32b.ilink32" name="option.j.arg.2" value="..\"/>
+          <property category="win32.*.win32b.ilink32" name="option.j.arg.1" value="..\core"/>
+          <property category="win32.*.win32b.ilink32" name="option.j.arg.2" value="..\boost"/>
+          <property category="win32.*.win32b.ilink32" name="option.j.arg.3" value="..\"/>
           <property category="win32.*.win32b.ilink32" name="option.j.arg.merge" value="1"/>
           <property category="win32.*.win32b.ilink32" name="option.j.enabled" value="0"/>
           <property category="win32.*.win32b.ilink32" name="option.outputdir.arg.1" value="."/>
@@ -294,33 +302,33 @@
         <FILE FILENAME="Document.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="Document" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="TFilePropertiesForm.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="TFilePropertiesForm" FORMNAME="FilePropertiesForm" DESIGNCLASS=""/>
         <FILE FILENAME="TMainForm.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="TMainForm" FORMNAME="MainForm" DESIGNCLASS=""/>
-        <FILE FILENAME="..\WriterInterface.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="WriterInterface" FORMNAME="" DESIGNCLASS=""/>
-        <FILE FILENAME="..\HtmlCharacterMap.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="HtmlCharacterMap" FORMNAME="" DESIGNCLASS=""/>
-        <FILE FILENAME="..\HtmlReader.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="HtmlReader" FORMNAME="" DESIGNCLASS=""/>
-        <FILE FILENAME="..\HtmlWriter.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="HtmlWriter" FORMNAME="" DESIGNCLASS=""/>
-        <FILE FILENAME="..\ReaderInterface.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="ReaderInterface" FORMNAME="" DESIGNCLASS=""/>
-        <FILE FILENAME="..\RtfCommand.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="RtfCommand" FORMNAME="" DESIGNCLASS=""/>
-        <FILE FILENAME="..\RtfReader.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="RtfReader" FORMNAME="" DESIGNCLASS=""/>
-        <FILE FILENAME="..\RtfStyle.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="RtfStyle" FORMNAME="" DESIGNCLASS=""/>
-        <FILE FILENAME="..\RtfWriter.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="RtfWriter" FORMNAME="" DESIGNCLASS=""/>
-        <FILE FILENAME="..\Style.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="Style" FORMNAME="" DESIGNCLASS=""/>
-        <FILE FILENAME="..\TextWriter.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="TextWriter" FORMNAME="" DESIGNCLASS=""/>
-        <FILE FILENAME="..\UnicodeCharacter.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="UnicodeCharacter" FORMNAME="" DESIGNCLASS=""/>
-        <FILE FILENAME="..\ExtensionToFormatMap.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="ExtensionToFormatMap" FORMNAME="" DESIGNCLASS=""/>
-        <FILE FILENAME="..\FormatToExtensionMap.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="FormatToExtensionMap" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="FilenameClass.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="FilenameClass" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="TEngineThread.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="TEngineThread" FORMNAME="" DESIGNCLASS=""/>
         <FILE FILENAME="TProgressForm.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="TProgressForm" FORMNAME="ProgressForm" DESIGNCLASS=""/>
         <FILE FILENAME="TAboutForm.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="TAboutForm" FORMNAME="AboutForm" DESIGNCLASS=""/>
         <FILE FILENAME="CheckArguments.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="CheckArguments" FORMNAME="" DESIGNCLASS=""/>
-        <FILE FILENAME="..\Colour.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="Colour" FORMNAME="" DESIGNCLASS="" ADDITIONAL="..\Colour.h"/>
-        <FILE FILENAME="..\WriterFactory.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="WriterFactory" FORMNAME="" DESIGNCLASS="" ADDITIONAL="..\WriterFactory.h"/>
-        <FILE FILENAME="..\ReaderFactory.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="ReaderFactory" FORMNAME="" DESIGNCLASS=""/>
-        <FILE FILENAME="..\TextReader.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="TextReader" FORMNAME="" DESIGNCLASS=""/>
-        <FILE FILENAME="..\shared_ptr.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="shared_ptr" FORMNAME="" DESIGNCLASS="" ADDITIONAL="..\shared_ptr.h"/>
-        <FILE FILENAME="..\DebugLog.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="DebugLog" FORMNAME="" DESIGNCLASS=""/>
-        <FILE FILENAME="..\HtmlTag.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="HtmlTag" FORMNAME="" DESIGNCLASS="" ADDITIONAL="..\HtmlTag.h"/>
-        <FILE FILENAME="..\HtmlCommand.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="HtmlCommand" FORMNAME="" DESIGNCLASS="" ADDITIONAL="..\HtmlCommand.h"/>
+        <FILE FILENAME="..\core\Colour.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="Colour" FORMNAME="" DESIGNCLASS="" ADDITIONAL="..\core\Colour.h"/>
+        <FILE FILENAME="..\core\DebugLog.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="DebugLog" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\core\ExtensionToFormatMap.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="ExtensionToFormatMap" FORMNAME="" DESIGNCLASS="" ADDITIONAL="..\core\ExtensionToFormatMap.h"/>
+        <FILE FILENAME="..\core\FormatToExtensionMap.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="FormatToExtensionMap" FORMNAME="" DESIGNCLASS="" ADDITIONAL="..\core\FormatToExtensionMap.h"/>
+        <FILE FILENAME="..\core\HtmlCharacterMap.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="HtmlCharacterMap" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\core\HtmlCommand.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="HtmlCommand" FORMNAME="" DESIGNCLASS="" ADDITIONAL="..\core\HtmlCommand.h"/>
+        <FILE FILENAME="..\core\HtmlReader.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="HtmlReader" FORMNAME="" DESIGNCLASS="" ADDITIONAL="..\core\HtmlReader.h"/>
+        <FILE FILENAME="..\core\HtmlTag.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="HtmlTag" FORMNAME="" DESIGNCLASS="" ADDITIONAL="..\core\HtmlTag.h"/>
+        <FILE FILENAME="..\core\HtmlWriter.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="HtmlWriter" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\core\ReaderFactory.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="ReaderFactory" FORMNAME="" DESIGNCLASS="" ADDITIONAL="..\core\ReaderFactory.h"/>
+        <FILE FILENAME="..\core\ReaderInterface.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="ReaderInterface" FORMNAME="" DESIGNCLASS="" ADDITIONAL="..\core\ReaderInterface.h"/>
+        <FILE FILENAME="..\core\RtfCommand.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="RtfCommand" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\core\RtfReader.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="RtfReader" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\core\RtfStyle.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="RtfStyle" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\core\RtfWriter.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="RtfWriter" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\core\shared_ptr.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="shared_ptr" FORMNAME="" DESIGNCLASS="" ADDITIONAL="..\core\shared_ptr.h"/>
+        <FILE FILENAME="..\core\Style.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="Style" FORMNAME="" DESIGNCLASS=""/>
+        <FILE FILENAME="..\core\TextReader.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="TextReader" FORMNAME="" DESIGNCLASS="" ADDITIONAL="..\core\TextReader.h"/>
+        <FILE FILENAME="..\core\TextWriter.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="TextWriter" FORMNAME="" DESIGNCLASS="" ADDITIONAL="..\core\TextWriter.h"/>
+        <FILE FILENAME="..\core\UnicodeCharacter.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="UnicodeCharacter" FORMNAME="" DESIGNCLASS="" ADDITIONAL="..\core\UnicodeCharacter.h"/>
+        <FILE FILENAME="..\core\WriterFactory.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="WriterFactory" FORMNAME="" DESIGNCLASS="" ADDITIONAL="..\core\WriterFactory.h"/>
+        <FILE FILENAME="..\core\WriterInterface.cpp" CONTAINERID="CCompiler" LOCALCOMMAND="" UNITNAME="WriterInterface" FORMNAME="" DESIGNCLASS="" ADDITIONAL="..\core\WriterInterface.h"/>
       </FILELIST>
       <IDEOPTIONS>
         <VersionInfo>
@@ -329,7 +337,7 @@
           <VersionInfo Name="MajorVer">3</VersionInfo>
           <VersionInfo Name="MinorVer">1</VersionInfo>
           <VersionInfo Name="Release">5</VersionInfo>
-          <VersionInfo Name="Build">83</VersionInfo>
+          <VersionInfo Name="Build">84</VersionInfo>
           <VersionInfo Name="Debug">False</VersionInfo>
           <VersionInfo Name="PreRelease">False</VersionInfo>
           <VersionInfo Name="Special">False</VersionInfo>
@@ -341,7 +349,7 @@
         <VersionInfoKeys>
           <VersionInfoKeys Name="CompanyName">Andrew Punch</VersionInfoKeys>
           <VersionInfoKeys Name="FileDescription">Document converter</VersionInfoKeys>
-          <VersionInfoKeys Name="FileVersion">3.1.5.83</VersionInfoKeys>
+          <VersionInfoKeys Name="FileVersion">3.1.5.84</VersionInfoKeys>
           <VersionInfoKeys Name="InternalName"></VersionInfoKeys>
           <VersionInfoKeys Name="LegalCopyright">Copyright 2004 by Andrew Punch</VersionInfoKeys>
           <VersionInfoKeys Name="LegalTrademarks"></VersionInfoKeys>
