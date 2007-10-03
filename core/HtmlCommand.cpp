@@ -1,15 +1,12 @@
 //---------------------------------------------------------------------------
 
 
-#pragma hdrstop
-
 #include "HtmlCommand.h"
 #include "WriterInterface.h"
 #include "HtmlReader.h"
 
 //---------------------------------------------------------------------------
 #undef ENABLE_LOG_DEBUG
-#pragma package(smart_init)
 
 /* Notes for future refactoring:
   * Change HtmlBaseHandler so that the interface has three methods for

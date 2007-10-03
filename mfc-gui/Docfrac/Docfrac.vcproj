@@ -44,11 +44,12 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
+				AdditionalIncludeDirectories=".;..\..\core\"
 				PreprocessorDefinitions="WIN32;_WINDOWS;_DEBUG"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
-				UsePrecompiledHeader="2"
+				UsePrecompiledHeader="0"
 				WarningLevel="3"
 				Detect64BitPortabilityProblems="true"
 				DebugInformationFormat="4"
@@ -126,6 +127,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
+				AdditionalIncludeDirectories="..\core\"
 				PreprocessorDefinitions="WIN32;_WINDOWS;NDEBUG"
 				MinimalRebuild="false"
 				RuntimeLibrary="2"
@@ -190,11 +192,163 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
+				RelativePath="..\..\core\Colour.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\core\Colour.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\core\DebugLog.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\core\DebugLog.h"
+				>
+			</File>
+			<File
 				RelativePath=".\Docfrac.cpp"
 				>
 			</File>
 			<File
 				RelativePath=".\DocfracDlg.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Document.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Document.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\core\ExtensionToFormatMap.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\core\ExtensionToFormatMap.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\core\FileFormat.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\core\FileFormat.h"
+				>
+			</File>
+			<File
+				RelativePath=".\FilenameClass.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\FilePropertiesDlg.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\core\FormatToExtensionMap.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\core\FormatToExtensionMap.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\core\HtmlCharacterMap.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\core\HtmlCharacterMap.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\core\HtmlCommand.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\core\HtmlCommand.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\core\HtmlReader.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\core\HtmlReader.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\core\HtmlTag.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\core\HtmlTag.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\core\HtmlWriter.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\core\HtmlWriter.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\core\ReaderFactory.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\core\ReaderFactory.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\core\ReaderInterface.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\core\ReaderInterface.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\core\RtfCommand.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\core\RtfCommand.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\core\RtfReader.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\core\RtfReader.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\core\RtfStyle.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\core\RtfStyle.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\core\RtfWriter.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\core\RtfWriter.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\core\shared_ptr.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\core\shared_ptr.h"
 				>
 			</File>
 			<File
@@ -218,11 +372,59 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath="..\..\core\Style.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\core\Style.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\core\TextReader.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\core\TextReader.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\core\TextWriter.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\core\TextWriter.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\core\UnicodeCharacter.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\core\UnicodeCharacter.h"
+				>
+			</File>
+			<File
 				RelativePath=".\WinMgr.cpp"
 				>
 			</File>
 			<File
 				RelativePath=".\WinRect.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\core\WriterFactory.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\core\WriterFactory.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\core\WriterInterface.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\core\WriterInterface.h"
 				>
 			</File>
 		</Filter>
@@ -237,6 +439,10 @@
 			</File>
 			<File
 				RelativePath=".\DocfracDlg.h"
+				>
+			</File>
+			<File
+				RelativePath=".\FilePropertiesDlg.h"
 				>
 			</File>
 			<File

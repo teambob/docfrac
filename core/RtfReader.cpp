@@ -141,7 +141,7 @@ namespace DoxEngine
     {
       inputString.append(1, character);
 
-		  // need to check for \{ \} \\
+		  // need to check for "\{ \} \\"
 
 #ifdef ENABLE_LOG_DEBUG	  
 	  log[LOG_DEBUG] << "Escaped characters:" << escapedCharacters << std::endl;

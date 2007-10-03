@@ -4,7 +4,7 @@
 #pragma once
 #include "winmgr.h"
 #include "afxcmn.h"
-
+#include "Document.h"
 
 // CDocfracDlg dialog
 class CDocfracDlg : public CDialog
@@ -40,4 +40,13 @@ protected:
 public:
 	afx_msg void OnMenuSelect(UINT nItemID, UINT nFlags, HMENU hSysMenu);
 	afx_msg void OnFileAddfiles();
+private:
+	Documents m_documents;
+	// Update list, menus and status bar
+	void UpdateDisplay(void);
+	// Add batch item to list control
+	void AddBatchItem(tstring input, tstring output);
+	bool AddNewFiles(Documents &newDocuments);
+public:
+	afx_msg void OnFileConvert();
 };

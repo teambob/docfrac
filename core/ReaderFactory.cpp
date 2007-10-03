@@ -1,7 +1,7 @@
 //---------------------------------------------------------------------------
 
 
-#pragma hdrstop
+
 #include "ReaderFactory.h"
 #include "WriterFactory.h"
 #include "RtfReader.h"
@@ -10,7 +10,7 @@
 
 //---------------------------------------------------------------------------
 
-#pragma package(smart_init)
+
 
 namespace DoxEngine
 {

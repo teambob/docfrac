@@ -1,23 +1,22 @@
 //---------------------------------------------------------------------------
-#include <vcl.h>
-#pragma hdrstop
+
 
 #include <map>
 #include <string>
 #include "ExtensionToFormatMap.h"
 
 //---------------------------------------------------------------------------
-#pragma package(smart_init)
+
 
 namespace DoxEngine
 {
   ExtensionToFormatMap::ExtensionToFormatMap()
-   :std::map<const std::string, FileFormat>()
+   :std::map<const tstring, FileFormat>()
   {
-    (*this)["rtf"] = FORMAT_RTF;
-    (*this)["txt"] = FORMAT_TEXT;
-    (*this)["text"] = FORMAT_TEXT;
-    (*this)["html"] = FORMAT_HTML;
-    (*this)["htm"] = FORMAT_HTML;
+    (*this)[TEXT("rtf")] = FORMAT_RTF;
+    (*this)[TEXT("txt")] = FORMAT_TEXT;
+    (*this)[TEXT("text")] = FORMAT_TEXT;
+    (*this)[TEXT("html")] = FORMAT_HTML;
+    (*this)[TEXT("htm")] = FORMAT_HTML;
   }
 }

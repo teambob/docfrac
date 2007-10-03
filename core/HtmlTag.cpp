@@ -1,14 +1,13 @@
 //---------------------------------------------------------------------------
 
 
-#pragma hdrstop
 
 #include <istream>
 #include "HtmlTag.h"
 
 //---------------------------------------------------------------------------
 
-#pragma package(smart_init)
+
 
 namespace DoxEngine
 {
@@ -82,19 +81,28 @@ void HtmlTag::ReadTag( std::istream &in )
     in.get(character);
   }
 
-  // Tag: <[/]element [parameter] ... [/]>
-  // First '/' indicates end tag, final '/' indicates self-contained tag
 
-  // Process element and start/end indication
-  if (line.at(0) == '/')
-  {
-    element = line.substr(1, line.find_first_of(" \n"));
+  // Tag: <[/]element [parameter] ... [/]>
+
+  // First '/' indicates end tag, final '/' indicates self-contained tag
+
+
+  // Process element and start/end indication
+
+  if (line.at(0) == '/')
+
+  {
+
+    element = line.substr(1, line.find_first_of(" \n"));
     beginning = false;
     end = true;
   }
-  else
-  {
-    element = line.substr(0, line.find_first_of(" \n"));
+
+  else
+
+  {
+
+    element = line.substr(0, line.find_first_of(" \n"));
     if (line.at( line.size() - 1 ) == '/')
     {
       beginning = true;

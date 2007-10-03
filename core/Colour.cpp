@@ -1,13 +1,12 @@
 //---------------------------------------------------------------------------
 
 
-#pragma hdrstop
 
 #include "Colour.h"
 #include <assert.h>
 //---------------------------------------------------------------------------
 
-#pragma package(smart_init)
+
 namespace DoxEngine
 {
   Colour::Colour()

@@ -1,7 +1,7 @@
 #ifndef __TSTRING_H__
 #define __TSTRING_H__
 
-
+#include <windows.h>
 #include <string>
 #include <vector>
 

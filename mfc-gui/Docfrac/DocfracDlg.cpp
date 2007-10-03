@@ -2,11 +2,20 @@
 //
 
 #include "stdafx.h"
+#include <fstream>
+#include <algorithm>
+
 #include "Docfrac.h"
 #include "DocfracDlg.h"
 #include "winmgr.h"
 
 #include "tstring.h"
+#include "FilePropertiesDlg.h"
+#include "ExtensionToFormatMap.h"
+
+#include "WriterFactory.h"
+#include "ReaderFactory.h"
+
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -76,6 +85,7 @@ BEGIN_MESSAGE_MAP(CDocfracDlg, CDialog)
 	//}}AFX_MSG_MAP
 	ON_WM_SIZE()
 	ON_COMMAND(ID_FILE_ADDFILES, &CDocfracDlg::OnFileAddfiles)
+	ON_COMMAND(ID_FILE_CONVERT, &CDocfracDlg::OnFileConvert)
 END_MESSAGE_MAP()
 
 
@@ -109,7 +119,10 @@ BOOL CDocfracDlg::OnInitDialog()
 	SetIcon(m_hIcon, TRUE);			// Set big icon
 	SetIcon(m_hIcon, FALSE);		// Set small icon
 
-	// TODO: Add extra initialization here
+
+	m_winMgr.CalcLayout(this);
+	m_winMgr.SetWindowPositions(this);
+
 	LVCOLUMN lvColumn;
 	CString localised;
 
@@ -127,19 +140,6 @@ BOOL CDocfracDlg::OnInitDialog()
 	lvColumn.pszText = (LPWSTR)(LPCWSTR) localised;
 	m_fileList.InsertColumn(1, &lvColumn);
 
-	LVITEM lvItem;
-	int nItem;
-
-	lvItem.mask = LVIF_TEXT;
-	lvItem.iItem = 0;
-	lvItem.iSubItem = 0;
-	lvItem.pszText = _TEXT("Sandra C. Anschwitz");
-	nItem = m_fileList.InsertItem(&lvItem);
-
-	m_fileList.SetItemText(nItem, 1, _TEXT("Singer"));
-
-	m_winMgr.CalcLayout(this);
-	m_winMgr.SetWindowPositions(this);
 
 	return TRUE;  // return TRUE  unless you set the focus to a control
 }
@@ -216,12 +216,14 @@ void CDocfracDlg::OnFileAddfiles()
 {
 	// TODO: Add your command handler code here
 	CFileDialog openFile(TRUE, NULL, NULL, 0, NULL);
+
+
 	openFile.m_ofn.lpstrFilter = _TEXT("All supported files|*.rtf,*.htm,*.html,*.txt|RTF files (*.rtf)|*.rtf|HTML files (*.html,*.htm)|*.html,*.htm|Text files (*.txt)|*.txt");
 	openFile.m_ofn.Flags |= OFN_ALLOWMULTISELECT;
 	
 	if ( openFile.DoModal() == IDOK )
 	{
-		int index = 0;
+		size_t index = 0;
 		tstring file;
 		tstrings files;
 		
@@ -248,6 +250,27 @@ void CDocfracDlg::OnFileAddfiles()
 			}
 		}
 
+		Documents newDocuments;
+		for (tstrings::iterator i = files.begin(); i != files.end(); i++)
+		{
+			Document document;
+			document.SetInputFilename(*i);
+			newDocuments.push_back(document);
+		}
+		AddNewFiles(newDocuments);
+
+		m_documents.insert(m_documents.end(), newDocuments.begin(), newDocuments.end());
+
+
+
+			UpdateDisplay();
+
+			
+
+		
+
+
+
 	}
 
 	
@@ -255,3 +278,162 @@ void CDocfracDlg::OnFileAddfiles()
 
 
 }
+
+// Update list, menus and status bar
+void CDocfracDlg::UpdateDisplay(void)
+{
+	m_fileList.DeleteAllItems();
+
+	for(Documents::iterator i=m_documents.begin();i!=m_documents.end();i++)
+	{
+		AddBatchItem(i->GetInputPathname(), i->GetOutputPathname());
+	}
+	
+
+
+}
+
+void CDocfracDlg::AddBatchItem(tstring input, tstring output)
+{
+	LVITEM lvItem;
+	int nItem;
+
+	lvItem.mask = LVIF_TEXT;
+	lvItem.iItem = 0;
+	lvItem.iSubItem = 0;
+	lvItem.pszText = (LPTSTR)input.c_str();
+	nItem = m_fileList.InsertItem(&lvItem);
+
+	m_fileList.SetItemText(nItem, 1, output.c_str());
+
+}
+
+void CDocfracDlg::OnFileConvert()
+{
+  Document i;
+  DoxEngine::DebugLog log;
+
+  while(!m_documents.empty())
+  {
+	// Equivalent to std::queue::front()
+    i =m_documents.front();
+
+	std::ifstream input(i.GetInputPathname().c_str());
+	std::ofstream output(i.GetOutputPathname().c_str());
+
+	DoxEngine::WriterFactories &writerFactories = DoxEngine::WriterFactoriesSingleton::GetWriterFactories();
+	DoxEngine::WriterInterface *writer;
+	DoxEngine::ReadInterface *reader = NULL;
+
+		DoxEngine::WriterFactories::iterator writerIterator = writerFactories.find(i.GetOutputFormat());
+		if (writerIterator == writerFactories.end())
+		{
+			//throw ThreadException("Internal error initialising writer");
+		}
+		else
+		{
+			// First type is the key (file format)
+			// Second type is the value (factory instance)
+			writer = writerIterator->second->Create(output, log);
+		}
+	
+		DoxEngine::ReaderFactories &readerFactories = DoxEngine::ReaderFactoriesSingleton::GetReaderFactories();
+
+		DoxEngine::ReaderFactories::iterator readerIterator = readerFactories.find(i.GetInputFormat());
+		if (readerIterator == readerFactories.end())
+		{
+			//throw ThreadException("Internal error initialising reader");
+		}
+		else
+		{
+			// First type is the key (file format)
+			// Second type is the value (factory instance)
+			reader = readerIterator->second->Create(input, *writer, log);
+		}
+
+		input.exceptions(input.badbit);
+		output.exceptions(output.badbit);
+
+
+		while (reader->processData()/*&&!Terminated*/ && input.good())
+		{
+			//percentage = 100*input.tellg()/fileSize; // Calculate percentage
+			//Synchronize((TThreadMethod)&UpdateProgress);
+		}
+
+    delete reader;
+    delete writer;
+
+
+    // Equivalent to std::queue::pop() or pop_front()
+    m_documents.erase(m_documents.begin());
+
+  }
+
+  UpdateDisplay();
+
+}
+
+
+bool CDocfracDlg::AddNewFiles(Documents &newDocuments)
+{
+  DoxEngine::ExtensionToFormatMap extensionMap;
+  FilePropertiesDlg dialog;
+
+  // Get the last saved settings here
+  /* TODO
+  FilePropertiesForm->LoadOptions();
+
+  if (newDocuments.size() > 1)
+    FilePropertiesForm->SetMultiFile(true);
+  else
+    FilePropertiesForm->SetMultiFile(false);*/
+
+
+
+  if (dialog.DoModal() == IDOK)
+  {
+    tstring outFormatString(dialog.m_OutputFormatSelect.GetString());
+	std::transform(outFormatString.begin(),outFormatString.end(), outFormatString.begin(), tolower); 
+
+
+	FileFormat outFormat
+		= extensionMap[outFormatString];
+
+    Documents::iterator i;
+
+    for (i=newDocuments.begin();i!=newDocuments.end();i++)
+    {
+      // Input pathname already set
+
+
+      i->SetOutputFormat(outFormat);
+
+      // There is probably a better object oriented way to do this but... oh well
+	  if (!dialog.m_AutomaticFilenameSelect)
+      {
+        // Manual filename
+		  i->SetOutputManual(dialog.m_OutputFilenameEdit.GetString());
+
+      }
+      else // Automatic filename
+      {
+		if(dialog.m_InputDirectorySelect)
+          i->SetOutputAutomatic();
+		else if (dialog.m_OtherDirectorySelect)
+			i->SetOutputAutomatic(dialog.m_OutputDirectoryEdit.GetString());
+      }
+      // Save the last settings here
+      // TODO: FilePropertiesForm->SaveOptions();
+    }
+    return true;
+  }
+  else
+  {
+    newDocuments.clear();
+    return false;
+  }
+
+
+
+} 

@@ -3,6 +3,8 @@
 #ifndef shared_ptrH
 #define shared_ptrH
 //---------------------------------------------------------------------------
+#include <cstdlib>
+
 namespace DoxEngine
 {
   template <class T> class shared_ptr
