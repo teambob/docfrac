@@ -2,36 +2,41 @@
 #ifndef TEngineThreadH
 #define TEngineThreadH
 //---------------------------------------------------------------------------
-#include <Classes.hpp>
+#include <wx/thread.h>
 //---------------------------------------------------------------------------
 
-typedef void __fastcall (__closure *TThreadProgressEvent)(System::TObject *Sender,
-  int percent);
+#include "tstring.h"
+#include "ProgressForm.h"
 
-class TEngineThread : public TThread
+/*typedef void __fastcall (__closure *TThreadProgressEvent)(System::TObject *Sender,
+  int percent);*/
+
+class TEngineThread : public wxThread
 {
 private:
   bool error;
-  std::string errorMessage;
+  bool terminate;  
+    
+  tstring errorMessage;
 
   Document document;
-  TThreadProgressEvent onProgress;
-  TNotifyEvent onFinished;
   long fileSize;
   int percentage;
 
-  void __fastcall UpdateProgress(void);
-  void __fastcall Finished(void);
+  void UpdateProgress(void);
+  void Finished(void);
+  ProgressForm *progressForm;
 
 
 protected:
-    void __fastcall Execute();
+    virtual void* Entry();
 public:
-    __fastcall TEngineThread(bool CreateSuspended, const Document &newDocument);
-    void SetOnProgress(const TThreadProgressEvent newOnProgress);
-    void SetOnFinished(const TNotifyEvent newOnFinished);
+    TEngineThread(const Document &newDocument);
     bool GetError(void);
-    std::string GetErrorMessage(void);
+    tstring GetErrorMessage(void);
+	void SetProgressForm(ProgressForm *form);
+	void Terminate();
+ 
 };
 //---------------------------------------------------------------------------
 #endif

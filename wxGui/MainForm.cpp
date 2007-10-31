@@ -17,7 +17,8 @@
 ////Header Include End
 #include "ExtensionToFormatMap.h"
 #include "FilePropertiesForm.h"
-
+#include "TEngineThread.h"
+#include "ProgressForm.h"
 //----------------------------------------------------------------------------
 // MainForm
 //----------------------------------------------------------------------------
@@ -249,5 +250,45 @@ void MainForm::UpdateDisplay(void)
  */
 void MainForm::OnFileConvertClick(wxCommandEvent& event)
 {
-	// insert your code here
+  Document i;
+  ProgressForm form(this);
+
+  while(!documents.empty())
+  {
+    // Equivalent to std::queue::front()
+    i = documents.front();
+
+    /*ProgressForm->SetInPathname(i.GetInputPathname());
+    ProgressForm->SetOutPathname(i.GetOutputPathname());*/
+
+    TEngineThread thread(i);
+    thread.SetProgressForm(&form);
+    thread.Run();
+
+
+    if (form.ShowModal() == wxID_OK)
+    {
+      thread.Wait();
+      if (thread.GetError())
+      {
+        /*MessageBox(Handle, thread.GetErrorMessage().c_str(), "Error"
+          , MB_OK|MB_ICONERROR);*/
+        break;
+      }
+    }
+    else
+    {
+      thread.Terminate();
+      thread.Wait();
+      break;
+    }
+
+
+    // Equivalent to std::queue::pop() or pop_front()
+    documents.erase(documents.begin());
+
+  }
+
+  UpdateDisplay();
+
 }

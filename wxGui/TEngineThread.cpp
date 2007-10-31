@@ -1,11 +1,12 @@
 //---------------------------------------------------------------------------
-#include <vcl.h>
-#pragma hdrstop
+#include <wx/thread.h>
 
 #include <fstream>
 #include <iostream>
 #include <ios>
 
+#include <stdio.h>
+#include <ext/stdio_filebuf.h.>
 
 #include "Document.h"
 #include "TEngineThread.h"
@@ -13,25 +14,26 @@
 #include "WriterInterface.h"
 #include "WriterFactory.h"
 #include "ReaderFactory.h"
-#pragma package(smart_init)
+#include "tstring.h"
+
 
 class ThreadException
 {
   private:
-    std::string message;
+    tstring message;
 
   public:
-    ThreadException(const std::string &newMessage);
-    std::string GetMessage(void);
+    ThreadException(const tstring &newMessage);
+    tstring GetMessage(void);
 };
 
-ThreadException::ThreadException(const std::string &newMessage):
+ThreadException::ThreadException(const tstring &newMessage):
   message(newMessage)
 {
   // Empty initialiser
 }
 
-std::string ThreadException::GetMessage(void)
+tstring ThreadException::GetMessage(void)
 {
   return message;
 }
@@ -39,10 +41,10 @@ std::string ThreadException::GetMessage(void)
 class InputFileException : public ThreadException
 {
   public:
-    InputFileException(const std::string &newMessage);
+    InputFileException(const tstring &newMessage);
 };
 
-InputFileException::InputFileException(const std::string &newMessage)
+InputFileException::InputFileException(const tstring &newMessage)
   : ThreadException(newMessage)
 {
   // Empty initialiser
@@ -51,10 +53,10 @@ InputFileException::InputFileException(const std::string &newMessage)
 class OutputFileException : public ThreadException
 {
   public:
-    OutputFileException(const std::string &newMessage);
+    OutputFileException(const tstring &newMessage);
 };
 
-OutputFileException::OutputFileException(const std::string &newMessage)
+OutputFileException::OutputFileException(const tstring &newMessage)
   : ThreadException(newMessage)
 {
   // Empty initialiser
@@ -74,56 +76,95 @@ OutputFileException::OutputFileException(const std::string &newMessage)
 //        Form1->Caption = "Updated in a thread";
 //      }
 //---------------------------------------------------------------------------
-__fastcall TEngineThread::TEngineThread(bool CreateSuspended,
-  const Document &newDocument)
-    : TThread(CreateSuspended),document(newDocument)
+TEngineThread::TEngineThread(const Document &newDocument)
+    : wxThread(wxTHREAD_JOINABLE ),document(newDocument)
 {
-  onProgress = NULL;
-  onFinished = NULL;
+  progressForm = NULL;
+  //onFinished = NULL;
+  terminate = false;
+  Create();
 }
 
-void TEngineThread::SetOnProgress(const TThreadProgressEvent newOnProgress)
+void TEngineThread::SetProgressForm(ProgressForm *form)
 {
-  onProgress = newOnProgress;
+  progressForm = form;
 }
 
 
-void TEngineThread::SetOnFinished(const TNotifyEvent newOnFinished)
+void TEngineThread::UpdateProgress(void)
 {
-  onFinished = newOnFinished;
+    wxMutexGuiEnter();
+    if (progressForm)
+        progressForm->OnProgress(percentage);
+    wxMutexGuiLeave();
 }
 
-void __fastcall TEngineThread::UpdateProgress(void)
+void TEngineThread::Finished(void)
 {
-  if (onProgress)
-    onProgress(this, percentage);
-}
-
-void __fastcall TEngineThread::Finished(void)
-{
-  if (onFinished)
-    onFinished(this);
+    wxMutexGuiEnter();
+    if (progressForm)
+        progressForm->OnFinished();
+    wxMutexGuiLeave();
 }
 
 //---------------------------------------------------------------------------
-void __fastcall TEngineThread::Execute()
+void* TEngineThread::Entry()
 {
+    FILE *inputFptr = _wfopen(document.GetInputPathname().c_str(), L"rb");
+    
+    // need to test inputFptr
+    if ( !inputFptr )
+    {
+      tstring message = wxT("Could not open input file:");
+      message.append(document.GetInputPathname().c_str());
+      throw InputFileException(message);
+    }
+    
+    FILE *outputFptr = _wfopen(document.GetOutputPathname().c_str(), L"wb");
+    
+    
+    // need to test outputFptr
+    if ( !outputFptr )
+    {
+      tstring message = wxT("Could not open output file:");
+      message.append(document.GetOutputPathname().c_str());
+      throw InputFileException(message);
+    }
+
+
+
   try
   {
-    std::ifstream input(document.GetInputPathname().c_str());
+    
 
-    if ( !input.good() || !input.is_open())
+
+    __gnu_cxx::stdio_filebuf<char> inputBuf(inputFptr, std::ios_base::in);    
+    std::istream input(&inputBuf);
+    
+
+    
+
+    if ( !input.good() )
 	{
-	  std::string message = "Could not open input file:";
+	  tstring message = wxT("Could not open input file:");
 	  message.append(document.GetInputPathname().c_str());
 	  throw InputFileException(message);
     }
 
-    std::ofstream output(document.GetOutputPathname().c_str());
 
-    if (!output.good() || !output.is_open())
+
+    
+
+
+    __gnu_cxx::stdio_filebuf<char> outputBuf(outputFptr, std::ios_base::out);
+    std::ostream output(&outputBuf);
+
+
+
+
+    if (!output.good())
     {
-	  std::string message("Could not open output file:");
+	  tstring message(wxT("Could not open output file:"));
 	  message.append(document.GetOutputPathname().c_str());
 	  throw OutputFileException(message);
 
@@ -143,7 +184,7 @@ void __fastcall TEngineThread::Execute()
 		DoxEngine::WriterFactories::iterator writerIterator = writerFactories.find(document.GetOutputFormat());
 		if (writerIterator == writerFactories.end())
 		{
-			throw ThreadException("Internal error initialising writer");
+			throw ThreadException(wxT("Internal error initialising writer"));
 		}
 		else
 		{
@@ -159,7 +200,7 @@ void __fastcall TEngineThread::Execute()
 		DoxEngine::ReaderFactories::iterator readerIterator = readerFactories.find(document.GetInputFormat());
 		if (readerIterator == readerFactories.end())
 		{
-			throw ThreadException("Internal error initialising reader");
+			throw ThreadException(wxT("Internal error initialising reader"));
 		}
 		else
 		{
@@ -172,10 +213,12 @@ void __fastcall TEngineThread::Execute()
 		output.exceptions(output.badbit);
 
 
-		while (reader->processData()&&!Terminated && input.good())
+		while (reader->processData()    // Data to process
+            &&!terminate            // wxThread still running
+            && input.good())            // No problems reading data
 		{
 			percentage = 100*input.tellg()/fileSize; // Calculate percentage
-			Synchronize((TThreadMethod)&UpdateProgress);
+			UpdateProgress();
 		}
 
     delete reader;
@@ -183,20 +226,26 @@ void __fastcall TEngineThread::Execute()
 
     error = false;
 
-	TThread::Synchronize((TThreadMethod)&Finished);
+	Finished();
+
+
   }
   catch(ThreadException &e)
   {
     error = true;
-    errorMessage = e.GetMessage();
-	Synchronize((TThreadMethod)&Finished);
+    /*errorMessage = e.GetMessage();*/
+	/*Synchronize((TThreadMethod)&Finished);*/
   }
   catch(...)
   {
     error = true;
-    errorMessage = "Unknown error";
-    Synchronize((TThreadMethod)&Finished);
+    errorMessage = wxT("Unknown error");
+    /*Synchronize((TThreadMethod)&Finished);*/
   }
+  
+  // need to do this *after* deleting c++ streams
+  fclose(inputFptr);
+  fclose(outputFptr);
 
 }
 //---------------------------------------------------------------------------
@@ -206,7 +255,13 @@ bool TEngineThread::GetError(void)
   return error;
 }
 
-std::string TEngineThread::GetErrorMessage(void)
+tstring TEngineThread::GetErrorMessage(void)
 {
   return errorMessage;
+}
+
+
+void TEngineThread::Terminate()
+{
+    terminate = true;    
 }

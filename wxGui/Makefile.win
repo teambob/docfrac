@@ -1,20 +1,20 @@
 # Project: DocFrac
 # Compiler: Unicode wxWidgets
 # Compiler Type: MingW 3
-# Makefile created by wxDev-C++ 6.10.2 on 03/10/07 18:46
+# Makefile created by wxDev-C++ 6.10.2 on 31/10/07 23:11
 
 CPP       = g++.exe
 CC        = gcc.exe
 WINDRES   = windres.exe
-OBJ       = Objects/MingW/wxDocfracApp.o Objects/MingW/MainForm.o Objects/MingW/Colour.o Objects/MingW/DebugLog.o Objects/MingW/ExtensionToFormatMap.o Objects/MingW/FileFormat.o Objects/MingW/FormatToExtensionMap.o Objects/MingW/HtmlCharacterMap.o Objects/MingW/HtmlCommand.o Objects/MingW/HtmlReader.o Objects/MingW/HtmlTag.o Objects/MingW/HtmlWriter.o Objects/MingW/ReaderFactory.o Objects/MingW/ReaderInterface.o Objects/MingW/RtfCommand.o Objects/MingW/RtfReader.o Objects/MingW/RtfStyle.o Objects/MingW/RtfWriter.o Objects/MingW/shared_ptr.o Objects/MingW/Style.o Objects/MingW/TextReader.o Objects/MingW/TextWriter.o Objects/MingW/UnicodeCharacter.o Objects/MingW/WriterFactory.o Objects/MingW/WriterInterface.o Objects/MingW/Document.o Objects/MingW/FilenameClass.o Objects/MingW/FilePropertiesForm.o Objects/MingW/wxDocfrac_private.res
-LINKOBJ   = Objects/MingW/wxDocfracApp.o Objects/MingW/MainForm.o Objects/MingW/Colour.o Objects/MingW/DebugLog.o Objects/MingW/ExtensionToFormatMap.o Objects/MingW/FileFormat.o Objects/MingW/FormatToExtensionMap.o Objects/MingW/HtmlCharacterMap.o Objects/MingW/HtmlCommand.o Objects/MingW/HtmlReader.o Objects/MingW/HtmlTag.o Objects/MingW/HtmlWriter.o Objects/MingW/ReaderFactory.o Objects/MingW/ReaderInterface.o Objects/MingW/RtfCommand.o Objects/MingW/RtfReader.o Objects/MingW/RtfStyle.o Objects/MingW/RtfWriter.o Objects/MingW/shared_ptr.o Objects/MingW/Style.o Objects/MingW/TextReader.o Objects/MingW/TextWriter.o Objects/MingW/UnicodeCharacter.o Objects/MingW/WriterFactory.o Objects/MingW/WriterInterface.o Objects/MingW/Document.o Objects/MingW/FilenameClass.o Objects/MingW/FilePropertiesForm.o Objects/MingW/wxDocfrac_private.res
+OBJ       = Objects/MingW/wxDocfracApp.o Objects/MingW/MainForm.o Objects/MingW/Colour.o Objects/MingW/DebugLog.o Objects/MingW/ExtensionToFormatMap.o Objects/MingW/FileFormat.o Objects/MingW/FormatToExtensionMap.o Objects/MingW/HtmlCharacterMap.o Objects/MingW/HtmlCommand.o Objects/MingW/HtmlReader.o Objects/MingW/HtmlTag.o Objects/MingW/HtmlWriter.o Objects/MingW/ReaderFactory.o Objects/MingW/ReaderInterface.o Objects/MingW/RtfCommand.o Objects/MingW/RtfReader.o Objects/MingW/RtfStyle.o Objects/MingW/RtfWriter.o Objects/MingW/shared_ptr.o Objects/MingW/Style.o Objects/MingW/TextReader.o Objects/MingW/TextWriter.o Objects/MingW/UnicodeCharacter.o Objects/MingW/WriterFactory.o Objects/MingW/WriterInterface.o Objects/MingW/Document.o Objects/MingW/FilenameClass.o Objects/MingW/FilePropertiesForm.o Objects/MingW/TEngineThread.o Objects/MingW/ProgressForm.o Objects/MingW/wxDocfrac_private.res
+LINKOBJ   = Objects/MingW/wxDocfracApp.o Objects/MingW/MainForm.o Objects/MingW/Colour.o Objects/MingW/DebugLog.o Objects/MingW/ExtensionToFormatMap.o Objects/MingW/FileFormat.o Objects/MingW/FormatToExtensionMap.o Objects/MingW/HtmlCharacterMap.o Objects/MingW/HtmlCommand.o Objects/MingW/HtmlReader.o Objects/MingW/HtmlTag.o Objects/MingW/HtmlWriter.o Objects/MingW/ReaderFactory.o Objects/MingW/ReaderInterface.o Objects/MingW/RtfCommand.o Objects/MingW/RtfReader.o Objects/MingW/RtfStyle.o Objects/MingW/RtfWriter.o Objects/MingW/shared_ptr.o Objects/MingW/Style.o Objects/MingW/TextReader.o Objects/MingW/TextWriter.o Objects/MingW/UnicodeCharacter.o Objects/MingW/WriterFactory.o Objects/MingW/WriterInterface.o Objects/MingW/Document.o Objects/MingW/FilenameClass.o Objects/MingW/FilePropertiesForm.o Objects/MingW/TEngineThread.o Objects/MingW/ProgressForm.o Objects/MingW/wxDocfrac_private.res
 LIBS      = -L"C:/Program Files/Dev-Cpp/Lib" -L"C:/winapps/wxWidgets-2.8.5/lib" -mwindows -lwx_mswu-2.8 -lwxtiff -lwxjpeg -lwxpng -lwxzlib -lwxregex -lwxexpat -lkernel32 -luser32 -lgdi32 -lcomdlg32 -lwinspool -lwinmm -lshell32 -lcomctl32 -lole32 -loleaut32 -luuid -lrpcrt4 -ladvapi32 -lwsock32 -lodbc32 -lopengl32  
 INCS      = -I"include" -I"../wxGui" -I"../core"
 CXXINCS   = -I"C:/Program Files/Dev-Cpp/lib/gcc/mingw32/3.4.2/include" -I"C:/Program Files/Dev-Cpp/include/c++/3.4.2/backward" -I"C:/Program Files/Dev-Cpp/include/c++/3.4.2/mingw32" -I"C:/Program Files/Dev-Cpp/include/c++/3.4.2" -I"C:/Program Files/Dev-Cpp/include" -I"C:/Program Files/Dev-Cpp/" -I"C:/winapps/wxWidgets-2.8.5/lib/wx/include/msw-unicode-debug-static-2.8" -I"C:/winapps/wxWidgets-2.8.5/include" -I"../wxGui" -I"../core"
 RCINCS    = --include-dir "C:/PROGRA~1/Dev-Cpp/include/common"
 BIN       = Output/MingW/wxDocfrac.exe
 DEFINES   =  -D__WXMSW__ -D__GNUWIN32__ -D__WIN95__
-CXXFLAGS  = $(CXXINCS) $(DEFINES) -fno-exceptions -fno-pcc-struct-return -fstrict-aliasing -Wall -D__WXMSW__ -D__GNUWIN32__ -D__WIN95__ -g   -fexpensive-optimizations -O3
+CXXFLAGS  = $(CXXINCS) $(DEFINES) -fno-pcc-struct-return -fstrict-aliasing -Wall -D__WXMSW__ -D__GNUWIN32__ -D__WIN95__ -g   -fexpensive-optimizations -O3
 CFLAGS    = $(INCS) $(DEFINES) -fno-exceptions -fno-pcc-struct-return -fstrict-aliasing -Wall -D__WXMSW__ -D__GNUWIN32__ -D__WIN95__ -g   -fexpensive-optimizations -O3
 GPROF     = gprof.exe
 RM        = rm -f
@@ -32,7 +32,7 @@ $(BIN): $(OBJ)
 Objects/MingW/wxDocfracApp.o: $(GLOBALDEPS) wxDocfracApp.cpp wxDocfracApp.h MainForm.h Document.h tstring.h
 	$(CPP) -c wxDocfracApp.cpp -o Objects/MingW/wxDocfracApp.o $(CXXFLAGS)
 
-Objects/MingW/MainForm.o: $(GLOBALDEPS) MainForm.cpp MainForm.h Document.h tstring.h Document.h Images/Self_MainForm_XPM.xpm FilePropertiesForm.h
+Objects/MingW/MainForm.o: $(GLOBALDEPS) MainForm.cpp MainForm.h Document.h tstring.h Document.h Images/Self_MainForm_XPM.xpm FilePropertiesForm.h TEngineThread.h tstring.h ProgressForm.h ProgressForm.h
 	$(CPP) -c MainForm.cpp -o Objects/MingW/MainForm.o $(CXXFLAGS)
 
 Objects/MingW/Colour.o: $(GLOBALDEPS) ../core/Colour.cpp ../core/Colour.h
@@ -112,6 +112,12 @@ Objects/MingW/FilenameClass.o: $(GLOBALDEPS) FilenameClass.cpp FilenameClass.h t
 
 Objects/MingW/FilePropertiesForm.o: $(GLOBALDEPS) FilePropertiesForm.cpp FilePropertiesForm.h
 	$(CPP) -c FilePropertiesForm.cpp -o Objects/MingW/FilePropertiesForm.o $(CXXFLAGS)
+
+Objects/MingW/TEngineThread.o: $(GLOBALDEPS) TEngineThread.cpp Document.h tstring.h TEngineThread.h tstring.h ProgressForm.h tstring.h
+	$(CPP) -c TEngineThread.cpp -o Objects/MingW/TEngineThread.o $(CXXFLAGS)
+
+Objects/MingW/ProgressForm.o: $(GLOBALDEPS) ProgressForm.cpp ProgressForm.h
+	$(CPP) -c ProgressForm.cpp -o Objects/MingW/ProgressForm.o $(CXXFLAGS)
 
 Objects/MingW/wxDocfrac_private.res: Objects/MingW/wxDocfrac_private.rc wxDocfracApp.rc 
 	$(WINDRES) --input-format=rc -o Objects/MingW/wxDocfrac_private.res $(RCINCS) Objects/MingW/WXDOCF~1.RC -O coff
