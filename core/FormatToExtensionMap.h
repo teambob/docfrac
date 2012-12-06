@@ -3,18 +3,11 @@
 #define FormatToExtensionMapH
 //---------------------------------------------------------------------------
 #include <map>
+#include <string>
 #include "FileFormat.h"
-#include "tstring.h"
 
 namespace DoxEngine
 {
-  // By default Compare is less<const FileFormat>
-  // By default Alloc is alloc
-  class FormatToExtensionMap :
-    public std::map<const FileFormat, tstring>
-  {
-    public:
-      FormatToExtensionMap();
-  };
+  const std::map<FileFormat, std::string> getFormatToExtensionMap();
 }
 #endif
