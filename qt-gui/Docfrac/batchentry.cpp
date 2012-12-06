@@ -1,24 +1,46 @@
 #include "batchentry.h"
+#include <boost/filesystem.hpp>
+#include "ExtensionToFormatMap.h"
+#include "FormatToExtensionMap.h"
+#include "FileFormat.h"
 
 
-BatchEntry::BatchEntry(const std::string &inputFilename, BatchEntry::OutputFilenameGeneration outputFilenameGeneration, const std::string &outputPath)
-    :inputFile_(inputFilename),outputFilenameGeneration_(outputFilenameGeneration),outputPath_(outputPath)
+BatchEntry::BatchEntry(const std::string &inputFilename, BatchEntry::OutputFilenameGeneration outputFilenameGeneration, DoxEngine::FileFormat outputFormat, const std::string &outputPath)
+    :inputFilename_(inputFilename),outputFilenameGeneration_(outputFilenameGeneration),outputPath_(outputPath),outputFormat_(outputFormat)
 {
 }
 
-std::string BatchEntry::getInputFilename()
+std::string BatchEntry::getInputFilename() const
 {
+    return inputFilename_;
 }
 
-std::string BatchEntry::getInputFormat()
+DoxEngine::FileFormat BatchEntry::getInputFormat() const
 {
+    using namespace std;
+    string inputExtension = boost::filesystem::path(inputFilename_).extension().string();
+    if (inputExtension.empty())
+        return DoxEngine::FORMAT_UNKNOWN; //TODO: should we throw?
+    inputExtension.erase(0,1);
+
+    map<string, DoxEngine::FileFormat> extensions = DoxEngine::getExtensionToFormatMap();
+    map<string, DoxEngine::FileFormat>::const_iterator i = extensions.find(inputExtension);
+    if (i==extensions.end())
+        return DoxEngine::FORMAT_UNKNOWN;
+    else
+        return i->second;
+
 }
 
-std::string BatchEntry::getOutputFilename()
+std::string BatchEntry::getOutputFilename() const
 {
+    if (outputFilenameGeneration_ == ManualFilename)
+        return outputPath_;
+    //TODO: other naming systems
 }
 
-std::string BatchEntry::getOutputFormat()
+DoxEngine::FileFormat BatchEntry::getOutputFormat() const
 {
+    return outputFormat_;
 }
 

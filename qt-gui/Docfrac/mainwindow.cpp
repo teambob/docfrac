@@ -6,13 +6,15 @@
 #include "propertiesdialog.h"
 #include "progressdialog.h"
 #include "batchmodel.h"
+#include "FileFormat.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    model = new BatchModel();
+    model = new BatchModel(this, entries_);
+    entries_.push_back(BatchEntry("test.rtf", BatchEntry::ManualFilename, DoxEngine::FORMAT_HTML, "test.html"));
     ui->batchList->setModel(model);
     ui->batchList->resizeColumnsToContents();
 

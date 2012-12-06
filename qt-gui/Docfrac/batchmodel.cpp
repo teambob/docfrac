@@ -1,10 +1,12 @@
-#include "batchmodel.h"
 #include <vector>
 #include <string>
+#include <boost/algorithm/string.hpp>
+#include "batchmodel.h"
+#include "batchentry.h"
+#include "FormatToExtensionMap.h"
 
-
-BatchModel::BatchModel(QObject *parent) :
-    QAbstractTableModel(parent)
+BatchModel::BatchModel(QObject *parent, const std::vector<BatchEntry> &entries) :
+    QAbstractTableModel(parent), entries_(entries)
 {
 }
 
@@ -20,16 +22,46 @@ int BatchModel::columnCount(const QModelIndex &parent) const
 
 QVariant BatchModel::data(const QModelIndex &index, int role) const
 {
+    using namespace std;
     if (role == Qt::DisplayRole)
     {
-        // fetch array element using index.row()
-        std::vector<std::string> row;
-        row.push_back("a.rtf");
-        row.push_back("RTF");
-        row.push_back("a.html");
-        row.push_back("HTML");
 
-        return QString(row.at(index.column()).c_str());
+        switch( index.column() )
+        {
+            case 0:
+            return QString(entries_[index.row()].getInputFilename().c_str());
+
+            case 1:
+            {
+                DoxEngine::FileFormat format = entries_[index.row()].getInputFormat();
+                map<DoxEngine::FileFormat, string> mapping = DoxEngine::getFormatToExtensionMap();
+                map<DoxEngine::FileFormat, string>::const_iterator i = mapping.find(format);
+                if (i!=mapping.end())
+                    return QString(boost::to_upper_copy(i->second).c_str());
+                else
+                    return QString("Error");
+            }
+
+            case 2:
+            return QString(entries_[index.row()].getOutputFilename().c_str());
+
+            case 3:
+            {
+                DoxEngine::FileFormat format = entries_[index.row()].getOutputFormat();
+                map<DoxEngine::FileFormat, string> mapping = DoxEngine::getFormatToExtensionMap();
+                map<DoxEngine::FileFormat, string>::const_iterator i = mapping.find(format);
+                if (i!=mapping.end())
+                    return QString(boost::to_upper_copy(i->second).c_str());
+                else
+                    return QString("Error");
+            }
+
+
+            default:
+            return QVariant();
+
+        }
+
     }
     else
         return QVariant();
@@ -44,7 +76,7 @@ QVariant BatchModel::headerData(int section, Qt::Orientation orientation, int ro
             switch (section)
             {
                 case 0:
-                    return QString("Input File");
+                    return QString("Input Filename");
                     break;
 
                 case 1:
@@ -52,7 +84,7 @@ QVariant BatchModel::headerData(int section, Qt::Orientation orientation, int ro
                     break;
 
                 case 2:
-                    return QString("Output File");
+                    return QString("Output Filename");
                     break;
 
                 case 3:

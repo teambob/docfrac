@@ -16,7 +16,9 @@ SOURCES += main.cpp\
     propertiesdialog.cpp \
     progressdialog.cpp \
     batchmodel.cpp \
-    batchentry.cpp
+    batchentry.cpp \
+    ../../core/FormatToExtensionMap.cpp \
+    ../../core/ExtensionToFormatMap.cpp
 
 HEADERS  += mainwindow.h \
     about.h \
@@ -34,3 +36,10 @@ OTHER_FILES +=
 
 RESOURCES += \
     common.qrc
+
+unix|win32: LIBS += -lboost_filesystem -lboost_system
+unix|win32: INCLUDEPATH += ../../core/
+
+
+unix|win32: LIBS += -L$$PWD/../../core/ -ldox
+

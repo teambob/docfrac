@@ -2,12 +2,15 @@
 #define FILELISTMODEL_H
 
 #include <QAbstractTableModel>
+#include <vector>
+#include "batchentry.h"
+
 
 class BatchModel : public QAbstractTableModel
 {
     Q_OBJECT
 public:
-    explicit BatchModel(QObject *parent = 0);
+    explicit BatchModel(QObject *parent , const std::vector<BatchEntry> &entries);
     int rowCount(const QModelIndex &parent = QModelIndex()) const ;
     int columnCount(const QModelIndex &parent = QModelIndex()) const;
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const;
@@ -15,6 +18,9 @@ public:
 signals:
     
 public slots:
+
+private:
+    const std::vector<BatchEntry> &entries_;
     
 };
 

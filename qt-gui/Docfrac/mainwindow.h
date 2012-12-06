@@ -2,8 +2,9 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-
-class BatchModel;
+#include <vector>
+#include "batchentry.h"
+#include "batchmodel.h"
 
 namespace Ui {
 class MainWindow;
@@ -30,6 +31,7 @@ private slots:
 private:
     Ui::MainWindow *ui;
     BatchModel *model;
+    std::vector<BatchEntry> entries_;
 };
 
 #endif // MAINWINDOW_H

@@ -2,6 +2,7 @@
 #define BATCHENTRY_H
 
 #include <string>
+#include "FileFormat.h"
 
 class BatchEntry
 {
@@ -14,19 +15,19 @@ public:
     } OutputFilenameGeneration;
 
 
-    BatchEntry(const std::string &inputFilename, OutputFilenameGeneration outputFilenameGeneration, const std::string &outputPath = "");
+    BatchEntry(const std::string &inputFilename, OutputFilenameGeneration outputFilenameGeneration, DoxEngine::FileFormat outputFormat, const std::string &outputPath = "");
 
-    std::string getInputFilename();
-    std::string getInputFormat();
-    std::string getOutputFilename();
-    std::string getOutputFormat();
+    std::string getInputFilename() const;
+    DoxEngine::FileFormat getInputFormat() const;
+    std::string getOutputFilename() const;
+    DoxEngine::FileFormat getOutputFormat() const;
 
 
 
 private:
-    std::string inputFile_;
+    std::string inputFilename_;
     OutputFilenameGeneration outputFilenameGeneration_;
-    std::string outputFormat_;
+    DoxEngine::FileFormat outputFormat_;
     std::string outputPath_;
 
 
