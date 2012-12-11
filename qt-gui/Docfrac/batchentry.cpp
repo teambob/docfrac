@@ -36,6 +36,26 @@ std::string BatchEntry::getOutputFilename() const
 {
     if (outputFilenameGeneration_ == ManualFilename)
         return outputPath_;
+    else if (outputFilenameGeneration_ == InputDirectory)
+    {
+        boost::filesystem::path inputPath(inputFilename_);
+        std::string basename = boost::filesystem::basename(inputPath);
+        boost::filesystem::path outputPath(inputPath.parent_path());
+        outputPath /= basename+"."+DoxEngine::getFormatToExtensionMap()[outputFormat_];
+        return outputPath.string();
+    }
+    else if (outputFilenameGeneration_ == CustomDirectory)
+    {
+        boost::filesystem::path inputPath(inputFilename_);
+        std::string basename = boost::filesystem::basename(inputPath);
+        boost::filesystem::path outputPath(outputPath_);
+        outputPath /= basename+"."+DoxEngine::getFormatToExtensionMap()[outputFormat_];
+        return outputPath.string();
+    }
+
+
+
+
     //TODO: other naming systems
 }
 

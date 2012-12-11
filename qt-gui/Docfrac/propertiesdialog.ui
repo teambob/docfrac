@@ -41,21 +41,6 @@
      <property name="currentIndex">
       <number>-1</number>
      </property>
-     <item>
-      <property name="text">
-       <string>HTML</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>RTF</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>Text</string>
-      </property>
-     </item>
     </widget>
    </item>
    <item alignment="Qt::AlignTop">

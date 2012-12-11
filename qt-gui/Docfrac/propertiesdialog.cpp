@@ -1,6 +1,7 @@
 #include <QFileDialog>
 #include "propertiesdialog.h"
 #include "ui_propertiesdialog.h"
+#include "FileFormat.h"
 
 PropertiesDialog::PropertiesDialog(QWidget *parent, bool customFilenameEnabled) :
     QDialog(parent),
@@ -8,6 +9,9 @@ PropertiesDialog::PropertiesDialog(QWidget *parent, bool customFilenameEnabled) 
 {
     ui->setupUi(this);
     ui->customFilenameSelect->setEnabled(customFilenameEnabled);
+    ui->outputFormatSelect->addItem("HTML", DoxEngine::FORMAT_HTML);
+    ui->outputFormatSelect->addItem("RTF", DoxEngine::FORMAT_RTF);
+    ui->outputFormatSelect->addItem("Text", DoxEngine::FORMAT_TEXT);
 }
 
 PropertiesDialog::~PropertiesDialog()
@@ -40,9 +44,9 @@ std::string PropertiesDialog::getPath()
         return "";
 }
 
-std::string PropertiesDialog::getOutputFormat()
+DoxEngine::FileFormat PropertiesDialog::getOutputFormat()
 {
-    return ui->outputFormatSelect->currentText().toStdString();
+    return static_cast<DoxEngine::FileFormat>(ui->outputFormatSelect->itemData(ui->outputFormatSelect->currentIndex()).toInt());
 }
 
 

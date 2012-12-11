@@ -18,14 +18,16 @@ SOURCES += main.cpp\
     batchmodel.cpp \
     batchentry.cpp \
     ../../core/FormatToExtensionMap.cpp \
-    ../../core/ExtensionToFormatMap.cpp
+    ../../core/ExtensionToFormatMap.cpp \
+    conversionthread.cpp
 
 HEADERS  += mainwindow.h \
     about.h \
     propertiesdialog.h \
     progressdialog.h \
     batchmodel.h \
-    batchentry.h
+    batchentry.h \
+    conversionthread.h
 
 FORMS    += mainwindow.ui \
     about.ui \

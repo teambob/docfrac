@@ -8,6 +8,6 @@
 
 namespace DoxEngine
 {
-  const std::map<FileFormat, std::string> getFormatToExtensionMap();
+  std::map<FileFormat, std::string> getFormatToExtensionMap();
 }
 #endif

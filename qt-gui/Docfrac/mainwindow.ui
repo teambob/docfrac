@@ -23,7 +23,14 @@
   <widget class="QWidget" name="centralWidget">
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
-     <widget class="QTableView" name="batchList"/>
+     <widget class="QTableView" name="batchList">
+      <property name="selectionMode">
+       <enum>QAbstractItemView::ExtendedSelection</enum>
+      </property>
+      <property name="selectionBehavior">
+       <enum>QAbstractItemView::SelectRows</enum>
+      </property>
+     </widget>
     </item>
    </layout>
   </widget>
@@ -93,7 +100,7 @@
    <addaction name="actionToolbarAdd"/>
    <addaction name="actionToolbarConvert"/>
    <addaction name="actionToolbarRemove"/>
-   <addaction name="actionClear"/>
+   <addaction name="actionToolbarClear"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <action name="actionAdd">
@@ -190,7 +197,7 @@
     <string>Remove</string>
    </property>
   </action>
-  <action name="actionClear">
+  <action name="actionToolbarClear">
    <property name="icon">
     <iconset resource="common.qrc">
      <normaloff>:/icons/icons/cross-normal.png</normaloff>:/icons/icons/cross-normal.png</iconset>
@@ -204,5 +211,70 @@
  <resources>
   <include location="common.qrc"/>
  </resources>
- <connections/>
+ <connections>
+  <connection>
+   <sender>actionToolbarAdd</sender>
+   <signal>triggered()</signal>
+   <receiver>actionAdd</receiver>
+   <slot>trigger()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionToolbarRemove</sender>
+   <signal>triggered()</signal>
+   <receiver>actionRemove</receiver>
+   <slot>trigger()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionToolbarClear</sender>
+   <signal>triggered()</signal>
+   <receiver>actionClear_All_Files</receiver>
+   <slot>trigger()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionToolbarConvert</sender>
+   <signal>triggered()</signal>
+   <receiver>actionConvert</receiver>
+   <slot>trigger()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>

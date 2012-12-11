@@ -5,14 +5,14 @@
 #include "batchentry.h"
 #include "FormatToExtensionMap.h"
 
-BatchModel::BatchModel(QObject *parent, const std::vector<BatchEntry> &entries) :
-    QAbstractTableModel(parent), entries_(entries)
+BatchModel::BatchModel(QObject *parent) :
+    QAbstractTableModel(parent)
 {
 }
 
 int BatchModel::rowCount(const QModelIndex &parent) const
 {
-    return 1;
+    return entries_.size();
 }
 
 int BatchModel::columnCount(const QModelIndex &parent) const
@@ -96,3 +96,29 @@ QVariant BatchModel::headerData(int section, Qt::Orientation orientation, int ro
     return QVariant();
 }
 
+void BatchModel::add(const BatchEntry &entry)
+{
+    int row = entries_.size();
+    beginInsertRows(QModelIndex(), row, row);
+    entries_.push_back(entry);
+    endInsertRows();
+
+}
+
+void BatchModel::remove(int index)
+{
+    beginRemoveRows(QModelIndex(), index, index);
+    entries_.erase(entries_.begin()+index);
+    endRemoveRows();
+}
+
+void BatchModel::clear()
+{
+    for (int i=entries_.size();i>0;i--)
+        remove(i-1);
+}
+
+std::vector<BatchEntry> BatchModel::getEntries()
+{
+    return entries_;
+}

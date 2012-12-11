@@ -9,7 +9,7 @@
 
 namespace DoxEngine
 {
-  const std::map<std::string, FileFormat> getExtensionToFormatMap();
+  std::map<std::string, FileFormat> getExtensionToFormatMap();
 }
 
 

@@ -2,6 +2,7 @@
 #define PROPERTIESDIALOG_H
 
 #include <QDialog>
+#include "FileFormat.h"
 
 namespace Ui {
 class PropertiesDialog;
@@ -20,7 +21,7 @@ public:
     bool useCustomFilename();
 
     std::string getPath();
-    std::string getOutputFormat();
+    DoxEngine::FileFormat getOutputFormat();
     
 private slots:
     void on_customDirectorySelect_toggled(bool checked);
