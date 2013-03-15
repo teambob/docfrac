@@ -13,5 +13,15 @@ void ConversionThread::cancel()
 
 void ConversionThread::run()
 {
-    while(!cancel_ && reader_->processData());
+    int lastPercent = 0;
+
+    while(!cancel_ && reader_->processData())
+    {
+        int percent = reader_->getPercentComplete();
+        if (percent!=lastPercent)
+        {
+            emit onProgress(percent);
+            lastPercent = percent;
+        }
+    }
 }

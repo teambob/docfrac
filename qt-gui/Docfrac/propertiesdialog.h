@@ -32,8 +32,13 @@ private slots:
 
     void on_outputFilenameBrowse_clicked();
 
+    void on_CancelButton_clicked();
+
+    void on_inputDirectorySelect_toggled(bool checked);
+
 private:
     Ui::PropertiesDialog *ui;
+    void updateEnabled();
 };
 
 #endif // PROPERTIESDIALOG_H

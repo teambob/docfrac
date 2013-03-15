@@ -54,7 +54,6 @@
      <string>File</string>
     </property>
     <addaction name="actionAdd"/>
-    <addaction name="actionConversion_Properties"/>
     <addaction name="actionConvert"/>
     <addaction name="separator"/>
     <addaction name="actionExit"/>
@@ -63,10 +62,34 @@
     <property name="title">
      <string>Edit</string>
     </property>
+    <widget class="QMenu" name="menuOutputFormat">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
+     <property name="title">
+      <string>Output Format</string>
+     </property>
+     <addaction name="actionRTF"/>
+     <addaction name="actionHTML"/>
+     <addaction name="actionText"/>
+    </widget>
+    <widget class="QMenu" name="menuOutput_Filename">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
+     <property name="title">
+      <string>Output Filename</string>
+     </property>
+     <addaction name="actionInputDirectory"/>
+     <addaction name="actionCustomDirectory"/>
+     <addaction name="actionCustomFilename"/>
+    </widget>
     <addaction name="actionPaste"/>
     <addaction name="actionSelect_All"/>
     <addaction name="actionRemove"/>
     <addaction name="actionClear_All_Files"/>
+    <addaction name="menuOutputFormat"/>
+    <addaction name="menuOutput_Filename"/>
    </widget>
    <widget class="QMenu" name="menuHelp">
     <property name="title">
@@ -206,8 +229,41 @@
     <string>Clear</string>
    </property>
   </action>
+  <action name="actionRTF">
+   <property name="text">
+    <string>RTF</string>
+   </property>
+  </action>
+  <action name="actionHTML">
+   <property name="text">
+    <string>HTML</string>
+   </property>
+  </action>
+  <action name="actionText">
+   <property name="text">
+    <string>Text</string>
+   </property>
+  </action>
+  <action name="actionInputDirectory">
+   <property name="text">
+    <string>Input Directory (Automatic Filename)</string>
+   </property>
+  </action>
+  <action name="actionCustomDirectory">
+   <property name="text">
+    <string>Custom Directory (Automatic Filename)...</string>
+   </property>
+  </action>
+  <action name="actionCustomFilename">
+   <property name="text">
+    <string>Custom Filename...</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
+ <tabstops>
+  <tabstop>batchList</tabstop>
+ </tabstops>
  <resources>
   <include location="common.qrc"/>
  </resources>

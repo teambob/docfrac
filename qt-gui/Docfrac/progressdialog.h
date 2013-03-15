@@ -14,6 +14,10 @@ class ProgressDialog : public QDialog
 public:
     explicit ProgressDialog(QWidget *parent = 0);
     ~ProgressDialog();
+
+public slots:
+    void onProgress(int percent);
+    void onFinished();
     
 private:
     Ui::ProgressDialog *ui;

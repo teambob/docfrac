@@ -32,7 +32,7 @@ static void ShowHelp(void);
 int main(int argc, char *argv[])
 {
 
-  FileFormat inFormat = FORMAT_UNKNOWN, outFormat = FORMAT_UNKNOWN;
+  DoxEngine::FileFormat inFormat = DoxEngine::FORMAT_UNKNOWN, outFormat = DoxEngine::FORMAT_UNKNOWN;
   char *inFilename, *outFilename;
   int i;
   bool isOutfile = false;
@@ -53,18 +53,18 @@ int main(int argc, char *argv[])
     {
       
       if (!strcmp(argv[i], "--from-html"))
-        inFormat = FORMAT_HTML;
+        inFormat = DoxEngine::FORMAT_HTML;
       else if (!strcmp(argv[i], "--from-rtf"))
-        inFormat = FORMAT_RTF;
+        inFormat = DoxEngine::FORMAT_RTF;
       else if (!strcmp(argv[i], "--from-text"))
-        inFormat = FORMAT_TEXT;
+        inFormat = DoxEngine::FORMAT_TEXT;
 
       else if (!strcmp(argv[i], "--to-html"))
-        outFormat = FORMAT_HTML;
+        outFormat = DoxEngine::FORMAT_HTML;
       else if (!strcmp(argv[i], "--to-rtf"))
-        outFormat = FORMAT_RTF;
+        outFormat = DoxEngine::FORMAT_RTF;
       else if (!strcmp(argv[i], "--to-text"))
-        outFormat = FORMAT_TEXT;
+        outFormat = DoxEngine::FORMAT_TEXT;
 
       else if (!strcmp(argv[i], "--debug"))
 	  {
@@ -96,7 +96,7 @@ int main(int argc, char *argv[])
         DoxEngine::ReadInterface *reader;
 		
 #ifdef ENABLE_LOG_DEBUG
-		std::cerr << "HTML format: " << FORMAT_HTML << std::endl;
+		std::cerr << "HTML format: " << DoxEngine::FORMAT_HTML << std::endl;
 		std::cerr << "Input format: " << inFormat << std::endl;
 		std::cerr << "Output format: " << outFormat << std::endl;
 #endif		

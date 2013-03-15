@@ -1,38 +1,33 @@
-READER_OBJ=ReaderInterface.o RtfReader.o RtfCommand.o HtmlReader.o\
- HtmlCharacterMap.o HtmlCommand.o HtmlTag.o TextReader.o
-WRITER_OBJ=WriterInterface.o TextWriter.o HtmlWriter.o HtmlWriter.o RtfWriter.o
-HELPER_OBJ=UnicodeCharacter.o Style.o RtfStyle.o DebugLog.o Colour.o
-OBJ=WriterFactory.o ReaderFactory.o ${HELPER_OBJ} ${READER_OBJ} ${WRITER_OBJ}
 LIB=libdox.a
 TARGETS=test testtxt testhtml docfrac
 
 
-CPPFLAGS=-c -O2
+CPPFLAGS=-c -O2 -Icore
 #CPPFLAGS=-c -O2 -g -DENABLE_LOG_DEBUG
 
 all: ${LIB} ${TARGETS}
 
-libdox.a: ${OBJ}
-	rm -f $@
-	ar -Pcr $@ $^
+libdox.a:
+	make -C core libdox.a
 
-testhtml: testhtml.o libdox.a
-	g++ -o $@ $^
+testhtml: testhtml.o
+	g++ -o $@ $^ -Lcore -ldox
 
-testtxt: testtxt.o libdox.a
-	g++ -o $@ $^
+testtxt: testtxt.o
+	g++ -o $@ $^ -Lcore -ldox
 
-test: test.o libdox.a
-	g++ -o $@ $^
+test: test.o
+	g++ -o $@ $^ -Lcore -ldox
 
-docfrac: main.o libdox.a
-	g++ -o $@ $^
+docfrac: main.o 
+	g++ -o $@ $^ -Lcore -ldox
 
   
 .PHONY: clean build install
 
 clean:
-	rm -f ${OBJ} ${LIB} ${TARGETS} testhtml.o testtxt.o test.o main.o
+	make -C core clean
+	rm -f ${TARGETS} testhtml.o testtxt.o test.o main.o
 
 build: clean all
 

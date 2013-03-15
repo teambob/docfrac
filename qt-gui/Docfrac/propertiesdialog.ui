@@ -153,48 +153,69 @@
     </widget>
    </item>
    <item>
-    <widget class="QDialogButtonBox" name="buttonBox">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-     <property name="standardButtons">
-      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
-     </property>
-    </widget>
+    <layout class="QHBoxLayout" name="horizontalLayout_2">
+     <item>
+      <widget class="QPushButton" name="OkButton">
+       <property name="text">
+        <string>Ok</string>
+       </property>
+       <property name="default">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="CancelButton">
+       <property name="text">
+        <string>Cancel</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>outputFormatSelect</tabstop>
+  <tabstop>inputDirectorySelect</tabstop>
+  <tabstop>customDirectorySelect</tabstop>
+  <tabstop>outputDirectory</tabstop>
+  <tabstop>browseOutputDirectory</tabstop>
+  <tabstop>customFilenameSelect</tabstop>
+  <tabstop>outputFilename</tabstop>
+  <tabstop>outputFilenameBrowse</tabstop>
+ </tabstops>
  <resources/>
  <connections>
   <connection>
-   <sender>buttonBox</sender>
-   <signal>accepted()</signal>
-   <receiver>PropertiesDialog</receiver>
-   <slot>accept()</slot>
+   <sender>customDirectorySelect</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>inputDirectorySelect</receiver>
+   <slot>toggle()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>248</x>
-     <y>254</y>
+     <x>203</x>
+     <y>139</y>
     </hint>
     <hint type="destinationlabel">
-     <x>157</x>
-     <y>274</y>
+     <x>203</x>
+     <y>107</y>
     </hint>
    </hints>
   </connection>
   <connection>
-   <sender>buttonBox</sender>
-   <signal>rejected()</signal>
-   <receiver>PropertiesDialog</receiver>
-   <slot>reject()</slot>
+   <sender>customFilenameSelect</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>inputDirectorySelect</receiver>
+   <slot>toggle()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>316</x>
-     <y>260</y>
+     <x>203</x>
+     <y>236</y>
     </hint>
     <hint type="destinationlabel">
-     <x>286</x>
-     <y>274</y>
+     <x>203</x>
+     <y>107</y>
     </hint>
    </hints>
   </connection>

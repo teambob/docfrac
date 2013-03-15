@@ -12,3 +12,13 @@ ProgressDialog::~ProgressDialog()
 {
     delete ui;
 }
+
+void ProgressDialog::onProgress(int percent)
+{
+    ui->progressBar->setValue(percent);
+}
+
+void ProgressDialog::onFinished()
+{
+    accept();
+}

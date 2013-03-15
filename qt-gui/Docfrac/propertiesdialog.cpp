@@ -12,6 +12,7 @@ PropertiesDialog::PropertiesDialog(QWidget *parent, bool customFilenameEnabled) 
     ui->outputFormatSelect->addItem("HTML", DoxEngine::FORMAT_HTML);
     ui->outputFormatSelect->addItem("RTF", DoxEngine::FORMAT_RTF);
     ui->outputFormatSelect->addItem("Text", DoxEngine::FORMAT_TEXT);
+    updateEnabled();
 }
 
 PropertiesDialog::~PropertiesDialog()
@@ -77,4 +78,27 @@ void PropertiesDialog::on_outputFilenameBrowse_clicked()
     QString filename = QFileDialog::getSaveFileName(this, "Output File","","All Known Formats (*.rtf *.html *.htm *.txt);;RTF (*.rtf);;HTML (*.html *.htm);;Text (*.txt)");
     if (filename.size())
         ui->outputFilename->setText(filename);
+}
+
+void PropertiesDialog::updateEnabled()
+{
+    if (ui->inputDirectorySelect->isChecked())
+        ui->OkButton->setEnabled(true);
+    else if (ui->customDirectorySelect->isChecked())
+        ui->OkButton->setEnabled(ui->outputDirectory->text().length());
+    else if (ui->customFilenameSelect->isChecked())
+        ui->OkButton->setEnabled(ui->outputFilename->text().length());
+    else
+        ui->OkButton->setEnabled(false);
+}
+
+
+void PropertiesDialog::on_CancelButton_clicked()
+{
+  reject();
+}
+
+void PropertiesDialog::on_inputDirectorySelect_toggled(bool checked)
+{
+    updateEnabled();
 }

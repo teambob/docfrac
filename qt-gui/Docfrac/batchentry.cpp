@@ -64,3 +64,18 @@ DoxEngine::FileFormat BatchEntry::getOutputFormat() const
     return outputFormat_;
 }
 
+void BatchEntry::setOutputFilenameGeneration(BatchEntry::OutputFilenameGeneration outputFilenameGeneration)
+{
+    outputFilenameGeneration_ = outputFilenameGeneration;
+}
+
+void BatchEntry::setOutputFormat(DoxEngine::FileFormat outputFormat)
+{
+    outputFormat_ = outputFormat;
+}
+
+void BatchEntry::setOutputPath(const std::string &outputPath)
+{
+    outputPath_ = outputPath;
+}
+

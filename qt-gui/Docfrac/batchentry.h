@@ -22,6 +22,10 @@ public:
     std::string getOutputFilename() const;
     DoxEngine::FileFormat getOutputFormat() const;
 
+    void setOutputFilenameGeneration(OutputFilenameGeneration outputFilenameGeneration);
+    void setOutputFormat(DoxEngine::FileFormat outputFormat);
+    void setOutputPath(const std::string &outputPath);
+
 
 
 private:

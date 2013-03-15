@@ -15,6 +15,7 @@ public:
 
     
 signals:
+    void onProgress(int percent);
     
 public slots:
 

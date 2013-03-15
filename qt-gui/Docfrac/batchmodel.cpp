@@ -122,3 +122,9 @@ std::vector<BatchEntry> BatchModel::getEntries()
 {
     return entries_;
 }
+
+BatchEntry &BatchModel::at(int index)
+{
+    return entries_.at(index);
+}
+

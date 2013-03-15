@@ -19,6 +19,7 @@ public:
     void remove(int index);
     void clear();
     std::vector<BatchEntry> getEntries();
+    BatchEntry& at(int index);
 signals:
     
 public slots:
