@@ -20,6 +20,7 @@ namespace DoxEngine
 	{
 		public:
 			virtual ReadInterface* Create(std::istream &stream, WriterInterface &writer, DebugLog& newLog) = 0;
+                        virtual ~ReaderFactory() {};
 	};
 
 
