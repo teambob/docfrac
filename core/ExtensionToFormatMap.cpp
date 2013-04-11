@@ -10,13 +10,14 @@
 
 namespace DoxEngine
 {
-  ExtensionToFormatMap::ExtensionToFormatMap()
-   :std::map<const tstring, FileFormat>()
+  std::map<std::string, FileFormat> getExtensionToFormatMap()
   {
-    (*this)[TEXT("rtf")] = FORMAT_RTF;
-    (*this)[TEXT("txt")] = FORMAT_TEXT;
-    (*this)[TEXT("text")] = FORMAT_TEXT;
-    (*this)[TEXT("html")] = FORMAT_HTML;
-    (*this)[TEXT("htm")] = FORMAT_HTML;
+    std::map<std::string, FileFormat> results;    
+    results["rtf"] = FORMAT_RTF;
+    results["txt"] = FORMAT_TEXT;
+    results["text"] = FORMAT_TEXT;
+    results["html"] = FORMAT_HTML;
+    results["htm"] = FORMAT_HTML;
+    return results;
   }
 }

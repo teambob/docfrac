@@ -1,0 +1,336 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>756</width>
+    <height>315</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Docfrac</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="common.qrc">
+    <normaloff>:/icons/icons/docfrac-normal.png</normaloff>:/icons/icons/docfrac-normal.png</iconset>
+  </property>
+  <property name="layoutDirection">
+   <enum>Qt::LeftToRight</enum>
+  </property>
+  <widget class="QWidget" name="centralWidget">
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="QTableView" name="batchList">
+      <property name="selectionMode">
+       <enum>QAbstractItemView::ExtendedSelection</enum>
+      </property>
+      <property name="selectionBehavior">
+       <enum>QAbstractItemView::SelectRows</enum>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>756</width>
+     <height>29</height>
+    </rect>
+   </property>
+   <property name="layoutDirection">
+    <enum>Qt::LeftToRight</enum>
+   </property>
+   <property name="defaultUp">
+    <bool>false</bool>
+   </property>
+   <widget class="QMenu" name="menuFile">
+    <property name="title">
+     <string>File</string>
+    </property>
+    <addaction name="actionAdd"/>
+    <addaction name="actionConvert"/>
+    <addaction name="separator"/>
+    <addaction name="actionExit"/>
+   </widget>
+   <widget class="QMenu" name="menuEdit">
+    <property name="title">
+     <string>Edit</string>
+    </property>
+    <widget class="QMenu" name="menuOutputFormat">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
+     <property name="title">
+      <string>Output Format</string>
+     </property>
+     <addaction name="actionRTF"/>
+     <addaction name="actionHTML"/>
+     <addaction name="actionText"/>
+    </widget>
+    <widget class="QMenu" name="menuOutput_Filename">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
+     <property name="title">
+      <string>Output Filename</string>
+     </property>
+     <addaction name="actionInputDirectory"/>
+     <addaction name="actionCustomDirectory"/>
+     <addaction name="actionCustomFilename"/>
+    </widget>
+    <addaction name="actionPaste"/>
+    <addaction name="actionSelect_All"/>
+    <addaction name="actionRemove"/>
+    <addaction name="actionClear_All_Files"/>
+    <addaction name="menuOutputFormat"/>
+    <addaction name="menuOutput_Filename"/>
+   </widget>
+   <widget class="QMenu" name="menuHelp">
+    <property name="title">
+     <string>Help</string>
+    </property>
+    <addaction name="actionAbout"/>
+   </widget>
+   <addaction name="menuFile"/>
+   <addaction name="menuEdit"/>
+   <addaction name="menuHelp"/>
+  </widget>
+  <widget class="QToolBar" name="mainToolBar">
+   <property name="cursor">
+    <cursorShape>ArrowCursor</cursorShape>
+   </property>
+   <property name="iconSize">
+    <size>
+     <width>16</width>
+     <height>16</height>
+    </size>
+   </property>
+   <property name="toolButtonStyle">
+    <enum>Qt::ToolButtonTextUnderIcon</enum>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="actionToolbarAdd"/>
+   <addaction name="actionToolbarConvert"/>
+   <addaction name="actionToolbarRemove"/>
+   <addaction name="actionToolbarClear"/>
+  </widget>
+  <widget class="QStatusBar" name="statusBar"/>
+  <action name="actionAdd">
+   <property name="text">
+    <string>Add Files to Batch...</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+O</string>
+   </property>
+  </action>
+  <action name="actionRemove">
+   <property name="text">
+    <string>Remove From Batch</string>
+   </property>
+   <property name="toolTip">
+    <string>Remove Files from Batch</string>
+   </property>
+   <property name="shortcut">
+    <string>Del</string>
+   </property>
+  </action>
+  <action name="actionExit">
+   <property name="text">
+    <string>Exit</string>
+   </property>
+  </action>
+  <action name="actionClear_All_Files">
+   <property name="text">
+    <string>Clear Batch</string>
+   </property>
+  </action>
+  <action name="actionConvert">
+   <property name="text">
+    <string>Convert...</string>
+   </property>
+  </action>
+  <action name="actionPaste">
+   <property name="text">
+    <string>Paste...</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+V</string>
+   </property>
+  </action>
+  <action name="actionSelect_All">
+   <property name="text">
+    <string>Select All</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+A</string>
+   </property>
+  </action>
+  <action name="actionAbout">
+   <property name="text">
+    <string>About</string>
+   </property>
+  </action>
+  <action name="actionConversion_Properties">
+   <property name="text">
+    <string>Conversion Properties...</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Return</string>
+   </property>
+  </action>
+  <action name="actionToolbarAdd">
+   <property name="icon">
+    <iconset>
+     <normalon>:/icons/icons/plus-normal.png</normalon>
+    </iconset>
+   </property>
+   <property name="text">
+    <string>Add</string>
+   </property>
+   <property name="toolTip">
+    <string>Add</string>
+   </property>
+  </action>
+  <action name="actionToolbarConvert">
+   <property name="icon">
+    <iconset resource="common.qrc">
+     <normaloff>:/icons/icons/play-normal.png</normaloff>:/icons/icons/play-normal.png</iconset>
+   </property>
+   <property name="text">
+    <string>Convert</string>
+   </property>
+  </action>
+  <action name="actionToolbarRemove">
+   <property name="icon">
+    <iconset resource="common.qrc">
+     <normaloff>:/icons/icons/minus-normal.png</normaloff>:/icons/icons/minus-normal.png</iconset>
+   </property>
+   <property name="text">
+    <string>Remove</string>
+   </property>
+  </action>
+  <action name="actionToolbarClear">
+   <property name="icon">
+    <iconset resource="common.qrc">
+     <normaloff>:/icons/icons/cross-normal.png</normaloff>:/icons/icons/cross-normal.png</iconset>
+   </property>
+   <property name="text">
+    <string>Clear</string>
+   </property>
+  </action>
+  <action name="actionRTF">
+   <property name="text">
+    <string>RTF</string>
+   </property>
+  </action>
+  <action name="actionHTML">
+   <property name="text">
+    <string>HTML</string>
+   </property>
+  </action>
+  <action name="actionText">
+   <property name="text">
+    <string>Text</string>
+   </property>
+  </action>
+  <action name="actionInputDirectory">
+   <property name="text">
+    <string>Input Directory (Automatic Filename)</string>
+   </property>
+  </action>
+  <action name="actionCustomDirectory">
+   <property name="text">
+    <string>Custom Directory (Automatic Filename)...</string>
+   </property>
+  </action>
+  <action name="actionCustomFilename">
+   <property name="text">
+    <string>Custom Filename...</string>
+   </property>
+  </action>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <tabstops>
+  <tabstop>batchList</tabstop>
+ </tabstops>
+ <resources>
+  <include location="common.qrc"/>
+ </resources>
+ <connections>
+  <connection>
+   <sender>actionToolbarAdd</sender>
+   <signal>triggered()</signal>
+   <receiver>actionAdd</receiver>
+   <slot>trigger()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionToolbarRemove</sender>
+   <signal>triggered()</signal>
+   <receiver>actionRemove</receiver>
+   <slot>trigger()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionToolbarClear</sender>
+   <signal>triggered()</signal>
+   <receiver>actionClear_All_Files</receiver>
+   <slot>trigger()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionToolbarConvert</sender>
+   <signal>triggered()</signal>
+   <receiver>actionConvert</receiver>
+   <slot>trigger()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>

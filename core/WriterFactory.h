@@ -18,6 +18,7 @@ namespace DoxEngine
 	{
 		public:
 			virtual WriterInterface* Create(std::ostream &stream, DebugLog &log) = 0;
+                        virtual ~WriterFactory() {};
 	};
 
   typedef shared_ptr<WriterFactory> WriterFactoryPtr;

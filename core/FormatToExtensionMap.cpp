@@ -3,16 +3,20 @@
 #include <vector>
 #include <string>
 #include "FormatToExtensionMap.h"
-#include "tstring.h"
 
 //---------------------------------------------------------------------------
 namespace DoxEngine
 {
-  FormatToExtensionMap::FormatToExtensionMap()
+  std::map<FileFormat, std::string> getFormatToExtensionMap()
   {
-    (*this)[FORMAT_RTF] = tstring(TEXT("rtf"));
-    (*this)[FORMAT_TEXT] = tstring(TEXT("txt"));
-    (*this)[FORMAT_HTML] = tstring(TEXT("html"));
+    std::map<FileFormat, std::string> results;
+
+    
+    results[FORMAT_RTF] = "rtf";
+    results[FORMAT_TEXT] = "txt";
+    results[FORMAT_HTML] = "html";
+
+    return results;
 
   }
 }
