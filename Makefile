@@ -5,7 +5,7 @@ TARGETS=test testtxt testhtml docfrac
 CPPFLAGS=-c -O2 -Icore
 #CPPFLAGS=-c -O2 -g -DENABLE_LOG_DEBUG
 
-all: ${LIB} ${TARGETS}
+all: ${LIB} ${TARGETS} qt-docfrac
 
 libdox.a:
 	make -C core libdox.a
@@ -31,8 +31,13 @@ clean:
 
 build: clean all
 
-install:
+install: all qt-install
 	install --owner=root --group=root --mode=0755 docfrac /usr/bin/docfrac
 	install --owner=root --group=root --mode=0644 doc/docfrac.1 /usr/share/man/man1/docfrac.1
 
+qt-docfrac:
+	qmake qt-gui/Docfrac/Docfrac.pro -o qt-gui/Docfrac/Makefile PREFIX=/usr
+	make -C qt-gui/Docfrac
 
+qt-install:
+	make -C qt-gui/Docfrac install	

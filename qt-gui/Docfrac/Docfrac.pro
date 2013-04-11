@@ -6,7 +6,7 @@
 
 QT       += core gui
 
-TARGET = Docfrac
+TARGET = qt-docfrac
 TEMPLATE = app
 
 
@@ -44,4 +44,10 @@ unix|win32: INCLUDEPATH += ../../core/
 
 
 unix|win32: LIBS += -L$$PWD/../../core/ -ldox
+
+isEmpty(PREFIX) {
+ PREFIX = /usr/local
+}
+unix: target.path = $$PREFIX/bin
+unix: INSTALLS += target
 
