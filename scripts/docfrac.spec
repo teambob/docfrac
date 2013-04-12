@@ -1,9 +1,9 @@
-Name: DocFrac
+Name: docfrac
 Summary: Command line utility for converting between RTF, HTML and text.
 Version: 4.0.1
 Release: 1
 License: GPL
-Source: docfrac-%{version}.src.tar.gz
+Source: %{name}-%{version}.src.tar.gz
 URL: http://docfrac.sourceforge.net/
 Vendor: Andrew Punch
 Packager: Andrew Punch <andrew@magneticbooks.com.au>
@@ -22,9 +22,13 @@ Very useful for batch conversions and dynamic websites.
 %setup -n %{name}-%{version}
 
 %build
-make
+make ROOT="$RPM_BUILD_ROOT"
 
 %install
-make install
+make install ROOT="$RPM_BUILD_ROOT"
 
 %files
+%attr(-, root, root)
+/usr/bin/docfrac
+/usr/bin/qt-docfrac
+/usr/share/man/man1/docfrac.1.gz
