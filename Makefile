@@ -32,11 +32,14 @@ clean:
 build: clean all
 
 install: all qt-install
-	install --owner=root --group=root --mode=0755 docfrac /usr/bin/docfrac
-	install --owner=root --group=root --mode=0644 doc/docfrac.1 /usr/share/man/man1/docfrac.1
+	install --mode=0755 -d $(ROOT)/usr/bin
+	install --mode=0755 docfrac $(ROOT)/usr/bin/docfrac
+	install --mode=0755 -d $(ROOT)/usr/share/man/man1/
+	gzip < doc/docfrac.1 > $(ROOT)/usr/share/man/man1/docfrac.1.gz
+	chmod 0644 $(ROOT)/usr/share/man/man1/docfrac.1.gz
 
 qt-docfrac:
-	qmake qt-gui/Docfrac/Docfrac.pro -o qt-gui/Docfrac/Makefile PREFIX=/usr
+	qmake qt-gui/Docfrac/Docfrac.pro -o qt-gui/Docfrac/Makefile PREFIX=$(ROOT)/usr
 	make -C qt-gui/Docfrac
 
 qt-install:
