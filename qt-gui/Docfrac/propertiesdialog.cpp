@@ -56,6 +56,7 @@ void PropertiesDialog::on_customDirectorySelect_toggled(bool checked)
 {
     ui->browseOutputDirectory->setEnabled(checked);
     ui->outputDirectory->setEnabled(checked);
+    updateEnabled();
 
 }
 
@@ -64,6 +65,7 @@ void PropertiesDialog::on_customFilenameSelect_toggled(bool checked)
 {
     ui->outputFilenameBrowse->setEnabled(checked);
     ui->outputFilename->setEnabled(checked);
+    updateEnabled();
 }
 
 void PropertiesDialog::on_browseOutputDirectory_clicked()
@@ -93,12 +95,18 @@ void PropertiesDialog::updateEnabled()
 }
 
 
-void PropertiesDialog::on_CancelButton_clicked()
-{
-  reject();
-}
 
 void PropertiesDialog::on_inputDirectorySelect_toggled(bool checked)
+{
+    updateEnabled();
+}
+
+void PropertiesDialog::on_outputDirectory_textChanged(const QString &arg1)
+{
+    updateEnabled();
+}
+
+void PropertiesDialog::on_outputFilename_textChanged(const QString &arg1)
 {
     updateEnabled();
 }

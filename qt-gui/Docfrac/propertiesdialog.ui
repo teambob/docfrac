@@ -188,34 +188,34 @@
  <resources/>
  <connections>
   <connection>
-   <sender>customDirectorySelect</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>inputDirectorySelect</receiver>
-   <slot>toggle()</slot>
+   <sender>OkButton</sender>
+   <signal>clicked()</signal>
+   <receiver>PropertiesDialog</receiver>
+   <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>203</x>
-     <y>139</y>
+     <x>103</x>
+     <y>333</y>
     </hint>
     <hint type="destinationlabel">
-     <x>203</x>
-     <y>107</y>
+     <x>199</x>
+     <y>186</y>
     </hint>
    </hints>
   </connection>
   <connection>
-   <sender>customFilenameSelect</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>inputDirectorySelect</receiver>
-   <slot>toggle()</slot>
+   <sender>CancelButton</sender>
+   <signal>clicked()</signal>
+   <receiver>PropertiesDialog</receiver>
+   <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>203</x>
-     <y>236</y>
+     <x>296</x>
+     <y>333</y>
     </hint>
     <hint type="destinationlabel">
-     <x>203</x>
-     <y>107</y>
+     <x>199</x>
+     <y>186</y>
     </hint>
    </hints>
   </connection>
