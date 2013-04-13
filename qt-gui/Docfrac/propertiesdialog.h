@@ -32,9 +32,11 @@ private slots:
 
     void on_outputFilenameBrowse_clicked();
 
-    void on_CancelButton_clicked();
-
     void on_inputDirectorySelect_toggled(bool checked);
+
+    void on_outputDirectory_textChanged(const QString &arg1);
+
+    void on_outputFilename_textChanged(const QString &arg1);
 
 private:
     Ui::PropertiesDialog *ui;
