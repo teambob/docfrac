@@ -41,6 +41,7 @@ UninstPage instfiles
 
 ; The stuff to install
 Section "${PROJECT} (required)"
+  !define QTDIR "C:\Apps\qt4.8.4"
 
   SectionIn RO
   
@@ -49,7 +50,10 @@ Section "${PROJECT} (required)"
   
   ; Put file there
   ;File "..\old-gui\dox_old.exe"
-  File "..\new-gui\NewDocfrac.exe"
+  ;File "..\new-gui\NewDocfrac.exe"
+  File "..\qt-gui\Docfrac\release\qt-docfrac.exe"
+  File "${QTDIR}\lib\qtgui4.dll"
+  File "${QTDIR}\lib\qtcore4.dll"
   
   ; Write the installation path into the registry
   WriteRegStr HKLM SOFTWARE\${PROJECT} "Install_Dir" "$INSTDIR"
@@ -66,7 +70,7 @@ SectionEnd
 ; Optional section (can be disabled by the user)
 Section "Start Menu Shortcuts"
   CreateDirectory "$SMPROGRAMS\${PROJECT}"
-  CreateShortCut "$SMPROGRAMS\${PROJECT}\DocFrac.lnk" "$INSTDIR\NewDocfrac.exe" "" "$INSTDIR\NewDocfrac.exe" 0
+  CreateShortCut "$SMPROGRAMS\${PROJECT}\DocFrac.lnk" "$INSTDIR\qt-docfrac.exe" "" "$INSTDIR\qt-docfrac.exe" 0
   CreateShortCut "$SMPROGRAMS\${PROJECT}\Uninstall.lnk" "$INSTDIR\uninstall.exe" "" "$INSTDIR\uninstall.exe" 0
   
 SectionEnd
@@ -82,8 +86,10 @@ Section "Uninstall"
   DeleteRegKey HKLM SOFTWARE\${PROJECT}
 
   ; Remove files and uninstaller
-  Delete $INSTDIR\NewDocfrac.exe
+  Delete $INSTDIR\qt-docfrac.exe
   Delete $INSTDIR\uninstall.exe
+  Delete $INSTDIR\qtgui4.dll
+  Delete $INSTDIR\qtcore4.dll
 
   ; Remove shortcuts, if any
   Delete "$SMPROGRAMS\${PROJECT}\*.*"
