@@ -10,7 +10,17 @@ ProgressDialog::ProgressDialog(QWidget *parent) :
 
 ProgressDialog::~ProgressDialog()
 {
-    delete ui;
+  delete ui;
+}
+
+void ProgressDialog::setInputFilename(const std::string &inputFilename)
+{
+  ui->inputFileLabel->setText(inputFilename.c_str());
+}
+
+void ProgressDialog::setOutputFilename(const std::string &outputFilename)
+{
+  ui->outputFileLabel->setText(outputFilename.c_str());
 }
 
 void ProgressDialog::onProgress(int percent)

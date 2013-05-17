@@ -4,6 +4,7 @@
 #include <QMimeData>
 #include <QUrl>
 #include <QDropEvent>
+#include <QDesktopServices>
 
 #include <boost/scoped_ptr.hpp>
 #include <fstream>
@@ -15,12 +16,14 @@
 #include "batchmodel.h"
 #include "batchentry.h"
 #include "conversionthread.h"
+#include "donatedialog.h"
 
 #include "FileFormat.h"
 #include "WriterFactory.h"
 #include "ReaderFactory.h"
 #include "ReaderInterface.h"
 
+const static std::string DONATE_URL( "https://sourceforge.net/donate/index.php?group_id=96923" );
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -46,7 +49,11 @@ MainWindow::~MainWindow()
 void MainWindow::on_actionAbout_triggered()
 {
     About aboutBox(this);
-    aboutBox.exec();
+    if ( aboutBox.exec() == About::Accepted )
+      {
+        QUrl donateUrl( DONATE_URL.c_str() );
+        QDesktopServices::openUrl( donateUrl );
+      }
 }
 
 void MainWindow::on_actionConversion_Properties_triggered()
@@ -106,6 +113,8 @@ void MainWindow::on_actionConvert_triggered()
         thread.start();
         QObject::connect(&thread, SIGNAL(finished()), &progress_, SLOT(onFinished()));
         QObject::connect(&thread, SIGNAL(onProgress(int)), &progress_, SLOT(onProgress(int)));
+        progress_.setInputFilename(i->getInputFilename());
+        progress_.setOutputFilename(i->getOutputFilename());
         if (!progress_.exec())
         {
             thread.cancel();
@@ -218,6 +227,18 @@ void MainWindow::dropEvent(QDropEvent *event)
 
 }
 
+void MainWindow::showEvent(QShowEvent *event)
+{
+#ifdef WIN32
+  DonateDialog dialog( this );
+    if ( dialog.exec() == DonateDialog::Accepted )
+    {
+      QUrl donateUrl( DONATE_URL.c_str() );
+      QDesktopServices::openUrl( donateUrl );
+    }
+#endif
+}
+
 void MainWindow::on_actionText_triggered()
 {
     QModelIndexList selectedRows = ui->batchList->selectionModel()->selectedRows(0);
@@ -296,4 +317,15 @@ void MainWindow::onSelectionChanged(const QItemSelection &selected, const QItemS
     ui->menuOutputFormat->setEnabled(itemsSelected);
     ui->menuOutput_Filename->setEnabled(itemsSelected);
     ui->actionCustomFilename->setEnabled(oneItemSelected);
+}
+
+void MainWindow::on_actionDonate_triggered()
+{
+  QUrl donateUrl( DONATE_URL.c_str() );
+  QDesktopServices::openUrl( donateUrl );
+}
+
+void MainWindow::on_batchList_customContextMenuRequested(const QPoint &pos)
+{
+
 }

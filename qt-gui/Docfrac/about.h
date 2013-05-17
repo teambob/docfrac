@@ -14,6 +14,8 @@ class About : public QDialog
 public:
     explicit About(QWidget *parent = 0);
     ~About();
+protected:
+  virtual void showEvent(QShowEvent *);
     
 private:
     Ui::About *ui;

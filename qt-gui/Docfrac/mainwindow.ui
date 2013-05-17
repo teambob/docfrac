@@ -24,6 +24,9 @@
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
      <widget class="QTableView" name="batchList">
+      <property name="contextMenuPolicy">
+       <enum>Qt::ActionsContextMenu</enum>
+      </property>
       <property name="selectionMode">
        <enum>QAbstractItemView::ExtendedSelection</enum>
       </property>
@@ -40,7 +43,7 @@
      <x>0</x>
      <y>0</y>
      <width>756</width>
-     <height>29</height>
+     <height>25</height>
     </rect>
    </property>
    <property name="layoutDirection">
@@ -96,6 +99,7 @@
      <string>Help</string>
     </property>
     <addaction name="actionAbout"/>
+    <addaction name="actionDonate"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuEdit"/>
@@ -178,7 +182,7 @@
   </action>
   <action name="actionAbout">
    <property name="text">
-    <string>About</string>
+    <string>About...</string>
    </property>
   </action>
   <action name="actionConversion_Properties">
@@ -257,6 +261,11 @@
   <action name="actionCustomFilename">
    <property name="text">
     <string>Custom Filename...</string>
+   </property>
+  </action>
+  <action name="actionDonate">
+   <property name="text">
+    <string>Donate...</string>
    </property>
   </action>
  </widget>

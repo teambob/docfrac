@@ -19,7 +19,8 @@ SOURCES += main.cpp\
     batchentry.cpp \
     ../../core/FormatToExtensionMap.cpp \
     ../../core/ExtensionToFormatMap.cpp \
-    conversionthread.cpp
+    conversionthread.cpp \
+    donatedialog.cpp
 
 HEADERS  += mainwindow.h \
     about.h \
@@ -27,23 +28,32 @@ HEADERS  += mainwindow.h \
     progressdialog.h \
     batchmodel.h \
     batchentry.h \
-    conversionthread.h
+    conversionthread.h \
+    donatedialog.h
+	
+win32: INCLUDEPATH += "c:/Program Files/boost/boost_1_51"
+win32: QMAKE_LIBDIR += "c:/Program Files/boost/boost_1_51/lib"
 
 FORMS    += mainwindow.ui \
     about.ui \
     propertiesdialog.ui \
-    progressdialog.ui
+    progressdialog.ui \
+    donatedialog.ui
 
 OTHER_FILES +=
 
 RESOURCES += \
     common.qrc
 
-unix|win32: LIBS += -lboost_filesystem -lboost_system
-unix|win32: INCLUDEPATH += ../../core/
+unix: LIBS += -lboost_filesystem -lboost_system -lboost_regex
+#win32: LIBS += -lboost_filesystem-vc100-mt-1_51 -lboost_system-vc100-mt-1_51
+unix|win32: INCLUDEPATH += ../../core
 
+unix: LIBS += -ldox
+win32: LIBS += -llibdox
 
-unix|win32: LIBS += -L$$PWD/../../core/ -ldox
+win32: QMAKE_LIBDIR += ../../core/Release
+unix: QMAKE_LIBDIR += ../../core
 
 isEmpty(PREFIX) {
  PREFIX = /usr/local

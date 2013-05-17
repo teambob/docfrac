@@ -55,6 +55,10 @@ class MainWindow : public QMainWindow
 
     void onSelectionChanged( const QItemSelection & selected, const QItemSelection & deselected );
 
+    void on_actionDonate_triggered();
+
+    void on_batchList_customContextMenuRequested(const QPoint &pos);
+
 private:
     Ui::MainWindow *ui;
     BatchModel *model;
@@ -63,6 +67,7 @@ private:
   protected:
     virtual void dragEnterEvent(QDragEnterEvent *event);
     virtual void dropEvent(QDropEvent *event);
+    virtual void showEvent ( QShowEvent * event );
 };
 
 #endif // MAINWINDOW_H
