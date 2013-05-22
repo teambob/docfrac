@@ -28,15 +28,15 @@ namespace DoxEngine
 
 
   public:
-	Style();
-  Style(DebugLog &newLog);
-  Style(const Style &style);
-	~Style();
+    Style();
+    Style(DebugLog &newLog);
+    Style(const Style &style);
+    ~Style();
     Style& operator=(const Style& rhs);
     bool operator==(const Style& rhs) const;
     bool operator!=(const Style& rhs) const;
 
-      void setDefault( void );
+    void setDefault( void );
 
     void setBold( bool value );
     void setItalic( bool value );

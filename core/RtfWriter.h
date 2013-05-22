@@ -26,18 +26,18 @@ namespace DoxEngine
 
   class RtfWriter : public WriterInterface
   {
-    private:
-      std::ostream* outputStream;
-      DebugLog& log;
-      Style style;
+  private:
+    std::ostream* outputStream;
+    DebugLog& log;
+    Style style;
 
-    public:
-      RtfWriter(std::ostream& stream, DebugLog& newLog);
-      virtual void writeChar(const UnicodeCharacter& character);
-      virtual void writeTable(TableType table);
-      virtual ~RtfWriter();
-      virtual void writeBreak(BreakType type);
-      virtual void setStyle( const Style &newStyle );
+  public:
+    RtfWriter(std::ostream& stream, DebugLog& newLog);
+    virtual void writeChar(const UnicodeCharacter& character);
+    virtual void writeTable(TableType table);
+    virtual ~RtfWriter();
+    virtual void writeBreak(BreakType type);
+    virtual void setStyle( const Style &newStyle );
   };
 
 }

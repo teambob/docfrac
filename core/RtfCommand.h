@@ -12,19 +12,19 @@ namespace DoxEngine
   class RtfBaseHandler
   {
   public:
-		virtual ~RtfBaseHandler() { }
-		virtual void handleCommand(DoxEngine::RtfReader* parent,
-			int commandValue) = 0;
-	};
+    virtual ~RtfBaseHandler() { }
+    virtual void handleCommand(DoxEngine::RtfReader* parent,
+                               int commandValue) = 0;
+  };
 
 
   typedef shared_ptr<RtfBaseHandler> RtfCommandElement;
 
   typedef std::map<std::string, DoxEngine::RtfCommandElement> RtfCommandMap;
-	class RtfCommands : public RtfCommandMap
+  class RtfCommands : public RtfCommandMap
   {
-    public:
-      RtfCommands();
+  public:
+    RtfCommands();
   };
 
 }

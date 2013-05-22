@@ -12,22 +12,22 @@
 namespace DoxEngine
 {
   class HtmlReader;
-  
+
   class HtmlBaseHandler
   {
   public:
-		virtual ~HtmlBaseHandler() { }
-		virtual void handleCommand(HtmlReader& parent,
-			HtmlTag &tag) = 0;
-	};
+    virtual ~HtmlBaseHandler() { }
+    virtual void handleCommand(HtmlReader& parent,
+                               HtmlTag &tag) = 0;
+  };
 
   typedef shared_ptr<HtmlBaseHandler> HtmlCommandElement;
 
   typedef std::map<std::string, DoxEngine::HtmlCommandElement> HtmlCommandMap;
-	class HtmlCommands : public HtmlCommandMap
+  class HtmlCommands : public HtmlCommandMap
   {
-    public:
-      HtmlCommands();
+  public:
+    HtmlCommands();
   };
 
 }

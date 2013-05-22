@@ -6,10 +6,10 @@
 namespace DoxEngine
 {
 
-ReadInterface::~ReadInterface(void)
-{
+  ReadInterface::~ReadInterface(void)
+  {
 
-}
+  }
 
 
 

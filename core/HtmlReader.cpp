@@ -20,7 +20,7 @@ namespace DoxEngine
 
 
   HtmlReader::HtmlReader(std::istream& newStream, WriterInterface& newWriter, DebugLog &newLog)
-	:stream(&newStream),writer(newWriter), log(newLog)
+    :stream(&newStream),writer(newWriter), log(newLog)
   {
     lineEmpty = true;
     script = false;
@@ -36,7 +36,7 @@ namespace DoxEngine
 
 
 
-	  stream->get( character );
+    stream->get( character );
 
     // Windows often puts a UTF8 BOM at the beginning of a file
     if ( startOfFile && ( character == BYTE_ORDER_MARK_UTF8_BYTE1 ) )
@@ -54,39 +54,39 @@ namespace DoxEngine
 
     switch(character)
     {
-      case '<':
-        readCommand();
-        lineEmpty = false;
+    case '<':
+      readCommand();
+      lineEmpty = false;
       break;
 
-      case '&':
-        readCharacter();
-        lineEmpty = false;
+    case '&':
+      readCharacter();
+      lineEmpty = false;
       break;
 
-      case '\r':
+    case '\r':
       break;
 
-      case '\n':
+    case '\n':
+    {
+      if ((!lineEmpty)&&(!script)&&(!iframe))
       {
-        if ((!lineEmpty)&&(!script)&&(!iframe))
-        {
-          UnicodeCharacter unicodeCharacter(' ');
-          writer.writeChar(unicodeCharacter);
-        }
-        lineEmpty = true;
+        UnicodeCharacter unicodeCharacter(' ');
+        writer.writeChar(unicodeCharacter);
       }
-      break;
+      lineEmpty = true;
+    }
+    break;
 
-      default:
+    default:
+    {
+      if ((!script)&&(!iframe))
       {
-        if ((!script)&&(!iframe))
-        {
-          writer.writeChar(UnicodeCharacter(character));
-          lineEmpty = false;
-        }
+        writer.writeChar(UnicodeCharacter(character));
+        lineEmpty = false;
       }
-      break;
+    }
+    break;
     }
 
     return stream->good();
@@ -113,7 +113,7 @@ namespace DoxEngine
 
     command = tag.GetElement();
 
-    for (string::iterator i=command.begin();i != command.end();i++)
+    for (string::iterator i=command.begin(); i != command.end(); i++)
     {
       *i = std::tolower(*i);
     }
@@ -161,8 +161,8 @@ namespace DoxEngine
     }
 
 
-  if (stream->good())
-  {
+    if (stream->good())
+    {
       if (code.find("#x") == 0 || code.find("#X") == 0)
       {
         // hex number
@@ -187,41 +187,41 @@ namespace DoxEngine
       {
 #ifdef ENABLE_LOG_DEBUG
         log[LOG_DEBUG] << DEBUG_ID << "Found escape code:" << code << std::endl;
-#endif        
-   	    HtmlCharacterMaps::iterator i = maps.find(code);
-	      if ((i != maps.end())&&(!script)&&(!iframe))
-	      {
-		      writer.writeChar(i->second);
+#endif
+        HtmlCharacterMaps::iterator i = maps.find(code);
+        if ((i != maps.end())&&(!script)&&(!iframe))
+        {
+          writer.writeChar(i->second);
         }
       }
     }
 
   }
-      WriterInterface& HtmlReader::GetWriterReference()
-      {
-        return writer;
-      }
+  WriterInterface& HtmlReader::GetWriterReference()
+  {
+    return writer;
+  }
 
-      Style HtmlReader::GetStyle()
-      {
-        return style;
-      }
+  Style HtmlReader::GetStyle()
+  {
+    return style;
+  }
 
-      void HtmlReader::SetStyle( const Style &value )
-      {
-        style = value;
-        writer.setStyle(style);
-      }
+  void HtmlReader::SetStyle( const Style &value )
+  {
+    style = value;
+    writer.setStyle(style);
+  }
 
-      void HtmlReader::SetScript( bool value )
-      {
-        script = value;
-      }
+  void HtmlReader::SetScript( bool value )
+  {
+    script = value;
+  }
 
-      void HtmlReader::SetIframe( bool value )
-      {
-        iframe = value;
-      }
+  void HtmlReader::SetIframe( bool value )
+  {
+    iframe = value;
+  }
 
 
 }

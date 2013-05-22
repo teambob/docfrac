@@ -9,19 +9,19 @@ namespace DoxEngine
 
   class TextReader : public ReadInterface
   {
-    private:
-	    std::istream &stream;
-	    WriterInterface &writer;
-      DebugLog &log;
+  private:
+    std::istream &stream;
+    WriterInterface &writer;
+    DebugLog &log;
 
 
-    public:
-      TextReader(std::istream& newStream, WriterInterface& newWriter, DebugLog& newLog);
+  public:
+    TextReader(std::istream& newStream, WriterInterface& newWriter, DebugLog& newLog);
 
-      virtual bool processData(void);
-      virtual int getPercentComplete(void);
+    virtual bool processData(void);
+    virtual int getPercentComplete(void);
 
-      virtual ~TextReader();
+    virtual ~TextReader();
   };
 
 }

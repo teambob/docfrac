@@ -8,24 +8,24 @@ namespace DoxEngine
 {
   class Colour
   {
-	public:
-	  Colour();
-	  void SetDefault();
+  public:
+    Colour();
+    void SetDefault();
 
-		void SetRed(int value);
-		void SetGreen(int value);
-		void SetBlue(int value);
+    void SetRed(int value);
+    void SetGreen(int value);
+    void SetBlue(int value);
 
-		bool IsDefault() const;
-		int GetRed() const;
-		int GetGreen() const;
-		int GetBlue() const;
+    bool IsDefault() const;
+    int GetRed() const;
+    int GetGreen() const;
+    int GetBlue() const;
 
     bool operator==( const Colour &rhs ) const;
 
-	private:
-	  bool redDefault, greenDefault, blueDefault;
-	  int red, green, blue;
+  private:
+    bool redDefault, greenDefault, blueDefault;
+    int red, green, blue;
 
   };
 

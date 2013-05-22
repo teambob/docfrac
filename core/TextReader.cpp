@@ -19,7 +19,7 @@ namespace DoxEngine
 
 
   TextReader::TextReader(std::istream& newStream, WriterInterface& newWriter, DebugLog& newLog)
-	:stream(newStream), writer(newWriter), log(newLog)
+    :stream(newStream), writer(newWriter), log(newLog)
   {
   }
 
@@ -29,23 +29,23 @@ namespace DoxEngine
   {
     char character;
 
-	  stream.get(character);
+    stream.get(character);
 
     if (!stream.good())
       return false;
 
     switch(character)
     {
-      case '\r':
-        // Ignore
+    case '\r':
+      // Ignore
       break;
 
-      case '\n':
-        writer.writeBreak(LineBreak);
+    case '\n':
+      writer.writeBreak(LineBreak);
       break;
 
-      default:
-        writer.writeChar(UnicodeCharacter(character));
+    default:
+      writer.writeChar(UnicodeCharacter(character));
       break;
     }
 

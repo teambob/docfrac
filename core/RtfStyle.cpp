@@ -22,11 +22,11 @@ namespace DoxEngine
   {
   }
 
-	void RtfStyle::setPlain( void )
+  void RtfStyle::setPlain( void )
   {
-		style.setBold( false );
-		style.setItalic( false );
-		style.setUnderline( false );
+    style.setBold( false );
+    style.setItalic( false );
+    style.setUnderline( false );
 
     style.setColour();
     inTable = false;
@@ -47,7 +47,7 @@ namespace DoxEngine
   {
     sectionColumns = 0;
   }
-  
+
   void RtfStyle::setSectionColumns( int columns )
   {
     sectionColumns = columns;
@@ -65,7 +65,7 @@ namespace DoxEngine
     log[LOG_DEBUG] << DEBUG_ID << "Setting red to " << value << "\n";
 #endif
 
-	currentColour.SetRed(value);
+    currentColour.SetRed(value);
   }
 
   void RtfStyle::setGreen( int value )
@@ -73,7 +73,7 @@ namespace DoxEngine
 #ifdef ENABLE_LOG_DEBUG
     log[LOG_DEBUG] << DEBUG_ID << "Setting green to " << value << "\n";
 #endif
-	currentColour.SetGreen(value);
+    currentColour.SetGreen(value);
   }
 
   void RtfStyle::setBlue( int value )
@@ -91,43 +91,43 @@ namespace DoxEngine
     log[LOG_DEBUG] << DEBUG_ID << "Saving colour table entry\n";
 #endif
 
-	  colour.push_back(currentColour);
+    colour.push_back(currentColour);
   }
 
   void RtfStyle::setForegroundColour( int index )
   {
     // Colour index is based on 1
 #ifdef ENABLE_LOG_DEBUG
-		log[LOG_DEBUG] << DEBUG_ID << "Setting foreground colour\n";
+    log[LOG_DEBUG] << DEBUG_ID << "Setting foreground colour\n";
 #endif
 
-		if (index < 0)
-		{
-			// integer index can't be compared to unsigned size if negative
+    if (index < 0)
+    {
+      // integer index can't be compared to unsigned size if negative
       log[LOG_WARNING] << DEBUG_ID << "Index cannot be negative\n";
-		}
-		else if (unsigned(index) >= colour.size()) // cast to unsigned
-		{
-			log[LOG_WARNING] << DEBUG_ID << index << "is beyond bounds (" << colour.size() << "\n";
-		}
-		else
-		{
-			if (colour[index].IsDefault())
-				style.setColour();
-			else
-				style.setColour(colour[index].GetRed(), colour[index].GetGreen(),colour[index].GetBlue());
+    }
+    else if (unsigned(index) >= colour.size()) // cast to unsigned
+    {
+      log[LOG_WARNING] << DEBUG_ID << index << "is beyond bounds (" << colour.size() << "\n";
+    }
+    else
+    {
+      if (colour[index].IsDefault())
+        style.setColour();
+      else
+        style.setColour(colour[index].GetRed(), colour[index].GetGreen(),colour[index].GetBlue());
 
     }
   }
 
-	Style RtfStyle::getStyle() const
-	{
-		return style;
-	}
+  Style RtfStyle::getStyle() const
+  {
+    return style;
+  }
 
-	void RtfStyle::setStyle(const Style &newStyle)
-	{
-		style = newStyle;
+  void RtfStyle::setStyle(const Style &newStyle)
+  {
+    style = newStyle;
   }
 
 }

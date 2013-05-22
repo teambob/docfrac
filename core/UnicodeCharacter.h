@@ -7,18 +7,18 @@ namespace DoxEngine
 
   class UnicodeCharacter
   {
-    private:
-      long character;
+  private:
+    long character;
 
-    public:
-      UnicodeCharacter(unsigned long initialCharacter);
-      UnicodeCharacter(char initialCharacter);
-      UnicodeCharacter();
+  public:
+    UnicodeCharacter(unsigned long initialCharacter);
+    UnicodeCharacter(char initialCharacter);
+    UnicodeCharacter();
 
-      void setCharacter(long newCharacter);
-      bool isASCII(void) const;
-      char getASCII(void) const;
-      long unicode(void) const;
+    void setCharacter(long newCharacter);
+    bool isASCII(void) const;
+    char getASCII(void) const;
+    long unicode(void) const;
   };
 
 }

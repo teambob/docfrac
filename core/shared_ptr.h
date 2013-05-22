@@ -9,97 +9,97 @@ namespace DoxEngine
 {
   template <class T> class shared_ptr
   {
-    public:
-      // Constructors
-      shared_ptr()
-{
-  ptr = NULL;
-  count = new int;
-  *count = 1;
-}
+  public:
+    // Constructors
+    shared_ptr()
+    {
+      ptr = NULL;
+      count = new int;
+      *count = 1;
+    }
 
 
-      shared_ptr(const shared_ptr<T> &original)
-{
-  ptr = original.ptr;
-  count = original.count;
-  (*count)++;
-}
+    shared_ptr(const shared_ptr<T> &original)
+    {
+      ptr = original.ptr;
+      count = original.count;
+      (*count)++;
+    }
 
-      shared_ptr(T* original)
-{
-  ptr = original;
-  count = new int;
-  *count = 1;
-}
+    shared_ptr(T* original)
+    {
+      ptr = original;
+      count = new int;
+      *count = 1;
+    }
 
-      ~shared_ptr()
-{
-  Release();
-}
-
-
-      //assignment
-      shared_ptr<T> &operator=(const shared_ptr &rhs)
-{
-  if (this == &rhs)
-    return *this;
-
-  Release();
-  ptr = rhs.ptr;
-  count = rhs.count;
-  Acquire();
-
-  return *this;
-}
-
-      shared_ptr<T> &operator=(const T* rhs)
-{
-  if (ptr == rhs)
-    return *this;
-
-  Release();
-  ptr = rhs;
-  count = new int;
-  *count = 1;
-}
+    ~shared_ptr()
+    {
+      Release();
+    }
 
 
-      //Use
-      T* operator->()
-{
-  return ptr;
-}
+    //assignment
+    shared_ptr<T> &operator=(const shared_ptr &rhs)
+    {
+      if (this == &rhs)
+        return *this;
+
+      Release();
+      ptr = rhs.ptr;
+      count = rhs.count;
+      Acquire();
+
+      return *this;
+    }
+
+    shared_ptr<T> &operator=(const T* rhs)
+    {
+      if (ptr == rhs)
+        return *this;
+
+      Release();
+      ptr = rhs;
+      count = new int;
+      *count = 1;
+    }
 
 
-    private:
-      T* ptr;
-      int* count;
+    //Use
+    T* operator->()
+    {
+      return ptr;
+    }
 
-      void Acquire()
+
+  private:
+    T* ptr;
+    int* count;
+
+    void Acquire()
+    {
+      (*count)++;
+    }
+
+    void Release()
+    {
+      (*count)--;
+      if (!(*count))
       {
-        (*count)++;
+        delete count;
+
+        if (ptr)
+          delete ptr;
+
+        ptr = NULL;
       }
-      
-      void Release()
-{
-  (*count)--;
-  if (!(*count))
-  {
-    delete count;
 
-    if (ptr)
-      delete ptr;
-
-    ptr = NULL;
-  }
-
-}
-  // Comparison
-  bool operator>(const shared_ptr<T> &rhs)
-  {
-    return this>&rhs;
-  }
+    }
+    // Comparison
+    bool operator>(const shared_ptr<T> &rhs)
+    {
+      return this>&rhs;
+    }
 
   };
 }

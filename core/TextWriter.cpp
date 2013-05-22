@@ -32,31 +32,31 @@ namespace DoxEngine
   {
     switch(table)
     {
-      case TableStart:
-        *outputStream << "\r\n";
-        //*outputStream << "===================================\r\n";
-        inTable = true;
+    case TableStart:
+      *outputStream << "\r\n";
+      //*outputStream << "===================================\r\n";
+      inTable = true;
       break;
 
-      case TableRowStart:
-        *outputStream << "-----------------------------------\r\n";
+    case TableRowStart:
+      *outputStream << "-----------------------------------\r\n";
       break;
 
-      case TableRowEnd:
-        *outputStream << "|\r\n";
+    case TableRowEnd:
+      *outputStream << "|\r\n";
       break;
 
-      case TableCellStart:
-        *outputStream << "| ";
+    case TableCellStart:
+      *outputStream << "| ";
       break;
 
-      case TableCellEnd:
-        *outputStream << " ";
+    case TableCellEnd:
+      *outputStream << " ";
       break;
 
-      case TableEnd:
-        *outputStream << "-----------------------------------\r\n";
-        inTable = false;
+    case TableEnd:
+      *outputStream << "-----------------------------------\r\n";
+      inTable = false;
       break;
     }
 

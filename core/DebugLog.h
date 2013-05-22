@@ -24,20 +24,20 @@ namespace DoxEngine
 
   class DebugLog
   {
-    public:
-      DebugLog();
-      DebugLog(const DebugLog &rhs);
-      ~DebugLog();
-      DebugLog& operator=(const  DebugLog &rhs);
+  public:
+    DebugLog();
+    DebugLog(const DebugLog &rhs);
+    ~DebugLog();
+    DebugLog& operator=(const  DebugLog &rhs);
 
-      // Note: DebugLog does not take ownership or copy of stream
-      void SetStream(const LogLevel level, std::ostream &stream);
-      std::ostream& GetStream(const LogLevel level);
-      std::ostream& operator[](const LogLevel level);
-      
-    private:
-      LevelToStreamMap map;
-      std::ostream nullstream;
+    // Note: DebugLog does not take ownership or copy of stream
+    void SetStream(const LogLevel level, std::ostream &stream);
+    std::ostream& GetStream(const LogLevel level);
+    std::ostream& operator[](const LogLevel level);
+
+  private:
+    LevelToStreamMap map;
+    std::ostream nullstream;
 
   };
 }

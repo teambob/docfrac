@@ -36,9 +36,9 @@ namespace DoxEngine
 
 
   HtmlWriter::HtmlWriter(std::ostream& stream, DebugLog &newLog)
-	:outputStream(stream), log(newLog)
+    :outputStream(stream), log(newLog)
   {
-	outputStream << "<HTML>\r\n";
+    outputStream << "<HTML>\r\n";
     outputStream << "<BODY>\r\n";
 
     styleChanged = false;
@@ -55,8 +55,8 @@ namespace DoxEngine
 
 
 
-	  outputStream << "</BODY>\r\n";
-	  outputStream << "</HTML>\r\n";
+    outputStream << "</BODY>\r\n";
+    outputStream << "</HTML>\r\n";
 
   }
 
@@ -81,7 +81,7 @@ namespace DoxEngine
         if (whiteSpaces)
           outputStream << "&nbsp;";
         else
-	        outputStream << ASCIICharacter;
+          outputStream << ASCIICharacter;
 
         whiteSpaces++;
       }
@@ -90,26 +90,26 @@ namespace DoxEngine
         whiteSpaces = 0;
         switch (ASCIICharacter)
         {
-          case '&':
-            outputStream << "&amp;";
+        case '&':
+          outputStream << "&amp;";
           break;
 
-          case '<':
-            outputStream << "&lt;";
+        case '<':
+          outputStream << "&lt;";
           break;
 
-          case '>':
-            outputStream << "&gt;";
+        case '>':
+          outputStream << "&gt;";
           break;
 
-          default:
-            outputStream << ASCIICharacter;
+        default:
+          outputStream << ASCIICharacter;
           break;
         }
 
       }
     }
-	  else
+    else
     {
       whiteSpaces = 0;
       outputStream << "&#" << character.unicode() << ";";
@@ -121,34 +121,34 @@ namespace DoxEngine
   {
     switch(table)
     {
-      case TableStart:
-        tableStopStyle();
-		outputStream << "<table>";
-	  break;
+    case TableStart:
+      tableStopStyle();
+      outputStream << "<table>";
+      break;
 
-	  case TableRowStart:
-		outputStream << "<tr>";
-	  break;
+    case TableRowStart:
+      outputStream << "<tr>";
+      break;
 
-	  case TableRowEnd:
-		outputStream << "</tr>\r\n";
-	  break;
+    case TableRowEnd:
+      outputStream << "</tr>\r\n";
+      break;
 
-	  case TableCellStart:
-		outputStream << "<td>";
-		tableRestartStyle();
-	  break;
+    case TableCellStart:
+      outputStream << "<td>";
+      tableRestartStyle();
+      break;
 
-	  case TableCellEnd:
-		tableStopStyle();
-		outputStream << "</td>";
-	  break;
+    case TableCellEnd:
+      tableStopStyle();
+      outputStream << "</td>";
+      break;
 
-	  case TableEnd:
-		outputStream << "</table>\r\n";
-		tableRestartStyle();
-	  break;
-	}
+    case TableEnd:
+      outputStream << "</table>\r\n";
+      tableRestartStyle();
+      break;
+    }
   }
 
 
@@ -160,13 +160,13 @@ namespace DoxEngine
   }
 
 
-	void HtmlWriter::setStyle( const Style &newStyle )
+  void HtmlWriter::setStyle( const Style &newStyle )
   {
 
     if (!styleChanged)
-	    oldStyle = style;
+      oldStyle = style;
 
-	  styleChanged = true;
+    styleChanged = true;
     style = newStyle;
 
   }
@@ -178,146 +178,146 @@ namespace DoxEngine
   void HtmlWriter::outputStyles( void )
   {
 
-	if ((!style.getBold())&&oldStyle.getBold())
-	  outputStream << "</b>";
+    if ((!style.getBold())&&oldStyle.getBold())
+      outputStream << "</b>";
 
-	if ((!style.getItalic())&&oldStyle.getItalic())
-	  outputStream << "</i>";
+    if ((!style.getItalic())&&oldStyle.getItalic())
+      outputStream << "</i>";
 
-	if ((!style.getUnderline())&&oldStyle.getUnderline())
-	  outputStream << "</u>";
-
-
-	if (oldStyle.getJustification() != style.getJustification() &&
-	    oldStyle.getJustification() != DefaultJustified &&
-      oldStyle.getJustification() != LeftJustified)
-	  outputStream << "</div>";
-
-	if ( !oldStyle.getDefaultColour() &&
-	  (
-	    style.getDefaultColour() ||
-	    (oldStyle.getColourRed()!=style.getColourRed()) ||
-	    (oldStyle.getColourGreen()!=style.getColourGreen()) ||
-	    (oldStyle.getColourBlue()!=style.getColourBlue())
-	  ) )
-	{
-#ifdef ENABLE_LOG_DEBUG
-	  log[LOG_DEBUG] << DEBUG_ID << "Clearing colour\n";
-#endif
-	  outputStream << "</font>";
-	}
+    if ((!style.getUnderline())&&oldStyle.getUnderline())
+      outputStream << "</u>";
 
 
-	if (!style.getDefaultColour())
-	{
-#ifdef ENABLE_LOG_DEBUG
-	  log[LOG_DEBUG] << DEBUG_ID << "Not default colour\n";
-#endif
+    if (oldStyle.getJustification() != style.getJustification() &&
+        oldStyle.getJustification() != DefaultJustified &&
+        oldStyle.getJustification() != LeftJustified)
+      outputStream << "</div>";
 
-    if (oldStyle.getDefaultColour())
-	  {
-#ifdef ENABLE_LOG_DEBUG
-		log[LOG_DEBUG] << DEBUG_ID << "Colour is now non-default\n";
-#endif
-		outputStream << "<font color=";
-		outputStream << HexToString(style.getColourRed());
-		outputStream << HexToString(style.getColourGreen());
-		outputStream << HexToString(style.getColourBlue());
-		outputStream << ">";
-	  }
-    else if ( (oldStyle.getColourRed()!=style.getColourRed())||
-	    (oldStyle.getColourGreen()!=style.getColourGreen())||
-	    (oldStyle.getColourBlue()!=style.getColourBlue()))
-	  {
-#ifdef ENABLE_LOG_DEBUG
-		log[LOG_DEBUG] << DEBUG_ID << "Colour has changed\n";
-#endif
-
-		outputStream << "<font color=";
-		outputStream << HexToString(style.getColourRed());
-		outputStream << HexToString(style.getColourGreen());
-		outputStream << HexToString(style.getColourBlue());
-		outputStream << ">";
-	  }
-
-
-#ifdef ENABLE_LOG_DEBUG
-	  log[LOG_DEBUG] << DEBUG_ID << "Finished setting colour\n";
-#endif    
-	}
-
-
-
-
-	if ((!oldStyle.getBold())&&style.getBold())
-	  outputStream << "<b>";
-
-	if ((!oldStyle.getItalic())&&style.getItalic())
-	  outputStream << "<i>";
-
-	if ((!oldStyle.getUnderline())&&style.getUnderline())
-	  outputStream << "<u>";
-
-
-
-  Justification oldJustification = oldStyle.getJustification();
-  Justification newJustification = style.getJustification();
-
-  if (oldJustification == DefaultJustified)
-    oldJustification = LeftJustified;
-
-  if (newJustification == DefaultJustified)
-    newJustification = LeftJustified;
-
-
-	if (oldJustification != newJustification)
-	{
-#ifdef ENABLE_LOG_DEBUG
-	  log[LOG_DEBUG] << DEBUG_ID << "Justification changed\n";
-#endif
-
-	  if (style.getJustification() == DefaultJustified ||
-	    style.getJustification() == LeftJustified)
+    if ( !oldStyle.getDefaultColour() &&
+         (
+           style.getDefaultColour() ||
+           (oldStyle.getColourRed()!=style.getColourRed()) ||
+           (oldStyle.getColourGreen()!=style.getColourGreen()) ||
+           (oldStyle.getColourBlue()!=style.getColourBlue())
+         ) )
     {
-
-    }
-	  else if (style.getJustification() == RightJustified)
-		  outputStream << "<div align=right>";
-	  else if (style.getJustification() == CentreJustified)
-	  {
 #ifdef ENABLE_LOG_DEBUG
-		  log[LOG_DEBUG] << DEBUG_ID << "Writing centre\n";
+      log[LOG_DEBUG] << DEBUG_ID << "Clearing colour\n";
 #endif
-		  outputStream << "<div align=center>";
-	  }
-	  else if (style.getJustification() == Justified)
-		  outputStream << "<div align=justify>";
-	}
+      outputStream << "</font>";
+    }
 
 
-	styleChanged = false;
+    if (!style.getDefaultColour())
+    {
+#ifdef ENABLE_LOG_DEBUG
+      log[LOG_DEBUG] << DEBUG_ID << "Not default colour\n";
+#endif
+
+      if (oldStyle.getDefaultColour())
+      {
+#ifdef ENABLE_LOG_DEBUG
+        log[LOG_DEBUG] << DEBUG_ID << "Colour is now non-default\n";
+#endif
+        outputStream << "<font color=";
+        outputStream << HexToString(style.getColourRed());
+        outputStream << HexToString(style.getColourGreen());
+        outputStream << HexToString(style.getColourBlue());
+        outputStream << ">";
+      }
+      else if ( (oldStyle.getColourRed()!=style.getColourRed())||
+                (oldStyle.getColourGreen()!=style.getColourGreen())||
+                (oldStyle.getColourBlue()!=style.getColourBlue()))
+      {
+#ifdef ENABLE_LOG_DEBUG
+        log[LOG_DEBUG] << DEBUG_ID << "Colour has changed\n";
+#endif
+
+        outputStream << "<font color=";
+        outputStream << HexToString(style.getColourRed());
+        outputStream << HexToString(style.getColourGreen());
+        outputStream << HexToString(style.getColourBlue());
+        outputStream << ">";
+      }
+
+
+#ifdef ENABLE_LOG_DEBUG
+      log[LOG_DEBUG] << DEBUG_ID << "Finished setting colour\n";
+#endif
+    }
+
+
+
+
+    if ((!oldStyle.getBold())&&style.getBold())
+      outputStream << "<b>";
+
+    if ((!oldStyle.getItalic())&&style.getItalic())
+      outputStream << "<i>";
+
+    if ((!oldStyle.getUnderline())&&style.getUnderline())
+      outputStream << "<u>";
+
+
+
+    Justification oldJustification = oldStyle.getJustification();
+    Justification newJustification = style.getJustification();
+
+    if (oldJustification == DefaultJustified)
+      oldJustification = LeftJustified;
+
+    if (newJustification == DefaultJustified)
+      newJustification = LeftJustified;
+
+
+    if (oldJustification != newJustification)
+    {
+#ifdef ENABLE_LOG_DEBUG
+      log[LOG_DEBUG] << DEBUG_ID << "Justification changed\n";
+#endif
+
+      if (style.getJustification() == DefaultJustified ||
+          style.getJustification() == LeftJustified)
+      {
+
+      }
+      else if (style.getJustification() == RightJustified)
+        outputStream << "<div align=right>";
+      else if (style.getJustification() == CentreJustified)
+      {
+#ifdef ENABLE_LOG_DEBUG
+        log[LOG_DEBUG] << DEBUG_ID << "Writing centre\n";
+#endif
+        outputStream << "<div align=center>";
+      }
+      else if (style.getJustification() == Justified)
+        outputStream << "<div align=justify>";
+    }
+
+
+    styleChanged = false;
   }
 
 
   void HtmlWriter::clearStyles( void )
   {
-	  oldStyle = style;
+    oldStyle = style;
 
-	  style.setDefault();
-	  outputStyles();
+    style.setDefault();
+    outputStyles();
   }
 
 
   void HtmlWriter::tableStopStyle( void )
   {
-	Style tempStyle(style);
+    Style tempStyle(style);
 
-	oldStyle = style;
+    oldStyle = style;
 
-	style.setDefault();
-	outputStyles();
+    style.setDefault();
+    outputStyles();
 
-	style = tempStyle;
+    style = tempStyle;
 
   }
 
@@ -325,8 +325,8 @@ namespace DoxEngine
 
   void HtmlWriter::tableRestartStyle( void )
   {
-	  oldStyle.setDefault();
-  	outputStyles();
+    oldStyle.setDefault();
+    outputStyles();
   }
 
 }

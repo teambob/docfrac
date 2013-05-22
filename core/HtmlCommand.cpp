@@ -26,12 +26,12 @@
 namespace DoxEngine
 {
 
-class BrHandler:public HtmlBaseHandler
-{
-  virtual void handleCommand(DoxEngine::HtmlReader& parent,
-			HtmlTag &tag)
+  class BrHandler:public HtmlBaseHandler
   {
-    WriterInterface &writer = parent.GetWriterReference();
+    virtual void handleCommand(DoxEngine::HtmlReader& parent,
+                               HtmlTag &tag)
+    {
+      WriterInterface &writer = parent.GetWriterReference();
 
       writer.writeBreak(LineBreak);
 
@@ -40,287 +40,287 @@ class BrHandler:public HtmlBaseHandler
 #endif
 
 
-  }
+    }
 
-};
+  };
 
 
-class PHandler:public HtmlBaseHandler
-{
-  virtual void handleCommand(DoxEngine::HtmlReader& parent,
-			HtmlTag &tag)
+  class PHandler:public HtmlBaseHandler
   {
-    WriterInterface &writer = parent.GetWriterReference();
+    virtual void handleCommand(DoxEngine::HtmlReader& parent,
+                               HtmlTag &tag)
+    {
+      WriterInterface &writer = parent.GetWriterReference();
 
       if (tag.IsBeginning())
         writer.writeBreak(ParagraphBreak);
-        
+
 #ifdef ENABLE_LOG_DEBUG
       log[LOG_DEBUG] << DEBUG_ID << "Paragraph break" << endl;
 #endif
 
 
-  }
+    }
 
-};
+  };
 
 
-class ScriptHandler:public HtmlBaseHandler
-{
-  virtual void handleCommand(DoxEngine::HtmlReader& parent,
-			HtmlTag &tag)
+  class ScriptHandler:public HtmlBaseHandler
   {
-    parent.SetScript(!tag.IsEnd());
-  }
+    virtual void handleCommand(DoxEngine::HtmlReader& parent,
+                               HtmlTag &tag)
+    {
+      parent.SetScript(!tag.IsEnd());
+    }
 
-};
+  };
 
 
-class IframeHandler:public HtmlBaseHandler
-{
-  virtual void handleCommand(DoxEngine::HtmlReader& parent,
-			HtmlTag &tag)
+  class IframeHandler:public HtmlBaseHandler
   {
-    parent.SetIframe(!tag.IsEnd());
-  }
+    virtual void handleCommand(DoxEngine::HtmlReader& parent,
+                               HtmlTag &tag)
+    {
+      parent.SetIframe(!tag.IsEnd());
+    }
 
-};
+  };
 
 
 
 // Bold
-class BHandler:public HtmlBaseHandler
-{
-  virtual void handleCommand(DoxEngine::HtmlReader& parent,
-			HtmlTag &tag)
+  class BHandler:public HtmlBaseHandler
   {
-    Style style = parent.GetStyle();
+    virtual void handleCommand(DoxEngine::HtmlReader& parent,
+                               HtmlTag &tag)
+    {
+      Style style = parent.GetStyle();
 
-    style.setBold(!tag.IsEnd());
+      style.setBold(!tag.IsEnd());
 
-    parent.SetStyle(style);
-  }
+      parent.SetStyle(style);
+    }
 
-};
+  };
 
 // Italic
-class IHandler:public HtmlBaseHandler
-{
-  virtual void handleCommand(DoxEngine::HtmlReader& parent,
-			HtmlTag &tag)
+  class IHandler:public HtmlBaseHandler
   {
-    Style style = parent.GetStyle();
+    virtual void handleCommand(DoxEngine::HtmlReader& parent,
+                               HtmlTag &tag)
+    {
+      Style style = parent.GetStyle();
 
-    style.setItalic(!tag.IsEnd());
+      style.setItalic(!tag.IsEnd());
 
-    parent.SetStyle(style);
-  }
+      parent.SetStyle(style);
+    }
 
-};
+  };
 
 
 // Underline
 
-class UHandler:public HtmlBaseHandler
-{
-  virtual void handleCommand(DoxEngine::HtmlReader& parent,
-			HtmlTag &tag)
+  class UHandler:public HtmlBaseHandler
   {
-    Style style = parent.GetStyle();
+    virtual void handleCommand(DoxEngine::HtmlReader& parent,
+                               HtmlTag &tag)
+    {
+      Style style = parent.GetStyle();
 
-    style.setUnderline(!tag.IsEnd());
+      style.setUnderline(!tag.IsEnd());
 
-    parent.SetStyle(style);
-  }
+      parent.SetStyle(style);
+    }
 
-};
+  };
 
 // div
-class DivHandler:public HtmlBaseHandler
-{
-  virtual void handleCommand(DoxEngine::HtmlReader& parent,
-			HtmlTag &tag)
+  class DivHandler:public HtmlBaseHandler
   {
-    Style style = parent.GetStyle();
-
-    if (!tag.IsEnd())
+    virtual void handleCommand(DoxEngine::HtmlReader& parent,
+                               HtmlTag &tag)
     {
-      std::string align = tag.GetParameter("align");
+      Style style = parent.GetStyle();
 
-      if (align == "center")
-        style.setJustification(CentreJustified);
-      else if (align == "right")
-        style.setJustification(RightJustified);
-      else if (align == "justify")
-        style.setJustification(Justified);
-      else if (align == "left")
-        style.setJustification(LeftJustified);
+      if (!tag.IsEnd())
+      {
+        std::string align = tag.GetParameter("align");
+
+        if (align == "center")
+          style.setJustification(CentreJustified);
+        else if (align == "right")
+          style.setJustification(RightJustified);
+        else if (align == "justify")
+          style.setJustification(Justified);
+        else if (align == "left")
+          style.setJustification(LeftJustified);
+      }
+      else if (!tag.IsBeginning())
+      {
+        style.setJustification(DefaultJustified);
+      }
+
+
+
+
+
+      parent.SetStyle(style);
     }
-    else if (!tag.IsBeginning())
-    {
-      style.setJustification(DefaultJustified);
-    }
 
-
-
-
-
-    parent.SetStyle(style);
-  }
-
-};
+  };
 
 
 // center
-class CenterHandler:public HtmlBaseHandler
-{
-  virtual void handleCommand(DoxEngine::HtmlReader& parent,
-			HtmlTag &tag)
+  class CenterHandler:public HtmlBaseHandler
   {
-    Style style = parent.GetStyle();
-
-    if (!tag.IsEnd())
+    virtual void handleCommand(DoxEngine::HtmlReader& parent,
+                               HtmlTag &tag)
     {
-      style.setJustification(CentreJustified);
+      Style style = parent.GetStyle();
+
+      if (!tag.IsEnd())
+      {
+        style.setJustification(CentreJustified);
+      }
+      else if (!tag.IsBeginning())
+      {
+        style.setJustification(DefaultJustified);
+      }
+
+
+
+
+
+      parent.SetStyle(style);
     }
-    else if (!tag.IsBeginning())
-    {
-      style.setJustification(DefaultJustified);
-    }
 
-
-
-
-
-    parent.SetStyle(style);
-  }
-
-};
+  };
 
 // ol, ul, li
 
-class LiHandler:public HtmlBaseHandler
-{
-  virtual void handleCommand(DoxEngine::HtmlReader& parent,
-			HtmlTag &tag)
+  class LiHandler:public HtmlBaseHandler
   {
-    if (!tag.IsEnd())
+    virtual void handleCommand(DoxEngine::HtmlReader& parent,
+                               HtmlTag &tag)
     {
-      WriterInterface &writer = parent.GetWriterReference();
-      writer.writeChar(UnicodeCharacter('*'));
+      if (!tag.IsEnd())
+      {
+        WriterInterface &writer = parent.GetWriterReference();
+        writer.writeChar(UnicodeCharacter('*'));
+      }
+      else if (!tag.IsBeginning())
+      {
+        WriterInterface &writer = parent.GetWriterReference();
+
+        writer.writeBreak(LineBreak);
+
+      }
+
     }
-    else if (!tag.IsBeginning())
-    {
-      WriterInterface &writer = parent.GetWriterReference();
 
-      writer.writeBreak(LineBreak);
-
-    }
-
-  }
-
-};
+  };
 
 
 // font
 
 // table, tr, th, td
-class TableHandler:public HtmlBaseHandler
-{
-  virtual void handleCommand(DoxEngine::HtmlReader& parent,
-			HtmlTag &tag)
+  class TableHandler:public HtmlBaseHandler
   {
-    if (!tag.IsEnd())
+    virtual void handleCommand(DoxEngine::HtmlReader& parent,
+                               HtmlTag &tag)
     {
-      WriterInterface &writer = parent.GetWriterReference();
-      writer.writeTable(TableStart);
+      if (!tag.IsEnd())
+      {
+        WriterInterface &writer = parent.GetWriterReference();
+        writer.writeTable(TableStart);
+      }
+      else if (!tag.IsBeginning())
+      {
+        WriterInterface &writer = parent.GetWriterReference();
+
+        writer.writeTable(TableEnd);
+
+      }
+
     }
-    else if (!tag.IsBeginning())
-    {
-      WriterInterface &writer = parent.GetWriterReference();
 
-      writer.writeTable(TableEnd);
-
-    }
-
-  }
-
-};
+  };
 
 
 
-class TrHandler:public HtmlBaseHandler
-{
-  virtual void handleCommand(DoxEngine::HtmlReader& parent,
-			HtmlTag &tag)
+  class TrHandler:public HtmlBaseHandler
   {
-    if (!tag.IsEnd())
+    virtual void handleCommand(DoxEngine::HtmlReader& parent,
+                               HtmlTag &tag)
     {
-      WriterInterface &writer = parent.GetWriterReference();
-      writer.writeTable(TableRowStart);
+      if (!tag.IsEnd())
+      {
+        WriterInterface &writer = parent.GetWriterReference();
+        writer.writeTable(TableRowStart);
+      }
+      else if (!tag.IsBeginning())
+      {
+        WriterInterface &writer = parent.GetWriterReference();
+
+        writer.writeTable(TableRowEnd);
+
+      }
+
     }
-    else if (!tag.IsBeginning())
-    {
-      WriterInterface &writer = parent.GetWriterReference();
 
-      writer.writeTable(TableRowEnd);
-
-    }
-
-  }
-
-};
+  };
 
 // Th and Td handler
-class TdHandler:public HtmlBaseHandler
-{
-  virtual void handleCommand(DoxEngine::HtmlReader& parent,
-			HtmlTag &tag)
+  class TdHandler:public HtmlBaseHandler
   {
-    if (!tag.IsEnd())
+    virtual void handleCommand(DoxEngine::HtmlReader& parent,
+                               HtmlTag &tag)
     {
-      WriterInterface &writer = parent.GetWriterReference();
-      writer.writeTable(TableCellStart);
+      if (!tag.IsEnd())
+      {
+        WriterInterface &writer = parent.GetWriterReference();
+        writer.writeTable(TableCellStart);
+
+      }
+      else if (!tag.IsBeginning())
+      {
+        WriterInterface &writer = parent.GetWriterReference();
+
+        writer.writeTable(TableCellEnd);
+
+      }
 
     }
-    else if (!tag.IsBeginning())
-    {
-      WriterInterface &writer = parent.GetWriterReference();
 
-      writer.writeTable(TableCellEnd);
+  };
 
-    }
+
+
+
+
+  HtmlCommands::HtmlCommands():HtmlCommandMap()
+  {
+    insert(HtmlCommands::value_type("br", HtmlCommandElement(new BrHandler())));
+    insert(HtmlCommands::value_type("p", HtmlCommandElement(new PHandler())));
+    insert(HtmlCommands::value_type("script", HtmlCommandElement(new ScriptHandler())));
+    insert(HtmlCommands::value_type("iframe", HtmlCommandElement(new IframeHandler())));
+
+    insert(HtmlCommands::value_type("b", HtmlCommandElement(new BHandler())));
+    insert(HtmlCommands::value_type("i", HtmlCommandElement(new IHandler())));
+    insert(HtmlCommands::value_type("u", HtmlCommandElement(new UHandler())));
+
+    // the following items need more work: especially where tags are not closed correctly
+    insert(HtmlCommands::value_type("div", HtmlCommandElement(new DivHandler())));
+    insert(HtmlCommands::value_type("center", HtmlCommandElement(new CenterHandler())));
+    insert(HtmlCommands::value_type("li", HtmlCommandElement(new LiHandler())));
+    insert(HtmlCommands::value_type("table", HtmlCommandElement(new TableHandler())));
+    insert(HtmlCommands::value_type("tr", HtmlCommandElement(new TrHandler())));
+    insert(HtmlCommands::value_type("td", HtmlCommandElement(new TdHandler())));
+    insert(HtmlCommands::value_type("th", HtmlCommandElement(new TdHandler())));
+
 
   }
-
-};
-
-
-
-
-
-HtmlCommands::HtmlCommands():HtmlCommandMap()
-{
-  insert(HtmlCommands::value_type("br", HtmlCommandElement(new BrHandler())));
-  insert(HtmlCommands::value_type("p", HtmlCommandElement(new PHandler())));
-  insert(HtmlCommands::value_type("script", HtmlCommandElement(new ScriptHandler())));
-  insert(HtmlCommands::value_type("iframe", HtmlCommandElement(new IframeHandler())));
-
-  insert(HtmlCommands::value_type("b", HtmlCommandElement(new BHandler())));
-  insert(HtmlCommands::value_type("i", HtmlCommandElement(new IHandler())));
-  insert(HtmlCommands::value_type("u", HtmlCommandElement(new UHandler())));
-
-  // the following items need more work: especially where tags are not closed correctly
-  insert(HtmlCommands::value_type("div", HtmlCommandElement(new DivHandler())));
-  insert(HtmlCommands::value_type("center", HtmlCommandElement(new CenterHandler())));
-  insert(HtmlCommands::value_type("li", HtmlCommandElement(new LiHandler())));
-  insert(HtmlCommands::value_type("table", HtmlCommandElement(new TableHandler())));
-  insert(HtmlCommands::value_type("tr", HtmlCommandElement(new TrHandler())));
-  insert(HtmlCommands::value_type("td", HtmlCommandElement(new TdHandler())));
-  insert(HtmlCommands::value_type("th", HtmlCommandElement(new TdHandler())));
-
-
-}
 
 }
 

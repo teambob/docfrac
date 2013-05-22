@@ -6,11 +6,11 @@ namespace DoxEngine
 {
   class ReadInterface
   {
-    public:
-      virtual bool processData(void) = 0;
-      virtual int getPercentComplete(void) = 0;
+  public:
+    virtual bool processData(void) = 0;
+    virtual int getPercentComplete(void) = 0;
 
-      virtual ~ReadInterface();
+    virtual ~ReadInterface();
   };
 
 }

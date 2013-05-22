@@ -24,90 +24,90 @@
 
 namespace DoxEngine
 {
-  
-
-RtfWriter::RtfWriter(std::ostream& stream, DebugLog& newLog):
-  log(newLog),WriterInterface()
-{
-  outputStream = &stream;
-
-  *outputStream << "{\\rtf\\ansi{";
-}
 
 
-void RtfWriter::writeChar(const UnicodeCharacter& character)
-{
+  RtfWriter::RtfWriter(std::ostream& stream, DebugLog& newLog):
+    log(newLog),WriterInterface()
+  {
+    outputStream = &stream;
+
+    *outputStream << "{\\rtf\\ansi{";
+  }
+
+
+  void RtfWriter::writeChar(const UnicodeCharacter& character)
+  {
     if (character.isASCII())
       *outputStream << character.getASCII();
-}
+  }
 
 
-void RtfWriter::writeTable(TableType table)
-{
-  // RTF table out requires further investiagtion
-  switch(table)
+  void RtfWriter::writeTable(TableType table)
   {
+    // RTF table out requires further investiagtion
+    switch(table)
+    {
     case TableStart:
-    break;
+      break;
 
     case TableEnd:
-    break;
+      break;
 
     case TableRowStart:
-    break;
+      break;
 
     case TableRowEnd:
-    break;
+      break;
 
     case TableCellStart:
-    break;
+      break;
 
     case TableCellEnd:
-    break;
+      break;
+    }
   }
-}
 
-RtfWriter::~RtfWriter()
-{
-  *outputStream << "}}";
-}
+  RtfWriter::~RtfWriter()
+  {
+    *outputStream << "}}";
+  }
 
 
-void RtfWriter::writeBreak(BreakType type)
-{
+  void RtfWriter::writeBreak(BreakType type)
+  {
     if (type == LineBreak)
       *outputStream << "\\par\r\n";
     else if (type == ParagraphBreak)
       *outputStream << "\\par\r\n\\par\r\n";
 
-}
-
-void RtfWriter::setStyle( const Style &newStyle )
-{
-  if (newStyle != style)
-  {
-    *outputStream << "}{";
-
-    // Write out character styles
-    if (newStyle.getBold())
-    {
-      *outputStream << "\\b ";
-    }
-
-    if (newStyle.getItalic())
-    {
-      *outputStream << "\\i ";
-    }
-
-    if (newStyle.getUnderline())
-    {
-      *outputStream << "\\ul ";
-    }
-
   }
 
+  void RtfWriter::setStyle( const Style &newStyle )
+  {
+    if (newStyle != style)
+    {
+      *outputStream << "}{";
 
-}
+      // Write out character styles
+      if (newStyle.getBold())
+      {
+        *outputStream << "\\b ";
+      }
+
+      if (newStyle.getItalic())
+      {
+        *outputStream << "\\i ";
+      }
+
+      if (newStyle.getUnderline())
+      {
+        *outputStream << "\\ul ";
+      }
+
+    }
+
+
+  }
 
 }
 

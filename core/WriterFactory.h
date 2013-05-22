@@ -14,22 +14,22 @@
 namespace DoxEngine
 {
 
-	class WriterFactory
-	{
-		public:
-			virtual WriterInterface* Create(std::ostream &stream, DebugLog &log) = 0;
-                        virtual ~WriterFactory() {};
-	};
+  class WriterFactory
+  {
+  public:
+    virtual WriterInterface* Create(std::ostream &stream, DebugLog &log) = 0;
+    virtual ~WriterFactory() {};
+  };
 
   typedef shared_ptr<WriterFactory> WriterFactoryPtr;
-	typedef std::map<const FileFormat,  WriterFactoryPtr> WriterFactories;
+  typedef std::map<const FileFormat,  WriterFactoryPtr> WriterFactories;
 
-	class WriterFactoriesSingleton
-	{
-		public:
-			// This function should only be called from the main thread
-			static WriterFactories& GetWriterFactories();
-	};
+  class WriterFactoriesSingleton
+  {
+  public:
+    // This function should only be called from the main thread
+    static WriterFactories& GetWriterFactories();
+  };
 }
 
 #endif

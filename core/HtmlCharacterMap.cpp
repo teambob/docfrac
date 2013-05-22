@@ -10,17 +10,17 @@ namespace DoxEngine
 
   HtmlCharacterMaps::HtmlCharacterMaps():HtmlCharacterMapsBase()
   {
-	HtmlCharacterMaps &maps = *this;
+    HtmlCharacterMaps &maps = *this;
 
 
-	// Character entity references for 8859-1 HTML4.01 section 24.2
-	maps["nbsp"] = (unsigned long)160;
-	maps["iexcl"] = (unsigned long)161;
-	maps["cent"] = (unsigned long)162;
-	maps["pound"] = (unsigned long)163;
-  maps["curren"] = (unsigned long)164;
-  maps["yen"] = (unsigned long)165;
-  maps["brvbar"] = (unsigned long)166;
+    // Character entity references for 8859-1 HTML4.01 section 24.2
+    maps["nbsp"] = (unsigned long)160;
+    maps["iexcl"] = (unsigned long)161;
+    maps["cent"] = (unsigned long)162;
+    maps["pound"] = (unsigned long)163;
+    maps["curren"] = (unsigned long)164;
+    maps["yen"] = (unsigned long)165;
+    maps["brvbar"] = (unsigned long)166;
     maps["sect"] = (unsigned long)167;
     maps["uml"] = (unsigned long)168;
     maps["copy"] = (unsigned long)169;

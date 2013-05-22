@@ -12,17 +12,17 @@ namespace DoxEngine
   class RtfStyle
   {
   private:
-	bool inTable;
-	std::vector<Colour> colour;
-	Colour currentColour;
-	Style style;
-  int sectionColumns;
-  DebugLog log;
+    bool inTable;
+    std::vector<Colour> colour;
+    Colour currentColour;
+    Style style;
+    int sectionColumns;
+    DebugLog log;
 
   public:
     RtfStyle();
     RtfStyle(DebugLog &log);
-	virtual ~RtfStyle();
+    virtual ~RtfStyle();
 
     void setPlain( void );
     void setInTable( bool insideTable);
@@ -38,16 +38,16 @@ namespace DoxEngine
     void setBlue( int value );
     void colourTerminate( void );
 
-		void setForegroundColour( int index );
+    void setForegroundColour( int index );
 
-		Style getStyle() const;
-		void setStyle(const Style &style);
+    Style getStyle() const;
+    void setStyle(const Style &style);
 
   };
 
   class RtfStyleStack : public std::stack<RtfStyle>
-	{
-	};
+  {
+  };
 
 }
 

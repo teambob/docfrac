@@ -12,7 +12,7 @@ namespace DoxEngine
 {
   std::map<std::string, FileFormat> getExtensionToFormatMap()
   {
-    std::map<std::string, FileFormat> results;    
+    std::map<std::string, FileFormat> results;
     results["rtf"] = FORMAT_RTF;
     results["txt"] = FORMAT_TEXT;
     results["text"] = FORMAT_TEXT;

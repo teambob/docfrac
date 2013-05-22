@@ -16,24 +16,24 @@
 namespace DoxEngine
 {
 
-	class ReaderFactory
-	{
-		public:
-			virtual ReadInterface* Create(std::istream &stream, WriterInterface &writer, DebugLog& newLog) = 0;
-                        virtual ~ReaderFactory() {};
-	};
+  class ReaderFactory
+  {
+  public:
+    virtual ReadInterface* Create(std::istream &stream, WriterInterface &writer, DebugLog& newLog) = 0;
+    virtual ~ReaderFactory() {};
+  };
 
 
   typedef shared_ptr<ReaderFactory> ReaderFactoryPtr;
-	typedef std::map<const FileFormat, ReaderFactoryPtr> ReaderFactories;
+  typedef std::map<const FileFormat, ReaderFactoryPtr> ReaderFactories;
 
-	class ReaderFactoriesSingleton
-	{
-		public:
-			// This function should only be called from the main thread
-			static ReaderFactories& GetReaderFactories();
-      
-	};
+  class ReaderFactoriesSingleton
+  {
+  public:
+    // This function should only be called from the main thread
+    static ReaderFactories& GetReaderFactories();
+
+  };
 }
 
 #endif

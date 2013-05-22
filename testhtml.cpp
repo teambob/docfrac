@@ -11,7 +11,7 @@ int main(int argc, char* argv[])
 {
   using namespace DoxEngine;
   using namespace std;
-  
+
   DebugLog log;
 
   try
@@ -23,7 +23,7 @@ int main(int argc, char* argv[])
     }
 
     int i;
-    for (i=0;i<atoi(argv[3]);i++)
+    for (i=0; i<atoi(argv[3]); i++)
     {
 
 
@@ -31,39 +31,39 @@ int main(int argc, char* argv[])
       ofstream output(argv[2], fstream::out);
 
 
-	  DoxEngine::WriterFactories &writerFactories = DoxEngine::WriterFactoriesSingleton::GetWriterFactories();
+      DoxEngine::WriterFactories &writerFactories = DoxEngine::WriterFactoriesSingleton::GetWriterFactories();
 
-	  DoxEngine::WriterFactories::iterator writerIterator = writerFactories.find(FORMAT_TEXT);
+      DoxEngine::WriterFactories::iterator writerIterator = writerFactories.find(FORMAT_TEXT);
 
       DoxEngine::WriterInterface *writer;
-	  
-	  if (writerIterator == writerFactories.end())
-	  {
-	    std::cerr << "Internal error initialising writer";
-		break;
-	  }
-	  else
-	  {
-		// First type is the key (file format)
-		// Second type is the value (factory instance)
-		writer = writerIterator->second->Create(output, log);
-	  }
 
- 	  DoxEngine::ReaderFactories &readerFactories = DoxEngine::ReaderFactoriesSingleton::GetReaderFactories();
+      if (writerIterator == writerFactories.end())
+      {
+        std::cerr << "Internal error initialising writer";
+        break;
+      }
+      else
+      {
+        // First type is the key (file format)
+        // Second type is the value (factory instance)
+        writer = writerIterator->second->Create(output, log);
+      }
 
-	  DoxEngine::ReaderFactories::iterator readerIterator = readerFactories.find(FORMAT_HTML);
+      DoxEngine::ReaderFactories &readerFactories = DoxEngine::ReaderFactoriesSingleton::GetReaderFactories();
+
+      DoxEngine::ReaderFactories::iterator readerIterator = readerFactories.find(FORMAT_HTML);
       DoxEngine::ReadInterface *reader;
-	  if (readerIterator == readerFactories.end())
-	  {
-		std::cerr << "Internal error initialising reader";
-		break;
-	  }
-	  else
-	  {
-		// First type is the key (file format)
-		// Second type is the value (factory instance)
-		reader = readerIterator->second->Create(input, *writer, log);
-	  }
+      if (readerIterator == readerFactories.end())
+      {
+        std::cerr << "Internal error initialising reader";
+        break;
+      }
+      else
+      {
+        // First type is the key (file format)
+        // Second type is the value (factory instance)
+        reader = readerIterator->second->Create(input, *writer, log);
+      }
 
 
       while(reader->processData());

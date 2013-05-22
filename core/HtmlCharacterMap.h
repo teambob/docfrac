@@ -12,8 +12,8 @@ namespace DoxEngine
 
   class HtmlCharacterMaps: public HtmlCharacterMapsBase
   {
-    public:
-      HtmlCharacterMaps();
+  public:
+    HtmlCharacterMaps();
   };
 
 }

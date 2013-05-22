@@ -10,28 +10,28 @@ namespace DoxEngine
 
   class HtmlWriter : public WriterInterface
   {
-	private:
-	  std::ostream& outputStream;
+  private:
+    std::ostream& outputStream;
     DebugLog& log;
-	  Style style, oldStyle;
-	  bool styleChanged;
+    Style style, oldStyle;
+    bool styleChanged;
     int whiteSpaces;
 
 
-	  void outputStyles( void );
-	  void clearStyles( void );
+    void outputStyles( void );
+    void clearStyles( void );
 
-	  void tableStopStyle( void );
-	  void tableRestartStyle( void );
+    void tableStopStyle( void );
+    void tableRestartStyle( void );
 
 
-	public:
-	  HtmlWriter(std::ostream& stream, DebugLog &newLog);
-	  virtual void writeChar(const UnicodeCharacter& character);
-	  virtual void writeTable(TableType table);
-      virtual ~HtmlWriter();
-      virtual void writeBreak(BreakType type);
-      virtual void setStyle( const Style &newStyle );
+  public:
+    HtmlWriter(std::ostream& stream, DebugLog &newLog);
+    virtual void writeChar(const UnicodeCharacter& character);
+    virtual void writeTable(TableType table);
+    virtual ~HtmlWriter();
+    virtual void writeBreak(BreakType type);
+    virtual void setStyle( const Style &newStyle );
   };
 
 }
