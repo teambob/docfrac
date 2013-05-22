@@ -9,7 +9,7 @@
 class BatchModel : public QAbstractTableModel
 {
     Q_OBJECT
-public:
+  public:
     explicit BatchModel(QObject *parent);
     int rowCount(const QModelIndex &parent = QModelIndex()) const ;
     int columnCount(const QModelIndex &parent = QModelIndex()) const;
@@ -20,11 +20,11 @@ public:
     void clear();
     std::vector<BatchEntry> getEntries();
     BatchEntry& at(int index);
-signals:
+  signals:
     
-public slots:
+  public slots:
 
-private:
+  private:
     std::vector<BatchEntry> entries_;
     
 };

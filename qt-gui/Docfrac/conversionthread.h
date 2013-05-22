@@ -9,20 +9,20 @@
 class ConversionThread : public QThread
 {
     Q_OBJECT
-public:
+  public:
     explicit ConversionThread(QObject *parent, DoxEngine::ReadInterface* reader);
     void cancel();
 
     
-signals:
+  signals:
     void onProgress(int percent);
     
-public slots:
+  public slots:
 
-protected:
+  protected:
     virtual void run();
 
-private:
+  private:
     DoxEngine::ReadInterface* reader_;
     bool cancel_;
     

@@ -6,12 +6,12 @@
 
 class BatchEntry
 {
-public:
+  public:
     typedef enum
     {
-        ManualFilename,
-        CustomDirectory,
-        InputDirectory    // No output path required
+      ManualFilename,
+      CustomDirectory,
+      InputDirectory    // No output path required
     } OutputFilenameGeneration;
 
 
@@ -28,7 +28,7 @@ public:
 
 
 
-private:
+  private:
     std::string inputFilename_;
     OutputFilenameGeneration outputFilenameGeneration_;
     DoxEngine::FileFormat outputFormat_;

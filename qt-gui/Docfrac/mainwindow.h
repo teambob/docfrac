@@ -9,7 +9,7 @@
 #include "progressdialog.h"
 
 namespace Ui {
-class MainWindow;
+  class MainWindow;
 }
 
 class MainWindow : public QMainWindow
@@ -59,7 +59,7 @@ class MainWindow : public QMainWindow
 
     void on_batchList_customContextMenuRequested(const QPoint &pos);
 
-private:
+  private:
     Ui::MainWindow *ui;
     BatchModel *model;
     ProgressDialog progress_;

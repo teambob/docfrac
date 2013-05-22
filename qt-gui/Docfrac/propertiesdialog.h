@@ -5,14 +5,14 @@
 #include "FileFormat.h"
 
 namespace Ui {
-class PropertiesDialog;
+  class PropertiesDialog;
 }
 
 class PropertiesDialog : public QDialog
 {
     Q_OBJECT
     
-public:
+  public:
     explicit PropertiesDialog(QWidget *parent = 0, bool customFilenameEnabled = true);
     ~PropertiesDialog();
 
@@ -23,7 +23,7 @@ public:
     std::string getPath();
     DoxEngine::FileFormat getOutputFormat();
     
-private slots:
+  private slots:
     void on_customDirectorySelect_toggled(bool checked);
 
     void on_customFilenameSelect_toggled(bool checked);
@@ -38,7 +38,7 @@ private slots:
 
     void on_outputFilename_textChanged(const QString &arg1);
 
-private:
+  private:
     Ui::PropertiesDialog *ui;
     void updateEnabled();
 };

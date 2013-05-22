@@ -2,10 +2,10 @@
 #include "ui_progressdialog.h"
 
 ProgressDialog::ProgressDialog(QWidget *parent) :
-    QDialog(parent),
-    ui(new Ui::ProgressDialog)
+  QDialog(parent),
+  ui(new Ui::ProgressDialog)
 {
-    ui->setupUi(this);
+  ui->setupUi(this);
 }
 
 ProgressDialog::~ProgressDialog()
@@ -25,10 +25,10 @@ void ProgressDialog::setOutputFilename(const std::string &outputFilename)
 
 void ProgressDialog::onProgress(int percent)
 {
-    ui->progressBar->setValue(percent);
+  ui->progressBar->setValue(percent);
 }
 
 void ProgressDialog::onFinished()
 {
-    accept();
+  accept();
 }

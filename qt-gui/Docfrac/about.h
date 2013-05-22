@@ -4,20 +4,20 @@
 #include <QDialog>
 
 namespace Ui {
-class About;
+  class About;
 }
 
 class About : public QDialog
 {
     Q_OBJECT
     
-public:
+  public:
     explicit About(QWidget *parent = 0);
     ~About();
-protected:
-  virtual void showEvent(QShowEvent *);
+  protected:
+    virtual void showEvent(QShowEvent *);
     
-private:
+  private:
     Ui::About *ui;
 };
 

@@ -4,24 +4,24 @@
 #include <QDialog>
 
 namespace Ui {
-class ProgressDialog;
+  class ProgressDialog;
 }
 
 class ProgressDialog : public QDialog
 {
     Q_OBJECT
     
-public:
+  public:
     explicit ProgressDialog(QWidget *parent=0);
     ~ProgressDialog();
-  void setInputFilename(const std::string& inputFilename);
-  void setOutputFilename(const std::string& outputFilename);
+    void setInputFilename(const std::string& inputFilename);
+    void setOutputFilename(const std::string& outputFilename);
 
-public slots:
+  public slots:
     void onProgress(int percent);
     void onFinished();
     
-private:
+  private:
     Ui::ProgressDialog *ui;
 };
 

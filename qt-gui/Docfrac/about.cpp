@@ -3,10 +3,10 @@
 #include <boost/regex.hpp>
 
 About::About(QWidget *parent) :
-    QDialog(parent),
-    ui(new Ui::About)
+  QDialog(parent),
+  ui(new Ui::About)
 {
-    ui->setupUi(this);
+  ui->setupUi(this);
 }
 
 About::~About()
@@ -26,13 +26,13 @@ void About::showEvent(QShowEvent *)
 
   smatch match;
   if (regex_match(url, match, regex("$URL:.*/tags/([0-9.-]*)/.* $")))
-    {
-      version = match[1];
-    }
+  {
+    version = match[1];
+  }
   else if (regex_match(url, match, regex("$Revision:.*([0-9]*) $")))
-    {
-      version = match[1];
-    }
+  {
+    version = match[1];
+  }
 
 
   ui->versionNumber->setText(version.c_str());
