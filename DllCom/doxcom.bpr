@@ -1,0 +1,234 @@
+# ---------------------------------------------------------------------------
+!if !$d(BCB)
+BCB = $(MAKEDIR)\..
+!endif
+
+# ---------------------------------------------------------------------------
+# IDE SECTION
+# ---------------------------------------------------------------------------
+# The following section of the project makefile is managed by the BCB IDE.
+# It is recommended to use the IDE to change any of the values in this
+# section.
+# ---------------------------------------------------------------------------
+
+VERSION = BCB.03
+# ---------------------------------------------------------------------------
+PROJECT = doxcom.dll
+OBJFILES = doxcom.obj doxcom_ATL.obj doxcom_TLB.obj DoxLib.obj tdox.obj \
+  ..\WriterInterface.obj ..\DoxFactory.obj ..\DoxInterface.obj \
+  ..\HtmlCharacterMap.obj ..\HtmlReader.obj ..\HtmlWriter.obj \
+  ..\ReaderInterface.obj ..\RtfCommand.obj ..\RtfReader.obj ..\RtfStyle.obj \
+  ..\RtfWriter.obj ..\Style.obj ..\TextWriter.obj ..\UnicodeCharacter.obj \
+  ..\debug.obj ..\ExtensionToFormatMap.obj ..\FileFormat.obj DocFracLib.obj \
+  ConvertBSTR.obj
+RESFILES = doxcom.res doxcom.tlb
+DEFFILE =
+RESDEPEN = $(RESFILES)
+LIBFILES =
+LIBRARIES = vclnp35.lib VCL35.lib
+SPARELIBS = VCL35.lib
+PACKAGES = VCLX35.bpi VCL35.bpi VCLDB35.bpi VCLDBX35.bpi bcbsmp35.bpi dclocx35.bpi \
+  QRPT35.bpi TEEUI35.bpi VCLSMP35.bpi TEEDB35.bpi TEE35.bpi ibsmp35.bpi \
+  NMFAST35.bpi INETDB35.bpi INET35.bpi
+# ---------------------------------------------------------------------------
+PATHCPP = .;..
+PATHASM = .;
+PATHPAS = .;
+PATHRC = .;
+DEBUGLIBPATH = $(BCB)\lib\debug
+RELEASELIBPATH = $(BCB)\lib\release
+# ---------------------------------------------------------------------------
+CFLAG1 = -WD -Od -w -Ve -r- -k -y -v -vi- -c -b- -w-par -w-inl -Vx
+CFLAG2 = -DUSING_ATLVCL;_ATL_NO_SECURITY;NoDoxCOMTrial;_ATL_DEBUG_QI;_ATL_DEBUG_REFCOUNT;_DEBUG;_ATL_APARTMENT_THREADED;_ATL_SINGLEUSE_INSTANCING;DOX_NEXT_GENERATION \
+  -I..\..\docfrac-3.1.0;..\..\..\dox_stuff\docfrac-3.1.0\dllcom;..\..\docfra~1.0;$(BCB)\include;$(BCB)\include\vcl;$(BCB)\include\atl
+CFLAG3 = -Tkh30000
+PFLAGS = -U..\..\docfrac-3.1.0;$(BCB)\lib\obj;$(BCB)\lib;$(RELEASELIBPATH) \
+  -DUSING_ATLVCL;_ATL_NO_SECURITY;NoDoxCOMTrial;_ATL_DEBUG_QI;_ATL_DEBUG_REFCOUNT;_DEBUG;_ATL_APARTMENT_THREADED;_ATL_SINGLEUSE_INSTANCING;DOX_NEXT_GENERATION \
+  -I..\..\docfrac-3.1.0;..\..\..\dox_stuff\docfrac-3.1.0\dllcom;..\..\docfra~1.0;$(BCB)\include;$(BCB)\include\vcl;$(BCB)\include\atl \
+  -$Y -$W -$O- -v -JPHN -M
+RFLAGS = -DUSING_ATLVCL;_ATL_NO_SECURITY;NoDoxCOMTrial;_ATL_DEBUG_QI;_ATL_DEBUG_REFCOUNT;_DEBUG;_ATL_APARTMENT_THREADED;_ATL_SINGLEUSE_INSTANCING;DOX_NEXT_GENERATION \
+  -i..\..\docfrac-3.1.0;..\..\..\dox_stuff\docfrac-3.1.0\dllcom;..\..\docfra~1.0;$(BCB)\include;$(BCB)\include\vcl;$(BCB)\include\atl
+AFLAGS = /i..\..\docfrac-3.1.0 /i..\..\..\dox_stuff\docfrac-3.1.0\dllcom \
+  /i..\..\docfra~1.0 /i$(BCB)\include /i$(BCB)\include\vcl /i$(BCB)\include\atl \
+  /dUSING_ATLVCL /d_ATL_NO_SECURITY /dNoDoxCOMTrial /d_ATL_DEBUG_QI \
+  /d_ATL_DEBUG_REFCOUNT /d_DEBUG /d_ATL_APARTMENT_THREADED \
+  /d_ATL_SINGLEUSE_INSTANCING /dDOX_NEXT_GENERATION /mx /w2 /zi
+LFLAGS = -L..\..\docfrac-3.1.0;$(BCB)\lib\obj;$(BCB)\lib;$(RELEASELIBPATH) -aa -Tpd -x \
+  -Gn -Gi -v
+IFLAGS =
+# ---------------------------------------------------------------------------
+ALLOBJ = c0d32.obj sysinit.obj $(OBJFILES)
+ALLRES = $(RESFILES)
+ALLLIB = $(LIBFILES) $(LIBRARIES) import32.lib cp32mt.lib
+# ---------------------------------------------------------------------------
+!ifdef IDEOPTIONS
+
+[Version Info]
+IncludeVerInfo=1
+AutoIncBuild=1
+MajorVer=3
+MinorVer=1
+Release=1
+Build=24
+Debug=0
+PreRelease=0
+Special=0
+Private=0
+DLL=0
+Locale=3081
+CodePage=1252
+
+[Version Info Keys]
+CompanyName=
+FileDescription=RTF/HTML/TEXT conversion.
+FileVersion=3.1.1.24
+InternalName=
+LegalCopyright=Copyright 2004 by Andrew Punch
+LegalTrademarks=
+OriginalFilename=
+ProductName=DocFrac
+ProductVersion=3.0.0
+Comments=http://docfrac.sourceforge.net/
+
+[Deployment]
+DeployDir=
+DeployURL=
+HTMLDir=
+CABCompress=0
+CodeSign=0
+IncludeVerInfo=1
+AutoIncRelease=0
+DeployPackages=1
+DeployFiles=1
+CompanyURL=
+Description=
+CredFile=
+PrivKey=
+CryptoType=0
+Timestamping=0
+TimestampServer=
+
+[HistoryLists\hlIncludePath]
+Count=3
+Item0=..\..\docfrac-3.1.0;..\..\..\dox_stuff\docfrac-3.1.0\dllcom;..\..\docfra~1.0;$(BCB)\include;$(BCB)\include\vcl;$(BCB)\include\atl
+Item1=..\..\..\dox_stuff\docfrac-3.1.0\dllcom;..\..\docfra~1.0;$(BCB)\include;$(BCB)\include\vcl;$(BCB)\include\atl
+Item2=$(BCB)\include;$(BCB)\include\vcl;$(BCB)\include\atl
+
+[HistoryLists\hlLibraryPath]
+Count=3
+Item0=$(BCB)\lib\obj;$(BCB)\lib
+Item1=..\..\docfrac-3.1.0;..\..\..\dox_stuff\docfrac-3.1.0\dllcom;..\..\docfra~1.0;$(BCB)\lib\obj;$(BCB)\lib
+Item2=..\..\..\dox_stuff\docfrac-3.1.0\dllcom;..\..\docfra~1.0;$(BCB)\lib\obj;$(BCB)\lib
+
+[HistoryLists\hlDebugSourcePath]
+Count=1
+Item0=$(BCB)\source\vcl
+
+[HistoryLists\hlConditionals]
+Count=14
+Item0=USING_ATLVCL;_ATL_NO_SECURITY;NoDoxCOMTrial;_ATL_DEBUG_QI;_ATL_DEBUG_REFCOUNT;_DEBUG;_ATL_APARTMENT_THREADED;_ATL_SINGLEUSE_INSTANCING;DOX_NEXT_GENERATION
+Item1=USING_ATLVCL;_ATL_NO_SECURITY;NoDoxCOMTrial;_ATL_DEBUG_QI;_ATL_DEBUG_REFCOUNT;_DEBUG;_ATL_APARTMENT_THREADED;_ATL_SINGLEUSE_INSTANCING
+Item2=USING_ATLVCL;_ATL_NO_SECURITY;DoxCOMTrial;_ATL_DEBUG_QI;_ATL_DEBUG_REFCOUNT;_DEBUG;_ATL_APARTMENT_THREADED;_ATL_SINGLEUSE_INSTANCING
+Item3=USING_ATLVCL;_ATL_NO_SECURITY;NoDoxCOMTrial;_ATL_DEBUG_QI;_ATL_DEBUG_REFCOUNT;_DEBUG;_ATL_APARTMENT_THREADED
+Item4=USING_ATLVCL;_ATL_NO_SECURITY;NoDoxCOMTrial;_ATL_SINGLEUSE_INSTANCING;_ATL_DEBUG_QI;_ATL_DEBUG_REFCOUNT;_DEBUG;_ATL_APARTMENT_THREADED
+Item5=USING_ATLVCL;_ATL_NO_SECURITY;NoDoxCOMTrial;_ATL_SINGLEUSE_INSTANCING;_ATL_SINGLE_THREADED;_ATL_DEBUG_QI;_ATL_DEBUG_REFCOUNT;_DEBUG
+Item6=USING_ATLVCL;_ATL_NO_SECURITY;DoxCOMTrial;_ATL_SINGLEUSE_INSTANCING;_ATL_SINGLE_THREADED
+Item7=USING_ATLVCL;_ATL_NO_SECURITY;NoDoxCOMTrial;_ATL_SINGLEUSE_INSTANCING;_ATL_SINGLE_THREADED
+Item8=_ATL_APARTMENT_THREADED;USING_ATLVCL;_ATL_NO_SECURITY;DoxCOMTrial
+Item9=_ATL_APARTMENT_THREADED;USING_ATLVCL;_ATL_NO_SECURITY;DoxCOMTrial;_RTLDLL;USEPACKAGES
+Item10=_ATL_APARTMENT_THREADED;USING_ATLVCL;_ATL_NO_SECURITY;DoxCOMTrial;_RTLDLL
+Item11=_ATL_APARTMENT_THREADED;USING_ATLVCL;_ATL_NO_SECURITY;DoxCOMTrial;USEPACKAGES
+Item12=_RTLDLL;_ATL_APARTMENT_THREADED;USING_ATLVCL;_ATL_NO_SECURITY;DoxCOMTrial;USEPACKAGES
+Item13=_RTLDLL;_ATL_APARTMENT_THREADED;USING_ATLVCL;_ATL_NO_SECURITY;USEPACKAGES;DoxCOMTrial
+
+[HistoryLists\hlHostApplication]
+Count=5
+Item0=C:\data\dox_stuff\docfrac-3.1.0\DllCom\bcpp\host.exe
+Item1=C:\data\dox3\DllCom\bcpp\host.exe
+Item2=C:\Data\Old disc\Data\pro\dox\DllCom\bcpp\host.exe
+Item3=bcpp\host.exe
+Item4=D:\pro\dox\DllCom\bcpp\host.exe
+
+[Debugging]
+DebugSourceDirs=$(BCB)\source\vcl
+
+[Parameters]
+RunParams=
+HostApplication=C:\data\dox_stuff\docfrac-3.1.0\DllCom\bcpp\host.exe
+
+!endif
+
+# ---------------------------------------------------------------------------
+# MAKE SECTION
+# ---------------------------------------------------------------------------
+# This section of the project file is not used by the BCB IDE.  It is for
+# the benefit of building from the command-line using the MAKE utility.
+# ---------------------------------------------------------------------------
+
+.autodepend
+# ---------------------------------------------------------------------------
+!if !$d(BCC32)
+BCC32 = bcc32
+!endif
+
+!if !$d(DCC32)
+DCC32 = dcc32
+!endif
+
+!if !$d(TASM32)
+TASM32 = tasm32
+!endif
+
+!if !$d(LINKER)
+LINKER = ilink32
+!endif
+
+!if !$d(BRCC32)
+BRCC32 = brcc32
+!endif
+# ---------------------------------------------------------------------------
+!if $d(PATHCPP)
+.PATH.CPP = $(PATHCPP)
+.PATH.C   = $(PATHCPP)
+!endif
+
+!if $d(PATHPAS)
+.PATH.PAS = $(PATHPAS)
+!endif
+
+!if $d(PATHASM)
+.PATH.ASM = $(PATHASM)
+!endif
+
+!if $d(PATHRC)
+.PATH.RC  = $(PATHRC)
+!endif
+# ---------------------------------------------------------------------------
+$(PROJECT): $(OBJFILES) $(RESDEPEN) $(DEFFILE)
+    $(BCB)\BIN\$(LINKER) @&&!
+    $(LFLAGS) +
+    $(ALLOBJ), +
+    $(PROJECT),, +
+    $(ALLLIB), +
+    $(DEFFILE), +
+    $(ALLRES)
+!
+# ---------------------------------------------------------------------------
+.pas.hpp:
+    $(BCB)\BIN\$(DCC32) $(PFLAGS) {$< }
+
+.pas.obj:
+    $(BCB)\BIN\$(DCC32) $(PFLAGS) {$< }
+
+.cpp.obj:
+    $(BCB)\BIN\$(BCC32) $(CFLAG1) $(CFLAG2) $(CFLAG3) -n$(@D) {$< }
+
+.c.obj:
+    $(BCB)\BIN\$(BCC32) $(CFLAG1) $(CFLAG2) $(CFLAG3) -n$(@D) {$< }
+
+.asm.obj:
+    $(BCB)\BIN\$(TASM32) $(AFLAGS) $<, $@
+
+.rc.res:
+    $(BCB)\BIN\$(BRCC32) $(RFLAGS) -fo$@ $<
+# ---------------------------------------------------------------------------

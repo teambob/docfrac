@@ -1,0 +1,9 @@
+<RCC>
+    <qresource prefix="/icons">
+        <file>icons/plus-normal.png</file>
+        <file>icons/play-normal.png</file>
+        <file>icons/docfrac-normal.png</file>
+        <file>icons/cross-normal.png</file>
+        <file>icons/minus-normal.png</file>
+    </qresource>
+</RCC>

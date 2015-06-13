@@ -1,0 +1,403 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <meta http-equiv="content-type"
+ content="text/html; charset=ISO-8859-1">
+  <title>Readme</title>
+</head>
+<body>
+<h1><a name="mozTocId401447" class="mozTocH1"></a>Contents<br>
+</h1>
+<br>
+<ol id="mozToc">
+<!--mozToc h1 1 h2 2 h3 3 h4 4 h5 5 h6 6--><li><a href="#mozTocId401447">Contents</a></li>
+  <li><a href="#mozTocId824469">Installation</a>
+    <ol>
+      <li><a href="#mozTocId3166">Quick Installation</a></li>
+      <li><a href="#mozTocId237620">Manually Registering the Automation
+Server</a></li>
+      <li><a href="#mozTocId901879">Unregistering the Automation Server</a></li>
+    </ol>
+  </li>
+  <li><a href="#mozTocId683472">Files</a>
+    <ol>
+      <li><a href="#mozTocId865939">Included Files
+        </a></li>
+      <li><a href="#mozTocId386345">Distribution</a></li>
+    </ol>
+  </li>
+  <li><a href="#mozTocId535264">Programming</a>
+    <ol>
+      <li><a href="#mozTocId445030">Converting Between Files</a></li>
+      <li><a href="#mozTocId296794"></a></li>
+      <li><a href="#mozTocId153875">Conversion Formats
+        </a></li>
+      <li><a href="#mozTocId367473"></a></li>
+      <li><a href="#mozTocId605552">Converting Between Strings</a></li>
+    </ol>
+  </li>
+  <li><a href="#mozTocId552257">The Old Interface
+    </a>
+    <ol>
+      <li><a href="#mozTocId957861">Converting Between Files</a></li>
+      <li><a href="#mozTocId115039">Converting Between Strings</a></li>
+    </ol>
+  </li>
+  <li><a href="#mozTocId826943">Alternative</a></li>
+</ol>
+<br>
+<hr style="width: 100%; height: 2px;">
+<h1><a name="mozTocId824469" class="mozTocH1"></a>Installation<br>
+</h1>
+<h2><a name="mozTocId3166" class="mozTocH2"></a>Quick Installation</h2>
+1. The installer should register the server.<br>
+2. You should then import the library into your programming environment.<br>
+<br>
+<span style="font-weight: bold;">Windows NT/2000 users:</span> Security
+in Windows NT/2000 is often set up to prevent registering or access to
+ActiveX DLLs. If you are having problems try running in administrator
+or root mode.<br>
+<br>
+<br>
+<br>
+<h2><a name="mozTocId237620" class="mozTocH2"></a>Manually Registering
+the Automation Server</h2>
+1. If you have an old server with the name "doxcom.exe" delete all
+traces of it. If windows says that it may impact on registered
+programmes answer 'Yes' to delete it.<br>
+2. Unzip the new server to a directory.<br>
+3. To register manually open an MSDOS box type&nbsp; regsvr32
+doxcom.dll &nbsp;<br>
+(You may have to include the full path of the file e.g.
+c:\apps\dox\doxcom.dll)<br>
+4. You should now be able to select the library. In visual basic:<br>
+Projects-&gt;References or select DoxCom.tlb from
+Projects-&gt;References-&gt;Browse.<br>
+<br>
+<br>
+<br>
+<h2><a name="mozTocId901879" class="mozTocH2"></a>Unregistering the
+Automation Server</h2>
+1. Type&nbsp; regsvr32 /u doxcom.dll&nbsp; (You may have to include the
+full path of the file e.g. c:\apps\dox\doxcom.dll)<br>
+2. You can now delete doxcom.dll<br>
+<br>
+<hr style="width: 100%; height: 2px;"><br>
+<h1><a name="mozTocId683472" class="mozTocH1"></a>Files<br>
+</h1>
+<h2><a name="mozTocId865939" class="mozTocH2"></a>Included Files<br>
+</h2>
+Included files:<br>
+<table cellpadding="2" cellspacing="2" border="1"
+ style="text-align: left; width: 100%;">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">DoxCom.dll<br>
+      </td>
+      <td style="vertical-align: top;">Automation server<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">DoxCom.tlb<br>
+      </td>
+      <td style="vertical-align: top;">Type library<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">Host.exe<br>
+      </td>
+      <td style="vertical-align: top;">Sample automation client /
+controller<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">vb\<br>
+      </td>
+      <td style="vertical-align: top;">Sample visual basic source<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">bcb3\<br>
+      </td>
+      <td style="vertical-align: top;">Sample Borland C++ Builder 3
+source<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<br>
+<h2><a name="mozTocId386345" class="mozTocH2"></a>Distribution</h2>
+1. Distribute doxcom.dll<br>
+2. Register doxcom.dll.<br>
+3. Unregister doxcom.dll when uninstalling.<br>
+4. Delete doxcom.dll when uninstalling.<br>
+<br>
+The free&nbsp; <a href="http://nsis.sourceforge.net/">NSIS installer</a>
+can handle all these steps. This product is free for <span
+ style="font-style: italic;">all</span> purposes, including commerical
+projects. It was created by the makers of <a
+ href="http://www.winamp.com/">Winamp</a>.<br>
+<br>
+<br>
+<br>
+<hr style="width: 100%; height: 2px;"><br>
+<h1><a name="mozTocId535264" class="mozTocH1"></a>Programming</h1>
+The ActiveX DLL contains two interfaces for accessing the library:<br>
+<ul>
+  <li>The interface is called IDocFracLib. The coclass is called
+DocFracLib.</li>
+  <li>The old interface is called IDoxLib. The old coclass is called
+DoxLib.</li>
+</ul>
+The new interface is designed to be compatible with languages such as
+Foxpro which can only accept BSTR in ActiveX components. The component
+keeps the old interface for <span style="font-style: italic;">source</span>
+and <span style="font-style: italic;">binary</span> compatibility with
+all versions of Dox / DocFrac.<br>
+<br>
+<h2><a name="mozTocId445030" class="mozTocH2"></a>Converting Between
+Files</h2>
+It has three main functions:<br>
+<ul>
+  <li>SetInFileName(BSTR FileName)</li>
+  <li>SetOutFileName(BSTR FileName)</li>
+  <li>Convert()</li>
+</ul>
+<br>
+The first two must be called before the last one. <br>
+<br>
+For example in visual basic:<br>
+<br>
+<span style="font-family: courier new,courier,monospace;">dim x as new
+DocFracLib</span><br style="font-family: courier new,courier,monospace;">
+<span style="font-family: courier new,courier,monospace;">x.SetInFileName("resume.rtf")</span><br
+ style="font-family: courier new,courier,monospace;">
+<span style="font-family: courier new,courier,monospace;">x.SetOutFileName("resume.html")</span><br
+ style="font-family: courier new,courier,monospace;">
+<span style="font-family: courier new,courier,monospace;">x.Convert</span>
+<h2><a name="mozTocId296794" class="mozTocH2"></a><br>
+</h2>
+<br>
+<br>
+<span style="font-weight: bold;">Notes:</span><br>
+<ol>
+  <li>The default
+conversion is from rtf to html.</li>
+  <li>If you wish to use multiple threads you <span
+ style="font-style: italic;">must</span> access the library
+through the dispatch interface. <span style="font-style: italic;">Not</span>
+through the dual/vtable interface.</li>
+</ol>
+<br>
+<h2><a name="mozTocId153875" class="mozTocH2"></a>Conversion Formats<br>
+</h2>
+The default conversion is from rtf to html. The following functions
+override the default:<br>
+<ul>
+  <li>SetInFormat(BSTR Extension)</li>
+  <li>SetOutFormat(BSTR Extension)</li>
+</ul>
+<br>
+To override the default conversion pass a string to SetInFormat or
+SetOutFormat:<br>
+<table style="text-align: left; width: 100%;" border="1" cellspacing="2"
+ cellpadding="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">"rtf"<br>
+      </td>
+      <td style="vertical-align: top;">Rtf format<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">"htm" or "html"<br>
+      </td>
+      <td style="vertical-align: top;">Html format<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">"txt"<br>
+      </td>
+      <td style="vertical-align: top;">Text format<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">"auto"<br>
+      </td>
+      <td style="vertical-align: top;">Guess from the extensions of the
+filenames. If that is not possible default to RTF to HTML.<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<br>
+If SetInFormat() is not called it will assume you wish to convert from
+rtf.<br>
+If SetOutFormat() is not called it will assume you wish to convert to
+html.<br>
+<br>
+<br>
+For example in visual basic:<br>
+<br>
+<span style="font-family: courier new,courier,monospace;">dim x as new
+DocFracLib</span><br style="font-family: courier new,courier,monospace;">
+<span style="font-family: courier new,courier,monospace;">x.SetInFileName("abcde.tmp")<br>
+x.SetInFormat("html")<br
+ style="font-family: courier new,courier,monospace;">
+</span><span style="font-family: courier new,courier,monospace;">x.SetOutFileName("fghijk.tmp")<br>
+x.SetOutFormat("text")<br
+ style="font-family: courier new,courier,monospace;">
+</span><span style="font-family: courier new,courier,monospace;">x.Convert()</span>
+<h2><a name="mozTocId367473" class="mozTocH2"></a><br>
+</h2>
+<br>
+<h2><a name="mozTocId605552" class="mozTocH2"></a>Converting Between
+Strings</h2>
+<ul>
+  <li>SetInString(BSTR In)</li>
+  <li>BSTR StringConvert()</li>
+</ul>
+<br>
+Simply use SetInString(InputString) to set the input string you wish to
+use and <br>
+OutputString = StringConvert() to convert and receive the output in a
+string.<br>
+<br>
+For example in visual basic:<br>
+<span style="font-family: courier new,courier,monospace;">dim x as new
+DocFracLib</span><br style="font-family: courier new,courier,monospace;">
+<span style="font-family: courier new,courier,monospace;">x.SetInString(Temp)<br>
+</span><span style="font-family: courier new,courier,monospace;">Result
+= x.StringConvert()</span><br
+ style="font-family: courier new,courier,monospace;">
+<br>
+<br>
+You need not use these functions together. For example in visual basic:<br>
+<br>
+<span style="font-family: courier new,courier,monospace;">dim x as new
+DocFracLib</span><br style="font-family: courier new,courier,monospace;">
+<span style="font-family: courier new,courier,monospace;">x.SetInString(Temp)</span><br
+ style="font-family: courier new,courier,monospace;">
+<span style="font-family: courier new,courier,monospace;">x.SetOutFile("Save.html")</span><br
+ style="font-family: courier new,courier,monospace;">
+<span style="font-family: courier new,courier,monospace;">x.StringConvert()</span><br
+ style="font-family: courier new,courier,monospace;">
+<br>
+<span style="font-weight: bold;">Note:<br>
+</span>
+<ol>
+  <li>The "auto" format has no meaning for string conversion. Using
+"auto" defaults to "rtf" for input format and "html" for output format.<br>
+  </li>
+</ol>
+<br>
+<hr style="width: 100%; height: 2px;"><br>
+<br>
+<br>
+<h1><a name="mozTocId552257" class="mozTocH1"></a>The Old Interface<br>
+</h1>
+<br>
+<h2><a name="mozTocId957861" class="mozTocH2"></a>Converting Between
+Files</h2>
+It has three main functions:<br>
+SetInFileName(LPSTR FileName)<br>
+SetOutFileName(LPSTR FileName)<br>
+Convert()<br>
+<br>
+The first two must be called before the last one. The default
+conversion is from rtf to html.<br>
+<br>
+Note: If you wish to use multiple threads you *must* access the library
+through the dispatch interface NOT through the dual/vtable interface.<br>
+<br>
+SetInFormat(LPSTR Extension)<br>
+SetOutFormat(LPSTR Extension)<br>
+<br>
+To override the default conversion pass a string to SetInFormat or
+SetOutFormat:<br>
+<table cellpadding="2" cellspacing="2" border="1"
+ style="text-align: left; width: 100%;">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">"rtf"<br>
+      </td>
+      <td style="vertical-align: top;">Rtf format<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">"htm" or "html"<br>
+      </td>
+      <td style="vertical-align: top;">Html format<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">"txt"<br>
+      </td>
+      <td style="vertical-align: top;">Text format<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">"auto"<br>
+      </td>
+      <td style="vertical-align: top;">Guess from the extensions of the
+filenames<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<br>
+"rtf"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Rtf format<br>
+"htm" or "html"&nbsp; Html format<br>
+"txt"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Text format<br>
+"auto"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Figure it out from the extensions of the filenames (set by
+SetInFileName and SetOutFileName).<br>
+<br>
+If SetInFormat() is not called it will assume you wish to convert from
+rtf.<br>
+If SetOutFormat() is not called it will assume you wish to convert to
+html.<br>
+<br>
+<h2><a name="mozTocId115039" class="mozTocH2"></a>Converting Between
+Strings</h2>
+SetInString(LPSTR In)<br>
+BSTR StringConvert()<br>
+<br>
+Simply use SetInString(InputString) to set the input string you wish to
+use and <br>
+OutputString = StringConvert() to convert and receive the output in a
+string.<br>
+<br>
+You need not use these functions together. For example in MSVB:<br>
+dim x as new DoxLib<br>
+x.SetInString(Temp)<br>
+x.SetOutFile("Save.html")<br>
+x.Convert()<br>
+<br>
+<br>
+<br>
+<hr style="width: 100%; height: 2px;"><br>
+<h1><a name="mozTocId826943" class="mozTocH1"></a>Alternative</h1>
+If you are using MSVC or BCB you may wish to use the traditional DLL
+included <br>
+in this package<br>
+<br>
+<br>
+Acronyms:<br>
+MSVC&nbsp;&nbsp;&nbsp; Microsoft Visual C++<br>
+MSVB&nbsp;&nbsp;&nbsp; Microsoft Visual Basic<br>
+BCB&nbsp;&nbsp;&nbsp;&nbsp; Borland C++ Builder<br>
+Delphi&nbsp; Borland Delphi<br>
+<br>
+Website:<br>
+<a href="http://docfrac.sourceforge.net/">http://docfrac.sourceforge.net/</a><br>
+Contact:<br>
+andrewpunch@bigfoot.com<br>
+<br>
+</body>
+</html>
